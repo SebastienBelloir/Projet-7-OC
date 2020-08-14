@@ -25,11 +25,11 @@ exports.signup = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
-    const userReq = req.body.username
+    const userEmail = req.body.email
     const passReq = req.body.password
-    if (userReq && passReq) {
+    if (userEmail && passReq) {
         conn.query(
-            'SELECT * FROM groupomania.users WHERE username= ?',
+            'SELECT * FROM groupomania_sqldb.users WHERE email= ?',
             userReq,
             function (_error, results, _fields) {
                 if (results.length > 0) {
