@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const articleCtrl = require('../controllers/message')
+const articleCtrl = require('../controllers/articles')
 const auth = require('../middelware/auth')
 const multer = require('../middelware/multer-config')
 

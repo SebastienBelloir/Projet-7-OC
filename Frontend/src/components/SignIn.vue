@@ -18,12 +18,13 @@
       <form class="sign-up" action="#">
         <h2>Créer mon compte</h2>
         <div>Utiliser votre email comme identifiant</div>
-        <input type="text" placeholder="Nom" required />
-        <input type="text" placeholder="Prénom" required />
-        <input type="email" placeholder="Email" required />
+        <input type="text" placeholder="Nom*" required v-model="nom"/>
+        <input type="text" placeholder="Prénom*" required v-model="prénom"/>
+        <input type="email" placeholder="Email*" required v-model="email"/>
         <input type="email" placeholder="Département/secteur" />
-        <input type="password" placeholder="Mot de passe" required />
+        <input type="password" placeholder="Mot de passe*" required v-model="password"/>
         <button>Créer mon compte</button>
+        <p class="mendatory">Les champs comportant une * sont obligatoires</p>
       </form>
       <form class="sign-in" action="#">
         <h2>Se connecter</h2>
@@ -35,6 +36,7 @@
       </form>
     </div>
   <button id="button-guests" type="button" class="btn btn-outline-info btn-md">Continuer en tant qu'invité</button>
+  
   </article>
 </template>
 
@@ -42,7 +44,11 @@
 export default {
   data: () => {
     return {
-      signUp: false,
+      signUp: true,
+      nom: '',
+      prénom:'',
+      email: '',
+      password:'',
     };
   },
 };
@@ -134,6 +140,9 @@ article {
     &:focus {
       outline: none;
     }
+  }
+  .mendatory{
+    font-size: 10px;
   }
   button.invert {
     background-color: transparent;

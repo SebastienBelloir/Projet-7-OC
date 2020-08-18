@@ -9,7 +9,6 @@
 import SignIn from './components/SignIn'
 import Nav from './components/Nav'
 export default {
-  name: 'app',
   components: {
     SignIn,
     Nav
