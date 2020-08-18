@@ -1,15 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <title>GROUPOMANIA | La Distribution au plus près de chez vous</title>
 </head>
+
 <body>
-    
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-light bg-info">
+            <a class="navbar-brand" href="#">
+                <img src="./images/icon-left-font-monochrome-white.svg" width="250" height="50" alt="Logo GROUPOMANIA"
+                    loading="lazy">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white navtext" href="#">Accueil <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white navtext" href="#">Articles</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white navtext" href="#">Archives</a>
+                    </li>
+                </ul>
+            </div>
+            <form action="" class="row form-layout">
+                <div class="col-6 form-group">
+                    <label for="">E-mail</label>
+                    <input type="email" class="form-control " placeholder="E-mail utilisateur" v-model="user">
+                </div>
+                <div class="col-6 form-group">
+                    <label for="">Mot de passe</label>
+                    <input type="password" class="form-control " placeholder="Mot de passe utilisateur">
+                </div>
+                <div class="w-100">
+                    <div class="col d-flex justify-content-around form-check form-group">
+                        <input type="checkbox" class="form-check-input" id="user-check">
+                        <label for="user-check" class="form-check-label">Se souvenir de moi</label>
+                        <button type="submit" class="btn btn-outline-light">Me connecter</button>
+                    </div>
+                </div>
+            </form>
+        </nav>
+
+        <div class=" container jumbotron">
+            <h1 class="display-4">{{ user }} ,bienvenue sur le site GROUPOMANIA </h1>
+            <p class="lead">Ce site est réservé aux employées du groupe. Vous pourrez poster des articles, les liker et
+                les
+                commenter !</p>
+            <hr class="my-4">
+            <p>Nous espérons que cela vous plaira. Pour toutes suggestions en terme d'améliorations de l'interface,
+                faites
+                le nous savoir en cliquant sur le bouton dessous </p>
+            <a class="btn btn-primary btn-info btn-lg" href="#" role="button">Vos Suggestions</a>
+        </div>
+
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        console.log(Vue)
+        let app = new Vue({
+            el: "#app",
+            data: {
+                user: "Sébastien"
+            }
+        })
     </script>
 </body>
+
 </html>
