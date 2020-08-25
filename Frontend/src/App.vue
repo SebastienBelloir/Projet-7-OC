@@ -38,9 +38,9 @@ h2{
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #FFF;
     padding: 0 10px;
-
+    text-decoration: none;
         &.router-link-exact-active {
         color: #dd1d1d;
       }

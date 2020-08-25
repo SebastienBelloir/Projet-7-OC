@@ -1,9 +1,10 @@
 <template>
   <div id="home">
-    <h1>Articles Récents</h1>
+    <Jumbotron/>
+    <h2>Articles Récents</h2>
     <div id="articles">
     <div v-for="article in articles" :key="article.name">
-    <router-link :to="{name: 'ArticlesRecents', params: {slug:article.slug}}"><h2>{{ article.name }}</h2> </router-link>
+    <router-link :to="{name: 'ArticlesRecents', params: {slug:article.slug}}"><h3>{{ article.name }}</h3> </router-link>
     <figure>
     <router-link :to="{name: 'ArticlesRecents', params: {slug:article.slug}}"><img :src="require(`@/assets/${article.image}`)" :alt="article.name"> </router-link>
     </figure>
@@ -13,11 +14,13 @@
 </template>
 
 <script>
-
+import Jumbotron from '@/components/Jumbotron.vue';
 import store from '@/store.js';
 export default {
   name: "Home",
-  components: {},
+  components: {
+    Jumbotron
+  },
   data(){
     return {
       articles: store.articles
@@ -34,6 +37,17 @@ export default {
   }
   img{
     max-width: 300px;
+  }
+  h2{
+    font-size: 40px;
+  }
+  h3{
+    font-size: 25px;
+    text-align: center;
+  }
+  a{
+    text-decoration: none;
+    color: black;
   }
 }
 </style>

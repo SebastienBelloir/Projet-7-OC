@@ -11,7 +11,6 @@
         </p>
       </article>
 
-      <v-divider></v-divider>
 
       <article id="charte">
         <h3>Charte de l'Espace Groupomania</h3>
@@ -36,7 +35,6 @@
         </ul>
       </article>
 
-      <v-divider></v-divider>
 
       <article id="legals">
         <h3>Mentions Légales</h3>
@@ -47,7 +45,6 @@
         <br />GitHub 29000 THEWORLD
       </article>
 
-      <v-divider></v-divider>
 
       <article id="contact">
         <h3>Nous contacter</h3>
@@ -58,7 +55,6 @@
         </ul>
       </article>
 
-      <v-divider></v-divider>
 
       <article id="CNIL">
         <h3>Droits relatifs aux données</h3>
@@ -87,7 +83,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#About{
+  margin: 0 5%;
 ul{
   list-style: none;
+  }
 }
 </style>

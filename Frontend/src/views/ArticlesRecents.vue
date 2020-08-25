@@ -43,4 +43,7 @@ p{
     font-size: 20px;
     text-align: left;
 }
+a{
+    text-decoration: none;
+}
 </style>

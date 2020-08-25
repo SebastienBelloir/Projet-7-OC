@@ -3,7 +3,7 @@ const mysqlConnection = require("../mysqlConnection");
 
 const User = function(user) {
   this.email = user.email;
-  this.name = user.nom;
+  this.nom = user.nom;
   this.prenom = user.prenom;
   this.password = user.password;
   this.departement = user.departement_entreprise;
