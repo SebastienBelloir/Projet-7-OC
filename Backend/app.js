@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(helmet());
 app.use(cors());
 
-app.use('/api/messages', articlesRoutes);
-app.use('/api/auth', userRoutes);
+app.use('/', userRoutes);
+
 
 module.exports = app;

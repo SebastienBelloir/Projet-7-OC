@@ -1,63 +1,64 @@
 const mysqlConnection = require('../mysqlConnection');
+const Article = require('../models/articles');
 
 
 exports.createArticle = (req, res, next) => {
-    const article = req.body;
-    mysqlConnection.query('INSERT INTO articles SET ?', article, function (
-        error,
-        results,
-        fields
-    ) {
-        if (error) {
-            return res.status(400).json(error)
+    const article = {
+        "title": req.body.title,
+        "contenu": req.body.contenu,
+        "time": req.body.time,
+        "auteur": req.body.auteur
+    };
+    Article.create(article, (err, data) => {
+        if (err) {
+          res.status(500).send({
+            message:
+            err.message || "Erreur lors de la création de l'article."
+          });
+        } else {
+          res.status(201).send(data);
         }
-        return res.status(201).json({ message: 'Votre article a bien été publié !' })
-    })
-}
+      });
+    }
 
-exports.modifyArticle = (req, res, next) => {
-    mysqlConnection.query('SELECT * FROM articles WHERE idArticles=?', req.params.id,
-        function (error, results, fields) {
-            if (error) {
-                return res.status(400).json(error)
-            }
-            const updatedMessage = req.body
-            mysqlConnection.query(
-                'UPDATE articles SET ? WHERE idArticles=?',
-                [updatedMessage, req.params.id],
-                function (error, results, fields) {
-                    if (error) {
-                        return res.status(400).json(error)
-                    }
-                    return res
-                        .status(200)
-                        .json({ message: 'Votre article a bien été modifié !' })
-                }
-            )
+exports.modifyArticle = (req, res) => {
+        if (!req.body) {
+          res.status(400).send({
+            message: "Content can not be empty!"
+          });
         }
-    )
-}
+      
+        Article.modify(
+          req.params.idArticles,
+          new Article(req.body),
+          (err, data) => {
+            if (err) {
+              if (err.kind === "not_found") {
+                res.status(404).send({
+                  message: `Article avec id ${req.params.idArticles} non trouvé.`
+                });
+              } else {
+                res.status(500).send({
+                  message: "Problème lors de la modification de l'article avec l'id " + req.params.idArticles
+                });
+              }
+            } else res.send(data);
+          }
+        );
+      };
 
-exports.deleteArticle = (req, res, next) => {
-    mysqlConnection.query(
-        'SELECT * FROM articles WHERE idArticles=?',
-        req.params.id,
-        function (error, results, fields) {
-            if (error) {
-                return res.status(400).json(error)
+exports.deleteArticle = (req, res) => {
+        Article.delete(req.params.idArticles, (err, data) => {
+          if (err) {
+            if (err.kind === "not_found") {
+              res.status(404).send({
+                message: `Article avec id ${req.params.idArticles} non trouvé.`
+              });
+            } else {
+              res.status(500).send({
+                message: "Problème lors de la suppression de l'article avec l'id " + req.params.idArticles
+              });
             }
-            mysqlConnection.query(
-                `DELETE FROM articles WHERE idArticles=${req.params.id}`,
-                req.params.id,
-                function (error, results, fields) {
-                    if (error) {
-                        return res.status(400).json(error)
-                    }
-                    return res
-                        .status(200)
-                        .json({ message: 'Votre article a bien été supprimé !' })
-                }
-            )
-        }
-    )
-}
+          } else res.send({ message: `L'article a été supprimé.` });
+        });
+      };

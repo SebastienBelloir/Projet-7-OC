@@ -4,66 +4,60 @@ const Article = function(article) {
     this.title = article.title;
     this.contenu = article.contenu;
     this.time = article.time_stamp;
-    this.author = article.auteur;
+    this.auteur = article.auteur;
   };
 
-Article.createArticle = (req, res, next) => {
-    const article = req.body;
-    mysqlConnection.query('INSERT INTO articles SET ?', article, function (
-        error,
-        results,
-        fields
-    ) {
-        if (error) {
-            return res.status(400).json(error)
-        }
-        return res.status(201).json({ message: 'Votre article a bien été publié !' })
-    })
-}
+  Article.create = (newArticle, callback) => {
+    mysqlConnection.query("INSERT INTO articles SET ?", newArticle, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        callback(err, null);
+        return;
+      }
+  
+      console.log("created customer: ", { id: res.insertId, ...newArticle });
+      callback(null, { id: res.insertId, ...newCustomer });
+    });
+  };
 
-Article.modifyArticle = (req, res, next) => {
-    mysqlConnection.query('SELECT * FROM articles WHERE idArticles=?', req.params.id,
-        function (error, results, fields) {
-            if (error) {
-                return res.status(400).json(error)
-            }
-            const updatedMessage = req.body
-            mysqlConnection.query(
-                'UPDATE articles SET ? WHERE idArticles=?',
-                [updatedMessage, req.params.id],
-                function (error, results, fields) {
-                    if (error) {
-                        return res.status(400).json(error)
-                    }
-                    return res
-                        .status(200)
-                        .json({ message: 'Votre article a bien été modifié !' })
-                }
-            )
-        }
-    )
-}
-
-Article.deleteArticle = (req, res, next) => {
+  Article.modify = (idArticle, article, callback) => {
     mysqlConnection.query(
-        'SELECT * FROM articles WHERE idArticles=?',
-        req.params.id,
-        function (error, results, fields) {
-            if (error) {
-                return res.status(400).json(error)
-            }
-            mysqlConnection.query(
-                `DELETE FROM articles WHERE idArticles=${req.params.id}`,
-                req.params.id,
-                function (error, results, fields) {
-                    if (error) {
-                        return res.status(400).json(error)
-                    }
-                    return res
-                        .status(200)
-                        .json({ message: 'Votre article a bien été supprimé !' })
-                }
-            )
+      "UPDATE articles SET title = ?, contenu = ?, time_stamp = ?, autheur_id = ? WHERE idArticles = ?",
+      [article.title, article.contenu, article.time_stamp, article.auteur, idArticle],
+      (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          callback(null, err);
+          return;
         }
-    )
-}
+  
+        if (res.affectedRows == 0) {
+          callback({ kind: "not_found" }, null);
+          return;
+        }
+  
+        console.log("updated customer: ", { id: idArticle, ...article });
+        callback(null, { id: idArticle, ...article });
+      }
+    );
+  };
+
+  Article.delete = (idArticle, callback) => {
+    mysqlConnection.query("DELETE FROM articles WHERE idArticles = ?", idArticle, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        callback(null, err);
+        return;
+      }
+  
+      if (res.affectedRows == 0) {
+        callback({ kind: "not_found" }, null);
+        return;
+      }
+  
+      console.log("deleted article with id: ", idArticle);
+      callback(null, res);
+    });
+  };
+  
+  module.exports = Article;

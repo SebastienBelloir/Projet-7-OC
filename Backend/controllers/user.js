@@ -3,31 +3,35 @@ const bcrypt = require("bcrypt");
 const jsonWebToken = require("jsonwebtoken");
 const User = require("../models/user");
 
+
 exports.signup = (req, res) => {
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
   }
-
-  User.create(user, (err, data) => {
-    brcrypt
-      .hash(req.body.password, 10)
-      .then((hash) => {
-        const user = new User({
-          email: req.body.email,
-          nom: req.body.nom,
-          prenom: req.body.prenom,
-          departement: req.body.departement_entreprise,
-          password: hash,
+  bcrypt.hash(req.body.password, 10)
+  .then(hash => {
+    let user = {
+      "name": req.body.nom,
+      "prenom": req.body.prenom,
+      "email": req.body.email,
+      "departement": req.body.departement,
+      "isadmin": req.body.isadmin,
+      "password": hash,
+    };
+    User.create(user, (err, data) => {
+      if (err) {
+        res.status(500).send({
+          message:
+          err.message || "Erreur lors de la création de l'utilisateur."
         });
-        user.save()
-          .then(() => res.status(201).json({ message: "Utilisateur crée !" }))
-          .catch((error) => res.status(400).json({ error }));
-      })
-      .catch((error) => res.status(500).json({ error }));
-  });
-};
+      } else {
+        res.status(201).send(data);
+      }
+    });
+  })
+}
 
 exports.login = (req, res, next) => {
   const emailReq = req.body.email;
@@ -79,29 +83,45 @@ exports.login = (req, res, next) => {
   }
 };
 
-exports.getAllUsers = (req, res, next) => {
-  conn.query(
-    "SELECT idUser, nom, prenom, email, departement_entreprise, isadmin, FROM groupomania_sqldb.users",
-    function (error, results, fields) {
-      if (error) {
-        return res.status(400).json(error);
-      }
-      return res.status(200).json({ results });
-    }
-  );
+exports.findAll = (req, res) => {
+  User.getAll((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving customers."
+      });
+    else res.send(data);
+  });
 };
 
-exports.deleteUser = (req, res, next) => {
-  mysqlConnection.query(
-    `DELETE FROM users WHERE idUSERS=${req.params.id}`,
-    req.params.id,
-    function (error, results, fields) {
-      if (error) {
-        return res.status(400).json(error);
+exports.findByEmail = (req, res) => {
+  User.findByEmail(req.params.email, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Customer with id ${req.params.email}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Customer with id " + req.params.email
+        });
       }
-      return res
-        .status(200)
-        .json({ message: "Votre compte a bien été supprimé !" });
-    }
-  );
+    } else res.send(data);
+  });
+};
+
+exports.delete = (req, res) => {
+  User.delete(req.params.idUser, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Customer with id ${req.params.idUser}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Could not delete Customer with id " + req.params.idUser
+        });
+      }
+    } else res.send({ message: `Customer was deleted successfully!` });
+  });
 };

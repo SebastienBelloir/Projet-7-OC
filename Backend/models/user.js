@@ -2,14 +2,15 @@ const mysqlConnection = require("../mysqlConnection");
 
 
 const User = function(user) {
-  this.email = user.email;
   this.nom = user.nom;
   this.prenom = user.prenom;
-  this.password = user.password;
+  this.email = user.email;
   this.departement = user.departement_entreprise;
+  this.admin = user.isadmin;
+  this.password = user.password;
 };
 
-User.createUser = (newUser, result) => {
+User.create = (newUser, callback) => {
   mysqlConnection.query("INSERT INTO users SET ?", newUser, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -18,40 +19,58 @@ User.createUser = (newUser, result) => {
     }
 
     console.log("User created: ", { id: res.insertId, ...newUser });
-    result(null, { id: res.insertId, ...newUser });
+    callback(null, { id: res.insertId, ...newUser });
   });
 };
 
-User.getAllUsers = result => {
-  mysqlConnection.query("SELECT * FROM users", (err, res) => {
+User.findByEmail = (email, callback) => {
+  mysqlConnection.query(`SELECT * FROM users WHERE email = '${email}'`, (err, res) => {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      callback(null, err);
       return;
     }
 
-    console.log("customers: ", res);
-    result(null, res);
+    if (res.length) {
+      console.log("found user: ", res[0]);
+      callback(null, res[0]);
+      return;
+    }
+
+    callback({kind: "user not found"}, null);
+  });
+};
+
+User.getAll = callback => {
+  mysqlConnection.query("SELECT * FROM users", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      callback(null, err);
+      return;
+    }
+
+    console.log("users: ", res);
+    callback(null, res);
   });
 };
 
 
-User.deleteUser = (id, result) => {
-  mysqlConnection.query("DELETE FROM users WHERE idUser = ?", id, (err, res) => {
+User.delete = (idUser, callback) => {
+  mysqlConnection.query("DELETE FROM users WHERE idUser = ?", idUser, (err, res) => {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      callback(null, err);
       return;
     }
 
     if (res.affectedRows == 0) {
       
-      result({ kind: "not_found" }, null);
+      callback({ kind: "not_found" }, null);
       return;
     }
 
-    console.log("deleted user with id: ", id);
-    result(null, res);
+    console.log("deleted user with id: ", idUser);
+    callback(null, res);
   });
 };
 
