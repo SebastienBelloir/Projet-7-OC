@@ -4,9 +4,10 @@ const articleCtrl = require('../controllers/articles');
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
-router.post('/', auth, multer, articleCtrl.createArticle)
-router.put('/:id', auth, multer, articleCtrl.modifyArticle)
-router.delete('/:id', auth, articleCtrl.deleteArticle)
+router.post('/postArticle', articleCtrl.createArticle);
+router.put('/:id', articleCtrl.modifyArticle);
+router.get('/', articleCtrl.findAll);
+router.delete('/:articleId', articleCtrl.deleteArticle);
 
 
 module.exports = router

@@ -55,8 +55,8 @@ User.getAll = callback => {
 };
 
 
-User.delete = (idUser, callback) => {
-  mysqlConnection.query("DELETE FROM users WHERE idUser = ?", idUser, (err, res) => {
+User.delete = (id, callback) => {
+  mysqlConnection.query("DELETE FROM users WHERE idUser = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       callback(null, err);
@@ -69,7 +69,7 @@ User.delete = (idUser, callback) => {
       return;
     }
 
-    console.log("deleted user with id: ", idUser);
+    console.log("Suppression de l'utilisateur ayant pour id: ", id);
     callback(null, res);
   });
 };

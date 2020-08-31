@@ -41,11 +41,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
   export default {
     data: () => {
       return {
         signUp: false
       }
+    },
+    computed: {
+      ...mapState(['users'])
+    },
+    mounted(){
+      this.$store.dispatch("loadUsers")
     }
   }
 </script>

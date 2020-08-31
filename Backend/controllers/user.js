@@ -13,10 +13,10 @@ exports.signup = (req, res) => {
   bcrypt.hash(req.body.password, 10)
   .then(hash => {
     let user = {
-      "name": req.body.nom,
+      "nom": req.body.nom,
       "prenom": req.body.prenom,
       "email": req.body.email,
-      "departement": req.body.departement,
+      "departement_entreprise": req.body.departement_entreprise,
       "isadmin": req.body.isadmin,
       "password": hash,
     };
@@ -103,7 +103,7 @@ exports.findByEmail = (req, res) => {
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Customer with id " + req.params.email
+          message: "Error retrieving Customer with email" + req.params.email
         });
       }
     } else res.send(data);
@@ -111,17 +111,17 @@ exports.findByEmail = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  User.delete(req.params.idUser, (err, data) => {
+  User.delete(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Customer with id ${req.params.idUser}.`
+          message: `Utilisateur avec l'id ${req.params.id} non trouvé.`
         });
       } else {
         res.status(500).send({
-          message: "Could not delete Customer with id " + req.params.idUser
+          message: "Suppression de l'utilisateur " + req.params.id + "impossible"
         });
       }
-    } else res.send({ message: `Customer was deleted successfully!` });
+    } else res.send({ message: `Utilisateur supprimé avec succès !` });
   });
 };

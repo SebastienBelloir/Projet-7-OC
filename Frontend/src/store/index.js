@@ -4,8 +4,19 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    users: [],
+  },
+  mutations: {
+    SET_USERS(state, users) {
+      state.users = users;
+    }
+  },
+  actions: {
+    async loadUsers({commit}) {
+      let response = await Api().get('/users');
+      let users = response.data.data;
+    }
+  },
   modules: {}
 });
