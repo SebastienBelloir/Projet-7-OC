@@ -1,22 +1,26 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
+import ApiArticle from "@/Services/article.services";
 
-Vue.use(Vuex);
+
+Vue.use(Vuex, axios);
 
 export default new Vuex.Store({
   state: {
-    users: [],
-  },
+    articles: []
+    },
+  
   mutations: {
-    SET_USERS(state, users) {
-      state.users = users;
-    }
+    SET_ARTICLES(state, articles) {
+      state.articles = articles;
+    },
   },
   actions: {
-    async loadUsers({commit}) {
-      let response = await Api().get('/users');
-      let users = response.data.data;
-    }
+    async loadArticles({commit}){
+      let response = await ApiArticle().get("/articles");
+      commit('SET_ARTICLES', response.data);
+    },
   },
   modules: {}
 });

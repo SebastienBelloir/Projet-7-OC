@@ -1,51 +1,54 @@
 <template>
   <div id="home">
-    <Jumbotron/>
+    <Jumbotron />
     <h2>Articles Récents</h2>
+    
     <div id="articles">
-    <div v-for="article in articles" :key="article.name">
-    <router-link :to="{name: 'ArticlesRecents', params: {slug:article.slug}}"><h3>{{ article.name }}</h3> </router-link>
-    <figure>
-    <router-link :to="{name: 'ArticlesRecents', params: {slug:article.slug}}"><img :src="require(`@/assets/${article.image}`)" :alt="article.name"> </router-link>
-    </figure>
-    </div>
+      <div v-for="article in articles" :key="article.title">
+        <router-link
+          :to="{ name: 'ArticlesRecents', params: { id: article.idArticles } }"
+          ><h3>{{ article.title }}</h3>
+        </router-link>
+        
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Jumbotron from '@/components/Jumbotron.vue';
-import store from '@/store.js';
+import Jumbotron from "@/components/Jumbotron.vue";
+
 export default {
   name: "Home",
   components: {
-    Jumbotron
+    Jumbotron,
   },
-  data(){
-    return {
-      articles: store.articles
-    };
-  }
+  mounted() {
+    this.$store.dispatch('loadArticles');
+  },
+  computed:{
+    articles() {return this.$store.state.articles}
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-#home{
-  #articles{
+#home {
+  #articles {
     display: flex;
     justify-content: space-around;
   }
-  img{
+  img {
     max-width: 300px;
   }
-  h2{
+  h2 {
     font-size: 40px;
   }
-  h3{
+  h3 {
     font-size: 25px;
     text-align: center;
   }
-  a{
+  a {
     text-decoration: none;
     color: black;
   }

@@ -1,7 +1,7 @@
 <template>
     <nav id="nav">
         <figure>
-            <img src="../assets/icon-left-font-monochrome-white.svg" height="50px" alt="Logo Groupomania">
+           <a href="../home.vue"><img src="../assets/icon-left-font-monochrome-white.svg" height="50px" alt="Logo Groupomania"></a>
         </figure>
         <div class="nav-list">
         <router-link to="/">Accueil</router-link>

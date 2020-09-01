@@ -71,5 +71,5 @@ const Article = function(article) {
       callback(null, res);
     });
   };
-  
+   
   module.exports = Article;
