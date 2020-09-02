@@ -4,6 +4,7 @@ const Article = require("../models/articles");
 exports.createArticle = (req, res, next) => {
   const article = {
     "title": req.body.title,
+    "description": req.body.description,
     "contenu": req.body.contenu,
     "auteur_id": req.body.auteur_id,
   };
@@ -13,7 +14,7 @@ exports.createArticle = (req, res, next) => {
         message: err.message || "Erreur lors de la création de l'article.",
       });
     } else {
-      res.status(201).send(data);
+      res.status(201).send(data); 
     }
   });
 };
@@ -25,17 +26,17 @@ exports.modifyArticle = (req, res) => {
     });
   }
 
-  Article.modify(req.params.id, new Article(req.body), (err, data) => {
+  Article.modify(req.params.idArticles, new Article(req.body), (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Article avec id ${req.params.id} non trouvé.`,
+          message: `Article avec id ${req.params.idArticles} non trouvé.`,
         });
       } else {
         res.status(500).send({
           message:
             "Problème lors de la modification de l'article avec l'id " +
-            req.params.id,
+            req.params.idArticles,
         });
       }
     } else res.send(data);
@@ -47,24 +48,40 @@ exports.findAll = (req, res) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving customers.",
+          err.message || "Une erreur est survenu lors de la recherche des articles.",
       });
     else res.send(data);
   });
 };
 
+exports.findOne = (req, res) => {
+  Article.findById(req.params.idArticles, (err, data) => {
+    if (err) {
+      if (err.kind === "non_trouvé") {
+        res.status(404).send({
+          message: `Article ayant pour id :  ${req.params.idArticles} non trouvé".`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Customer with id " + req.params.idArticles
+        });
+      }
+    } else res.send(data);
+  });
+};
+
 exports.deleteArticle = (req, res) => {
-  Article.delete(req.params.id, (err, data) => {
+  Article.delete(req.params.idArticles, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Article avec id ${req.params.id} non trouvé.`,
+          message: `Article avec id ${req.params.idArticles} non trouvé.`,
         });
       } else {
         res.status(500).send({
           message:
             "Problème lors de la suppression de l'article avec l'id " +
-            req.params.id,
+            req.params.idArticles,
         });
       }
     } else res.send({ message: `L'article a été supprimé.` });

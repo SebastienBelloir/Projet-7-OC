@@ -9,7 +9,12 @@
           :to="{ name: 'ArticlesRecents', params: { id: article.idArticles } }"
           ><h3>{{ article.title }}</h3>
         </router-link>
-        
+        <div class="image-container">
+          <img :src="article.image" alt="">
+        </div>
+        <div class="content">
+          {{ article.description }}
+        </div>
       </div>
     </div>
   </div>
@@ -37,6 +42,10 @@ export default {
   #articles {
     display: flex;
     justify-content: space-around;
+    .content{
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
   img {
     max-width: 300px;

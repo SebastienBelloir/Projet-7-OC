@@ -1,25 +1,24 @@
 <template>
     <section class="article">
-        <h2>{{ article.name }}</h2>
+        <h2>{{ article.title}}</h2>
         <div class="article-details">
-            <img :src="require(`@/assets/${article.image}`)" :alt="article.name">
-           <p>{{ article.description }}</p> 
+            
+           <p>{{ article.description }}</p>
+           <p>{{ article.contenu }}</p> 
         </div>
     </section>
 </template>
 
 <script>
-import store from "@/store.js";
+
 export default {
-    data(){
-        return {
-            articleSlug:this.$route.params.slug
-        }
+    mounted() {
+     this.$store.dispatch('loadArticles')
     },
     computed:{
       article(){
-          return store.articles.find(
-              article => article.slug === this.articleSlug
+          return this.$store.state.articles.find(
+              article => article.idArticles == this.idArticles || {}
           )
       }  
     }

@@ -2,6 +2,7 @@ const mysqlConnection = require("../mysqlConnection");
 
 const Article = function(article) {
     this.title = article.title;
+    this.description = article.description;
     this.contenu = article.contenu;
     this.auteur = article.auteur;
   };
@@ -19,10 +20,10 @@ const Article = function(article) {
     });
   };
 
-  Article.modify = (id, article, callback) => {
+  Article.modify = (idArticles, article, callback) => {
     mysqlConnection.query(
-      "UPDATE articles SET title = ?, contenu = ?, autheur_id = ? WHERE idArticles = ?",
-      [article.title, article.contenu, article.auteur, id],
+      "UPDATE articles SET title = ?, description = ?, contenu = ?, time_stamp = ?, auteur_id = ? WHERE idArticles = ?",
+      [article.title, article.contenu, article.auteur, ididArticles],
       (err, res) => {
         if (err) {
           console.log("erreur: ", err);
@@ -35,8 +36,8 @@ const Article = function(article) {
           return;
         }
   
-        console.log("Article modifié: ", { id: id, ...article });
-        callback(null, { id: id, ...article });
+        console.log("Article modifié: ", { id: idArticles, ...article });
+        callback(null, { id: idArticles, ...article });
       }
     );
   };
@@ -51,6 +52,24 @@ const Article = function(article) {
   
       console.log("users: ", res);
       callback(null, res);
+    });
+  };
+
+  Article.findById = (idArticles, callback) => {
+    mysqlConnection.query(`SELECT * FROM articles WHERE idArticles = ${idArticles}`, (err, res) => {
+      if (err) {
+        console.log("erreur: ", err);
+        callback(err, null);
+        return;
+      }
+  
+      if (res.length) {
+        console.log("Article trouvé: ", res[0]);
+        callback(null, res[0]);
+        return;
+      }
+  
+      callback({ kind: "non_trouvé" }, null);
     });
   };
 

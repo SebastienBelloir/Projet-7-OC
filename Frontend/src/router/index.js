@@ -39,7 +39,7 @@ const routes = [
       import(/* webpackChunkName: "signin" */"../views/SignIn.vue")
   },
   {
-    path: '/articlesrecents/:slug',
+    path: '/articlesrecents',
     name: 'ArticlesRecents',
     component: () =>
       import(/* webpackChunkName: "articlesrecents" */"../views/ArticlesRecents")
