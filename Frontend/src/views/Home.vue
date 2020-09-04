@@ -4,15 +4,15 @@
     <h2>Articles Récents</h2>
     
     <div id="articles">
-      <div v-for="article in articles" :key="article.title">
+      <div v-for="article in articles" :key="article.idArticles">
         <router-link
-          :to="{ name: 'ArticlesRecents', params: { id: article.idArticles } }"
+          :to="{ name: 'Article', params: { id: article.idArticles } }"
           ><h3>{{ article.title }}</h3>
         </router-link>
         <div class="image-container">
           <img :src="article.image" alt="">
         </div>
-        <div class="content">
+        <div class="description">
           {{ article.description }}
         </div>
       </div>
@@ -28,11 +28,10 @@ export default {
   components: {
     Jumbotron,
   },
-  mounted() {
-    this.$store.dispatch('loadArticles');
-  },
-  computed:{
-    articles() {return this.$store.state.articles}
+  computed: {
+    articles() {
+      return this.$store.state.articles;
+    }
   },
 };
 </script>
@@ -42,6 +41,8 @@ export default {
   #articles {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 2%;
     .content{
       display: flex;
       flex-wrap: wrap;

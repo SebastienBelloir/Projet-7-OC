@@ -1,8 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import HomeAdmin from "../views/HomeAdmin.vue";
+import AdminHome from "../views/AdminHome.vue";
 import CreateArticle from "../views/CreateArticle.vue";
+import ArticlePage from "../views/ArticlePage.vue";
+import EditArticle from "../views/EditArticle.vue";
 
 Vue.use(VueRouter);
 
@@ -14,14 +16,25 @@ const routes = [
     component: Home
   },
   {
-    path: '/Home/admin',
-    name: 'Home-Admin',
-    component: HomeAdmin
+    path: '/admin/home',
+    name: 'Admin-Home',
+    component: AdminHome
   },
   {
-    path: '/user/createArticle',
+    path: '/article/createarticle',
     name: 'CreateArticle',
     component: CreateArticle
+  },
+  {
+    path: '/article/:id/edit',
+    name: 'EditArticle',
+    component: EditArticle
+  },
+  {
+    path: '/article/:id',
+    name: 'Article',
+    component: ArticlePage,
+    params: true
   },
   {
     path: "/about",
@@ -37,12 +50,6 @@ const routes = [
     name: 'SignIn',
     component: () =>
       import(/* webpackChunkName: "signin" */"../views/SignIn.vue")
-  },
-  {
-    path: '/articlesrecents',
-    name: 'ArticlesRecents',
-    component: () =>
-      import(/* webpackChunkName: "articlesrecents" */"../views/ArticlesRecents")
   },
   {
     path: '/archives',

@@ -1,14 +1,16 @@
-const mysqlConnection = require("../mysqlConnection");
 const Article = require("../models/articles");
 
+
 exports.createArticle = (req, res, next) => {
-  const article = {
+  const article =  {
     "title": req.body.title,
     "description": req.body.description,
+    "urlimage": ``,
     "contenu": req.body.contenu,
     "auteur_id": req.body.auteur_id,
   };
   Article.create(article, (err, data) => {
+    console.log(article)
     if (err) {
       res.status(500).send({
         message: err.message || "Erreur lors de la création de l'article.",

@@ -3,6 +3,7 @@ const mysqlConnection = require("../mysqlConnection");
 const Article = function(article) {
     this.title = article.title;
     this.description = article.description;
+    this.urlImage = article.urlImage;
     this.contenu = article.contenu;
     this.auteur = article.auteur;
   };
@@ -22,8 +23,8 @@ const Article = function(article) {
 
   Article.modify = (idArticles, article, callback) => {
     mysqlConnection.query(
-      "UPDATE articles SET title = ?, description = ?, contenu = ?, time_stamp = ?, auteur_id = ? WHERE idArticles = ?",
-      [article.title, article.contenu, article.auteur, ididArticles],
+      "UPDATE articles SET title = ?, description = ?, contenu = ?, time_stamp = NOW(), auteur_id = ? WHERE idArticles = ?",
+      [article.title, article.description, article.contenu, article.auteur, idArticles],
       (err, res) => {
         if (err) {
           console.log("erreur: ", err);
@@ -91,4 +92,4 @@ const Article = function(article) {
     });
   };
    
-  module.exports = Article;
+  module.exports = Article; 

@@ -12,9 +12,9 @@ export default {
   components: {
     Nav,
   },
-    mounted() {
-        this.$store.dispatch('loadArticles');
-    },
+   mounted() {
+    this.$store.dispatch('loadArticles');
+  },
 }
 </script>
 
