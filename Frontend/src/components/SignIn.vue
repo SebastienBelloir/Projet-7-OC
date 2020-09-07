@@ -12,28 +12,28 @@
           <div class="overlay-right">
             <h2>Bienvenue !</h2>
             <p>Groupomania, la distribution au plus près de chez vous</p>
-            <button class="invert" id="signUp" @click="signUp = !signUp">Créer mon compte</button>
+            <button class="invert" id="signUp" v-on:click="signUp = !signUp">Créer mon compte</button>
           </div>
         </div>
       </div>
-      <form class="sign-up" action="#">
+      <form class="sign-up">
         <h2>Créer mon compte</h2>
         <div>Utiliser votre email comme identifiant</div>
-        <input type="text" placeholder="Nom*" required />
-        <input type="text" placeholder="Prénom*" required />
-        <input type="email" placeholder="Email*" required />
-        <input type="email" placeholder="Département/secteur" />
-        <input type="password" placeholder="Mot de passe*" required />
-        <button>Créer mon compte</button>
+        <input type="text" placeholder="Nom*" v-model="signupInfo.nom" required />
+        <input type="text" placeholder="Prénom*" v-model="signupInfo.prenom" required />
+        <input type="email" placeholder="Email*" v-model="signupInfo.email" required />
+        <input type="text" placeholder="Département/secteur" v-model="signupInfo.departement_entreprise" />
+        <input type="password" placeholder="Mot de passe*" v-model="signupInfo.password" required />
+        <button v-on:click="registerUser">Créer mon compte</button>
         <p class="mendatory">Les champs comportant une * sont obligatoires</p>
       </form>
-      <form class="sign-in" action="#">
+      <form class="sign-in">
         <h2>Se connecter</h2>
         <div>Utiliser votre email et mot de passe</div>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+        <input type="email" placeholder="Email" v-model="userInfo.email" required/>
+        <input type="password" placeholder="Password" v-model="userInfo.password" counter=true  required/>
         <a href="#">Mot de passe oublié ?</a>
-        <button>Valider</button>
+        <button v-on:click="loginUser" >Valider</button>
       </form>
     </div>
   </article>
@@ -41,18 +41,42 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+
+
   export default {
     data: () => {
       return {
-        signUp: false
+        signup:false,
+        userInfo: {
+        email: '',
+        password: ''
+        },
+        signupInfo:{
+          nom: '',
+          prenom: '',
+          email: '',
+          departement_entreprise: '',
+          password: ''
+        }
       }
     },
-    computed: {
-      ...mapState(['users'])
-    },
-    mounted(){
-      this.$store.dispatch("loadUsers")
+    methods: {
+     async loginUser() {
+       let user = await this.$store.dispatch('loginUser', this.userInfo);
+       if(user.error) {
+         alert(user.error)
+       }else {
+         alert('Connexion réussie ' + user.nom);
+       }
+      },
+      async registerUser() {
+       let user = await this.$store.dispatch('registerUser', this.signupInfo);
+       if(user.error) {
+         alert(user.error)
+       }else {
+         alert('Création de compte réussie ' + user.prenom);
+       }
+      }
     }
   }
 </script>

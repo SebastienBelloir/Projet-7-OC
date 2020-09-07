@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
 app.use('/articles', articlesRoutes);
 
 

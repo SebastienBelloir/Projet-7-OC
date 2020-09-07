@@ -1,25 +1,54 @@
 <template>
-    <nav id="nav">
-        <figure>
-           <a href="../"><img src="../assets/icon-left-font-monochrome-white.svg" height="50px" alt="Logo Groupomania"></a>
-        </figure>
-        <div class="nav-list">
-        <router-link to="/">Accueil</router-link>
-        <router-link to="/about">A propos</router-link>
+  <nav id="nav">
+    <figure>
+      <a href="../"
+        ><img
+          src="../assets/icon-left-font-monochrome-white.svg"
+          height="50px"
+          alt="Logo Groupomania"
+      /></a>
+    </figure>
+    <div class="nav-list">
+      <router-link to="/">Accueil</router-link>
+      <router-link to="/about">A propos</router-link>
+      <div id="userLoggedIn" v-if="currentUser.nom">
+        {{ currentUser.nom }}
+        <button v-on:click="logoutUser">Se déconnecter</button>
+      </div>
+      <div v-else>
         <router-link to="/signin">Connexion</router-link>
-        </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
 </template>
 
+<script>
+import { mapState } from "vuex";
+
+export default {
+  computed: {
+    ...mapState(["currentUser"]),
+  },
+  methods: {
+    logoutUser() {
+      this.$store.dispatch("logoutUser");
+    },
+    loginUser(user) {
+      this.$store.dispatch("loginUser", user);
+    },
+  },
+};
+</script>
+
 <style lang="scss" scoped>
-#nav{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #17a2b8;
-    font-size: 20px;
-    figure{
-        margin-right: 30%;
-    }
+#nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #17a2b8;
+  font-size: 20px;
+  figure {
+    margin-right: 30%;
+  }
 }
 </style>

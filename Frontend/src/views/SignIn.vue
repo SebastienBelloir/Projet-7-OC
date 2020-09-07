@@ -10,7 +10,8 @@ import SignIn from "@/components/SignIn.vue"
 export default {
   components: {
     SignIn
-  }
+  },
+  
 }
 
 </script>

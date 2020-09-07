@@ -38,8 +38,8 @@ exports.login = (req, res, next) => {
   const passReq = req.body.password;
   if (emailReq && passReq) {
     mysqlConnection.query(
-      "SELECT * FROM groupomania_sqldb.users WHERE username= ?",
-      userReq,
+      "SELECT * FROM users WHERE email= ?",
+      emailReq,
       function (_error, results, _fields) {
         if (results.length > 0) {
           bcrypt.compare(passReq, results[0].password).then((valid) => {
@@ -48,7 +48,7 @@ exports.login = (req, res, next) => {
                 .status(401)
                 .json({ message: "Utilisateur ou mot de passe inconnu" });
             } else {
-              console.log(userReq, "s'est connecté");
+              console.log(emailReq, "s'est connecté");
               let privilege = "";
               if (results[0].isadmin === 1) {
                 privilege = "admin";
@@ -57,8 +57,8 @@ exports.login = (req, res, next) => {
               }
               res.status(200).json({
                 userId: results[0].idUser,
-                username: results[0].nom,
-                name: results[0].prenom,
+                nom: results[0].nom,
+                prenom: results[0].prenom,
                 email: results[0].email,
                 privilege: privilege,
                 token: jsonWebToken.sign(

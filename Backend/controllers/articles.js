@@ -15,7 +15,7 @@ exports.createArticle = (req, res, next) => {
       res.status(500).send({
         message: err.message || "Erreur lors de la création de l'article.",
       });
-    } else {
+    } else { 
       res.status(201).send(data); 
     }
   });

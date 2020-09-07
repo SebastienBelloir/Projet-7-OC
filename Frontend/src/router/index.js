@@ -5,6 +5,8 @@ import AdminHome from "../views/AdminHome.vue";
 import CreateArticle from "../views/CreateArticle.vue";
 import ArticlePage from "../views/ArticlePage.vue";
 import EditArticle from "../views/EditArticle.vue";
+import AdminUsers from "../views/AdminUsers.vue";
+import SignIn from "../views/SignIn.vue";
 
 Vue.use(VueRouter);
 
@@ -14,6 +16,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/admin/users",
+    name: "Admin-Users",
+    component: AdminUsers
   },
   {
     path: '/admin/home',
@@ -48,15 +55,8 @@ const routes = [
   {
     path: '/signin',
     name: 'SignIn',
-    component: () =>
-      import(/* webpackChunkName: "signin" */"../views/SignIn.vue")
+    component: SignIn
   },
-  {
-    path: '/archives',
-    name: 'Archives',
-    component: () =>
-    import(/* webpackChunkName: "archives" */"../views/Archives")
-  }
 ];
 
 const router = new VueRouter({

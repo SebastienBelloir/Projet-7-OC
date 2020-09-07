@@ -1,11 +1,22 @@
 <template>
   <div>
     <h2>Création de votre Article</h2>
-      <form action="">
+    <form action="">
       <label for="title">Titre de votre article</label>
-      <input type="text" id="title" name="title" required />
+      <input
+        type="text"
+        id="title"
+        name="title"
+        v-model="article.title"
+        required
+      />
       <label for="description">Description de votre article</label>
-      <input type="text" id="description" required />
+      <input
+        type="text"
+        id="description"
+        v-model="article.description"
+        required
+      />
       <label for="myImage">Ajouter une image</label>
       <input type="file" id="myImage" name="myImage" accept="image/*" />
       <label for="contenu">Contenu de votre article</label>
@@ -24,29 +35,42 @@
            alignleft aligncenter alignright alignjustify | \
            bullist numlist outdent indent | removeformat | help',
         }"
+        v-model="article.contenu"
       />
-      <input v-on:click="createArticle" type="submit" value="Publier mon article" />
-   </form>
+      <input
+        v-on:click="createArticle"
+        type="button"
+        value="Publier mon article"
+      />
+    </form>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Editor from "@tinymce/tinymce-vue";
+
 export default {
-  data(){
+  data() {
     return {
-      article: {}
-    }
+      article: {
+        title: "",
+        description: "",
+        contenu: "",
+      },
+    };
+  },
+  computed: {
+    ...mapState(["currentUser"]),
   },
   components: {
     Editor,
   },
   methods: {
     createArticle() {
-      this.$store.dispatch('createArticle', this.article);
-      
+      this.$store.dispatch("createArticle", this.article);
     },
-  }
+  },
 };
 </script>
 
@@ -90,7 +114,7 @@ form {
     outline: 0;
     border-bottom: 4px solid #17a2b8;
   }
-  #myImage{
+  #myImage {
     align-items: center;
     justify-content: center;
   }
