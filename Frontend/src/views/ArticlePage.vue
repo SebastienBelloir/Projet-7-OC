@@ -1,8 +1,9 @@
 <template>
     <section class="article">
         <h2>{{ article.title }}</h2>
-        <div>{{ article.description }}</div>
-        <div>{{ article.contenu }}</div>
+        
+        <div id="description">{{ article.description }}</div>
+        <div id="content">{{ article.contenu }}</div>
     </section>
 </template>
 
@@ -19,5 +20,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+#description{
+    margin: 5% 5% 5% 5%;
+}
+#content{
+    margin: 5% 5% 5% 5%;
+}
 </style>

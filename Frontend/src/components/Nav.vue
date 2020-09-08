@@ -11,8 +11,8 @@
     <div class="nav-list">
       <router-link to="/">Accueil</router-link>
       <router-link to="/about">A propos</router-link>
-      <div id="userLoggedIn" v-if="currentUser.nom">
-        {{ currentUser.nom }}
+      <div id="userLoggedIn" v-if="currentUser.prenom">
+        <div id="user">{{ currentUser.prenom }}</div>
         <button v-on:click="logoutUser">Se déconnecter</button>
       </div>
       <div v-else>
@@ -49,6 +49,18 @@ export default {
   font-size: 20px;
   figure {
     margin-right: 30%;
+  }
+  .nav-list{
+    display: flex;
+    margin: 2%;
+  }
+  #userLoggedIn{
+    display: flex;
+    padding: 10px;
+    #user{
+      color: white;
+      margin: 10px;
+    }
   }
 }
 </style>

@@ -32,7 +32,7 @@ exports.signup = (req, res) => {
     });
   })
 }
-
+ 
 exports.login = (req, res, next) => {
   const emailReq = req.body.email;
   const passReq = req.body.password;

@@ -17,9 +17,10 @@ export default new Vuex.Store({
     SET_ARTICLES(state, articles) {
       state.articles = articles;
     },
-    CREATE_ARTICLE(state, article) {
+    CREATE_ARTICLE(state, article, file) {
       let articles = state.articles.concat(article);
       state.articles = articles;
+      state.file = file;
     },
     DELETE_ARTICLE(state, idArticles) {
       let articles = state.articles.filter(a => a.id != idArticles)
@@ -49,12 +50,12 @@ export default new Vuex.Store({
       let response = await API().get("/articles");
       commit('SET_ARTICLES', response.data);
     },
-    async createArticle({commit}, article) {
-      let response = await API().post('/articles/createArticle', article);
-      let savedArticle = response.data;
-      commit('CREATE_ARTICLE', savedArticle);
-      return savedArticle;
-    },
+    // async createArticle({commit}, article, file) {
+    //   let response = await API().post('/articles/createArticle', article, file);
+    //   let savedArticle = response.data;
+    //   commit('CREATE_ARTICLE', savedArticle);
+    //   return savedArticle;
+    // },
     async deleteArticle({commit}, article){
       let response = await API().delete(`/articles/delete/${article.idArticles}`);
       if(response.status == 200 || response.status == 204){

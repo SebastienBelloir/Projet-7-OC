@@ -3,11 +3,11 @@ const Article = require("../models/articles");
 
 exports.createArticle = (req, res, next) => {
   const article =  {
-    "title": req.body.title,
-    "description": req.body.description,
-    "urlimage": ``,
-    "contenu": req.body.contenu,
-    "auteur_id": req.body.auteur_id,
+    title: req.body.title,
+    description: req.body.description,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    contenu: req.body.contenu,
+    auteur_id: req.body.auteur_id,
   };
   Article.create(article, (err, data) => {
     console.log(article)

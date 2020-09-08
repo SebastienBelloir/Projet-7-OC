@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Création de votre Article</h2>
-    <form action="">
+    <form>
       <label for="title">Titre de votre article</label>
       <input
         type="text"
@@ -18,7 +18,7 @@
         required
       />
       <label for="myImage">Ajouter une image</label>
-      <input type="file" id="myImage" name="myImage" accept="image/*" />
+      <input type="file" id="myImage" ref="file" v-on:change="handleFileUpload()" accept="image/*" />
       <label for="contenu">Contenu de votre article</label>
       <editor
         api-key="no-api-key"
@@ -47,31 +47,55 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import Editor from "@tinymce/tinymce-vue";
+import axios from 'axios';
+
 
 export default {
   data() {
     return {
-      article: {
-        title: "",
-        description: "",
-        contenu: "",
-      },
+      file:"",
+      article:{
+      title:"",
+      description: "",
+      contenu:"",
+      auteur_id:""
+      }
     };
-  },
-  computed: {
-    ...mapState(["currentUser"]),
   },
   components: {
     Editor,
   },
   methods: {
     createArticle() {
-      this.$store.dispatch("createArticle", this.article);
-    },
-  },
-};
+      let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
+      let formData = new FormData();
+      formData.append('file', this.file);
+      formData.append('title', this.article.title);
+      formData.append('description', this.article.description);
+      formData.append('contenu', this.article.contenu);
+      formData.append('auteur_id', currentUser.userId);
+      axios.post( 'http://localhost:3000/articles/createArticle',
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ).then(function(){
+          console.log('SUCCESS!!');
+        })
+        .catch(function(){
+          console.log('FAILURE!!');
+        });
+      },
+      handleFileUpload(){
+        this.file = this.$refs.file.files[0];
+        console.log(this.file)
+      }
+  }
+}
+
 </script>
 
 <style lang="scss" scoped>

@@ -3,7 +3,7 @@ const mysqlConnection = require("../mysqlConnection");
 const Article = function(article) {
     this.title = article.title;
     this.description = article.description;
-    this.urlImage = article.urlImage;
+    this.imageUrl = article.imageUrl;
     this.contenu = article.contenu;
     this.auteur = article.auteur;
   };

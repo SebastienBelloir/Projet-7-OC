@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="user in users" :key="user.idUser">
-            {{ user.nom }} <button v-on:click="loginUser(user)">Login</button>
+            {{ user.nom }} + {{ user.prenom}} <button v-on:click="loginUser(user)">Login</button>
         </div>
     </div>
 </template>

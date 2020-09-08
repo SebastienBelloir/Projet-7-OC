@@ -46,7 +46,7 @@
   export default {
     data: () => {
       return {
-        signup:false,
+        signUp:false,
         userInfo: {
         email: '',
         password: ''
@@ -66,7 +66,7 @@
        if(user.error) {
          alert(user.error)
        }else {
-         alert('Connexion réussie ' + user.nom);
+         alert('Connexion réussie ' + user.prenom);
        }
       },
       async registerUser() {

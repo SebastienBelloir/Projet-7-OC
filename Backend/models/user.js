@@ -53,7 +53,7 @@ User.getAll = callback => {
     callback(null, res);
   });
 };
-
+ 
 
 User.delete = (id, callback) => {
   mysqlConnection.query("DELETE FROM users WHERE idUser = ?", id, (err, res) => {
