@@ -24,16 +24,16 @@
         <input type="email" placeholder="Email*" v-model="signupInfo.email" required />
         <input type="text" placeholder="Département/secteur" v-model="signupInfo.departement_entreprise" />
         <input type="password" placeholder="Mot de passe*" v-model="signupInfo.password" required />
-        <button v-on:click="registerUser">Créer mon compte</button>
+        <button >Créer mon compte</button>
         <p class="mendatory">Les champs comportant une * sont obligatoires</p>
       </form>
-      <form class="sign-in">
+      <form class="sign-in" @submit.prevent="login">
         <h2>Se connecter</h2>
         <div>Utiliser votre email et mot de passe</div>
         <input type="email" placeholder="Email" v-model="userInfo.email" required/>
-        <input type="password" placeholder="Password" v-model="userInfo.password" counter=true  required/>
+        <input type="password" placeholder="Password" v-model="userInfo.password"  required/>
         <a href="#">Mot de passe oublié ?</a>
-        <button v-on:click="loginUser" >Valider</button>
+        <button v-on:click="login" >Valider</button>
       </form>
     </div>
   </article>
@@ -41,8 +41,6 @@
 </template>
 
 <script>
-
-
   export default {
     data: () => {
       return {
@@ -61,22 +59,32 @@
       }
     },
     methods: {
-     async loginUser() {
-       let user = await this.$store.dispatch('loginUser', this.userInfo);
-       if(user.error) {
-         alert(user.error)
-       }else {
-         alert('Connexion réussie ' + user.prenom);
-       }
-      },
-      async registerUser() {
-       let user = await this.$store.dispatch('registerUser', this.signupInfo);
-       if(user.error) {
-         alert(user.error)
-       }else {
-         alert('Création de compte réussie ' + user.prenom);
-       }
-      }
+      login() {
+        this.$store.dispatch('retrieveToken', {
+          email: this.userInfo.email,
+          password: this.userInfo.password
+        })
+        .then(() => {
+          this.$router.push('/');
+        })
+    },
+    //  async loginUser() {
+    //    let currentUser = window.localStorage.setItem('currentUser', currentUser);
+    //    let user = await this.$store.dispatch('loginUser', this.userInfo);
+    //    if(user.error) {
+    //      alert(user.error)
+    //    }else {
+    //      alert('Connexion réussie ' + user.prenom);
+    //    }
+    //   },
+    //   async registerUser() {
+    //    let user = await this.$store.dispatch('registerUser', this.signupInfo);
+    //    if(user.error) {
+    //      alert(user.error)
+    //    }else {
+    //      alert('Création de compte réussie ' + user.prenom);
+    //    }
+    //   }
     }
   }
 </script>
@@ -93,9 +101,9 @@ article{
     height: 480px;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, .2),
-                0 10px 10px rgba(0, 0, 0, .2);
-    background: linear-gradient(to bottom, #efefef, #ccc);
+    box-shadow: 0 15px 30px #FFFF,
+                0 10px 10px #FFFF;
+    background: linear-gradient(to bottom, #192c4ab4, #192c4ab4);
     .overlay-container {
       position: absolute;
       top: 0;
@@ -111,7 +119,7 @@ article{
       left: -100%;
       height: 100%;
       width: 200%;
-      background: #17a2b8;
+      background: #192c4ab4;
       color: #fff;
       transform: translateX(0);
       transition: transform .5s ease-in-out;
@@ -152,8 +160,8 @@ article{
   }
   button {
     border-radius: 20px;
-    border: 1px solid #17a2b8;
-    background-color: #17a2b8;
+    border: 1px solid #192c4ab4;
+    background-color: #192c4ab4;
     color: #fff;
     font-size: 1rem;
     font-weight: bold;

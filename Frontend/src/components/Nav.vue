@@ -11,31 +11,39 @@
     <div class="nav-list">
       <router-link to="/">Accueil</router-link>
       <router-link to="/about">A propos</router-link>
-      <div id="userLoggedIn" v-if="currentUser.prenom">
-        <div id="user">{{ currentUser.prenom }}</div>
-        <button v-on:click="logoutUser">Se déconnecter</button>
-      </div>
-      <div v-else>
-        <router-link to="/signin">Connexion</router-link>
-      </div>
+      <router-link to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link>
+      <router-link to="/admin/home" v-if="loggedIn && isAdmin" >Admin</router-link>
+      <router-link to="/" v-if="loggedIn" v-on:click="logoutUser">Se déconnecter</router-link>
+      <router-link to="/signin" v-if="!loggedIn">Connexion</router-link>
     </div>
   </nav>
 </template>
 
 <script>
-import { mapState } from "vuex";
+
 
 export default {
   computed: {
-    ...mapState(["currentUser"]),
+    isAdmin(){
+      return this.$store.getters.isAdmin
+    },
+    loggedIn() {
+      return this.$store.getters.loggedIn
+    }
   },
+
   methods: {
+    // getCurrentUser(){
+    //   let currentUser = window.localStorage.getItem('currentUser');
+    //   console.log(currentUser)
+    //   return currentUser;
+    // },
     logoutUser() {
       this.$store.dispatch("logoutUser");
     },
-    loginUser(user) {
-      this.$store.dispatch("loginUser", user);
-    },
+    // loginUser(user) {
+    //   this.$store.dispatch("loginUser", user);
+    // },
   },
 };
 </script>
@@ -45,8 +53,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #17a2b8;
+  background-color: #192c4adc;
   font-size: 20px;
+  height: 11vh;
   figure {
     margin-right: 30%;
   }

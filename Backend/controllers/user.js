@@ -53,7 +53,7 @@ exports.login = (req, res, next) => {
               if (results[0].isadmin === 1) {
                 privilege = "admin";
               } else {
-                privilege = "member";
+                privilege = null;
               }
               res.status(200).json({
                 userId: results[0].idUser,
