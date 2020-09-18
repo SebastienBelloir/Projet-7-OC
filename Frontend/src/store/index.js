@@ -12,15 +12,19 @@ export default new Vuex.Store({
     articles: [],
     users: [],
     currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
-    isAdmin: localStorage.getItem('isAdmin') || null,
+    isAdmin: localStorage.getItem('isAdmin'),
+    isAuthor: JSON.parse(localStorage.getItem('currentUser')),
     },
 
   getters: {
     loggedIn(state) {
       return state.token !== null;
     },
-    isAdmin(state, member) {
-      return state.isAdmin !== member;
+    isAdmin(state) {
+      return state.isAdmin != 0;
+    },
+    isAuthor(state, authorId) {
+      return state.isAuthor === authorId;
     }
   }, 
   
@@ -51,13 +55,12 @@ export default new Vuex.Store({
       state.token = token;
     },
     LOGOUT_USER(state) {
-      state.currentUser = state;
-      
+      state.currentUser = JSON.parse(window.localStorage.clear());
     },
-    // SET_CURRENT_USER(state, user) {
-    //   state.currentUser = user;
-    //   window.localStorage.currentUser = JSON.stringify(user);
-    // },
+    SET_CURRENT_USER(state, user) {
+      state.currentUser = user;
+      window.localStorage.currentUser = JSON.stringify(user);
+    },
   },
   actions: {
     retrieveToken(context, credentials) {
@@ -98,26 +101,28 @@ export default new Vuex.Store({
       commit('EDIT_ARTICLE', newArticle);
       return newArticle;
     },
-    async loadUsers({commit}) {
-      let response = await API().get("/users");
-      let users = response.data;
-      commit('SET_USERS', users);
-      let user = JSON.parse(window.localStorage.currentUser);
-      commit('SET_CURRENT_USER', user)
-    },
+    // async loadUsers({commit}) {
+    //   let response = await API().get("/users");
+    //   let users = response.data;
+    //   commit('SET_USERS', users);
+    //   let user = JSON.parse(window.localStorage.currentUser);
+    //   commit('SET_CURRENT_USER', user)
+    // },
     logoutUser({commit}) {
+      window.location.replace("http://localhost:8080/#/");
+      window.location.reload();
       commit('LOGOUT_USER');
     },
-    async loginUser({commit}, userInfo) {
-      try{
-        let response = await API().post('/users/login', userInfo);
-        let user = response.data;
-        commit('SET_CURRENT_USER', user);
-        return user;
-      }catch {
-        return{ error: "Mot de passe ou email incorrect"}
-      }
-    },
+    // async loginUser({commit}, userInfo) {
+    //   try{
+    //     let response = await API().post('/users/login', userInfo);
+    //     let user = response.data;
+    //     commit('SET_CURRENT_USER', user);
+    //     return user;
+    //   }catch {
+    //     return{ error: "Mot de passe ou email incorrect"}
+    //   }
+    // },
     async registerUser({commit}, signupInfo) {
       try{
         let response = await API().post('/users/signup', signupInfo);

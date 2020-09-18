@@ -24,7 +24,7 @@
         <input type="email" placeholder="Email*" v-model="signupInfo.email" required />
         <input type="text" placeholder="Département/secteur" v-model="signupInfo.departement_entreprise" />
         <input type="password" placeholder="Mot de passe*" v-model="signupInfo.password" required />
-        <button >Créer mon compte</button>
+        <button v-on:click="registerUser" >Créer mon compte</button>
         <p class="mendatory">Les champs comportant une * sont obligatoires</p>
       </form>
       <form class="sign-in" @submit.prevent="login">
@@ -66,6 +66,7 @@
         })
         .then(() => {
           this.$router.push('/');
+          window.location.reload();
         })
     },
     //  async loginUser() {
@@ -77,14 +78,16 @@
     //      alert('Connexion réussie ' + user.prenom);
     //    }
     //   },
-    //   async registerUser() {
-    //    let user = await this.$store.dispatch('registerUser', this.signupInfo);
-    //    if(user.error) {
-    //      alert(user.error)
-    //    }else {
-    //      alert('Création de compte réussie ' + user.prenom);
-    //    }
-    //   }
+      registerUser() {
+       let user =  this.$store.dispatch('registerUser', this.signupInfo);
+       this.$router.push('/')
+       window.location.reload();
+       if(user.error) {
+         alert(user.error)
+       }else {
+         alert('Création de compte réussie ' + user.prenom);
+       }
+      }
     }
   }
 </script>

@@ -12,9 +12,8 @@
       <router-link to="/">Accueil</router-link>
       <router-link to="/about">A propos</router-link>
       <router-link to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link>
-      <router-link to="/admin/home" v-if="loggedIn && isAdmin" >Admin</router-link>
-      <router-link to="/" v-if="loggedIn" v-on:click="logoutUser">Se déconnecter</router-link>
-      <router-link to="/signin" v-if="!loggedIn">Connexion</router-link>
+      <router-link to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link>
+      <button v-if="loggedIn" v-on:click="logoutUser()">Se déconnecter</button>
     </div>
   </nav>
 </template>
@@ -25,7 +24,7 @@
 export default {
   computed: {
     isAdmin(){
-      return this.$store.getters.isAdmin
+      return this.$store.state.isAdmin
     },
     loggedIn() {
       return this.$store.getters.loggedIn
@@ -33,34 +32,30 @@ export default {
   },
 
   methods: {
-    // getCurrentUser(){
-    //   let currentUser = window.localStorage.getItem('currentUser');
-    //   console.log(currentUser)
-    //   return currentUser;
-    // },
     logoutUser() {
       this.$store.dispatch("logoutUser");
+      // 
+      }
     },
-    // loginUser(user) {
-    //   this.$store.dispatch("loginUser", user);
-    // },
-  },
-};
+}
 </script>
 
 <style lang="scss" scoped>
 #nav {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-around;
   background-color: #192c4adc;
   font-size: 20px;
   height: 11vh;
+  width: 100%;
   figure {
-    margin-right: 30%;
+    float: left;
   }
   .nav-list{
     display: flex;
+    justify-content: space-around;
+    align-items: center;
     margin: 2%;
   }
   #userLoggedIn{
@@ -72,4 +67,12 @@ export default {
     }
   }
 }
+button{
+        background-color: #dd1d1dc4;
+        font-size: 20px;
+        padding: 2%;
+        color: #FFF;
+        border-radius: 10px;
+        cursor: pointer;
+    }
 </style>

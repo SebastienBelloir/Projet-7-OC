@@ -9,6 +9,7 @@
         name="title"
         v-model="article.title"
         required
+        autocomplete="off"
       />
       <label for="description">Description de votre article</label>
       <input
@@ -16,6 +17,7 @@
         id="description"
         v-model="article.description"
         required
+        autocomplete="off"
       />
       <label for="myImage">Ajouter une image</label>
       <input type="file" id="myImage" ref="file" v-on:change="handleFileUpload()" accept="image/*" />
@@ -23,6 +25,9 @@
       <editor
         api-key="no-api-key"
         :init="{
+          forced_root_block : '',
+          force_br_newlines : true,
+          force_p_newlines : false,
           height: 500,
           menubar: false,
           plugins: [
@@ -37,7 +42,7 @@
         }"
         v-model="article.contenu"
       />
-      <input
+      <input class="button"
         v-on:click="createArticle"
         type="button"
         value="Publier mon article"
@@ -66,6 +71,11 @@ export default {
   components: {
     Editor,
   },
+  computed: {
+  articles() {
+      return this.$store.state.articles;
+    },
+  },
   methods: {
     createArticle() {
       let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
@@ -82,9 +92,10 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
               }
-            ).then(function(){  
-          this.$router.push('/');
-          console.log('SUCCESS!!');
+            ).then(() => {
+              // this.$router.push('/');
+              // window.location.reload();
+         console.log('ARTICLE CREATED');
         })
         .catch(function(){
           console.log('FAILURE!!');
@@ -93,7 +104,10 @@ export default {
       handleFileUpload(){
         this.file = this.$refs.file.files[0];
         console.log(this.file)
-      }
+      },
+      // redirect(){
+      //   this.$router.push('/');
+      // }
   }
 }
 
@@ -125,23 +139,41 @@ form {
     text-align: center;
     border: none;
     outline: 0;
-    border-bottom: 4px solid #17a2b8;
+    border-bottom: 4px solid #192c4adc;
   }
   #description {
     text-align: center;
     border: none;
     outline: 0;
-    border-bottom: 4px solid #17a2b8;
-  }
-  #auteur {
-    text-align: center;
-    border: none;
-    outline: 0;
-    border-bottom: 4px solid #17a2b8;
+    border-bottom: 4px solid #192c4adc;
   }
   #myImage {
     align-items: center;
     justify-content: center;
   }
 }
+  .button{
+    border: 3px solid #192c4adc;
+    font-size: 20px;
+    margin: 4%;
+    padding: 2%;
+    border-radius: 10px;
+    background-color: #192c4adc;
+    color: #FFFF;
+    cursor: pointer;
+    -webkit-transform: translate(0px, 0);
+      -webkit-transition: -webkit-transform 0.8s ease;
+      -moz-transform: translate(0px, 0);
+      -moz-transition: -moz-transform 0.8s ease;
+      transform: translate(0px, 0);
+      transition: -webkit-transform 0.8s ease;
+    } .button:hover{
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        transform: scale(1.2);
+        background-color: #FFFF;
+        color: #192c4adc;
+        font-size: 20px;
+    }
+
 </style>

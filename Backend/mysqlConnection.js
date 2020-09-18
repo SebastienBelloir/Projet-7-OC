@@ -14,4 +14,4 @@ mysqlConnection.connect(function (err) {
   console.log('Connection failed' + mysqlConnection.state);} 
 })
 
-module.exports = mysqlConnection;  
+module.exports = mysqlConnection;

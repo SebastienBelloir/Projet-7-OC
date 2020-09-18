@@ -49,11 +49,11 @@ exports.login = (req, res, next) => {
                 .json({ message: "Utilisateur ou mot de passe inconnu" });
             } else {
               console.log(emailReq, "s'est connecté");
-              let privilege = "";
+              let privilege = null;
               if (results[0].isadmin === 1) {
-                privilege = "admin";
+                privilege = 1;
               } else {
-                privilege = null;
+                privilege = 0;
               }
               res.status(200).json({
                 userId: results[0].idUser,

@@ -46,7 +46,6 @@ export default {
 body{
   margin: 0;
   padding: 0;
-  
 }
 #home {
   height: 89vh;
@@ -68,8 +67,15 @@ body{
       margin: 4%;
       padding: 15px;
       box-shadow: 0px 15px 20px;
-      transform: linear 1s ;
+      -webkit-transform: translate(0px, 0);
+      -webkit-transition: -webkit-transform 0.8s ease;
+      -moz-transform: translate(0px, 0);
+      -moz-transition: -moz-transform 0.8s ease;
+      transform: translate(0px, 0);
+      transition: -webkit-transform 0.8s ease;
       &:hover{
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
         transform: scale(1.2);
       }
       img{
@@ -82,8 +88,6 @@ body{
       display: flex;
       flex-wrap: wrap;
     }
-  }
-  
   h2 {
     margin-top: 20%;
     font-size: 40px;
@@ -96,5 +100,6 @@ body{
     text-decoration: none;
     color: black;
   }
+}
 
 </style>

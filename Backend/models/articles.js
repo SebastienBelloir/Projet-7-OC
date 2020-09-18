@@ -23,8 +23,8 @@ const Article = function(article) {
 
   Article.modify = (idArticles, article, callback) => {
     mysqlConnection.query(
-      "UPDATE articles SET title = ?, description = ?, contenu = ?, time_stamp = NOW(), auteur_id = ? WHERE idArticles = ?",
-      [article.title, article.description, article.contenu, article.auteur, idArticles],
+      "UPDATE articles SET title = ?, description = ?, imageUrl = ?, contenu = ?, time_stamp = NOW(), auteur_id = ? WHERE idArticles = ?",
+      [article.title, article.description, article.imageUrl, article.contenu, article.auteur, idArticles],
       (err, res) => {
         if (err) {
           console.log("erreur: ", err);
