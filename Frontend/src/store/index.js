@@ -10,10 +10,8 @@ export default new Vuex.Store({
   state: { 
     token: localStorage.getItem('access_token') || null,
     articles: [],
-    users: [],
     currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
     isAdmin: localStorage.getItem('isAdmin'),
-    isAuthor: JSON.parse(localStorage.getItem('currentUser')),
     },
 
   getters: {
@@ -23,9 +21,6 @@ export default new Vuex.Store({
     isAdmin(state) {
       return state.isAdmin != 0;
     },
-    isAuthor(state, authorId) {
-      return state.isAuthor === authorId;
-    }
   }, 
   
   mutations: {
@@ -72,6 +67,8 @@ export default new Vuex.Store({
         .then(response => {
           const isAdmin = response.data.privilege;
           const token = response.data.token;
+          const userId = response.data.userId;
+          localStorage.setItem('userId', userId);
           localStorage.setItem('isAdmin', isAdmin)
           localStorage.setItem('access_token', token);
           localStorage.setItem('currentUser', JSON.stringify(response.data))

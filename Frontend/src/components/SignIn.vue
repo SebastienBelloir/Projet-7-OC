@@ -69,15 +69,6 @@
           window.location.reload();
         })
     },
-    //  async loginUser() {
-    //    let currentUser = window.localStorage.setItem('currentUser', currentUser);
-    //    let user = await this.$store.dispatch('loginUser', this.userInfo);
-    //    if(user.error) {
-    //      alert(user.error)
-    //    }else {
-    //      alert('Connexion réussie ' + user.prenom);
-    //    }
-    //   },
       registerUser() {
        let user =  this.$store.dispatch('registerUser', this.signupInfo);
        this.$router.push('/')
@@ -94,7 +85,7 @@
 
 <style lang="scss" scoped>
 article{
-    margin-top: 7%;
+    margin-top: 15%;
     display: flex;
     justify-content: center;
 }

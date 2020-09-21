@@ -93,8 +93,6 @@ export default {
                 }
               }
             ).then(() => {
-              // this.$router.push('/');
-              // window.location.reload();
          console.log('ARTICLE CREATED');
         })
         .catch(function(){
@@ -105,9 +103,9 @@ export default {
         this.file = this.$refs.file.files[0];
         console.log(this.file)
       },
-      // redirect(){
-      //   this.$router.push('/');
-      // }
+      redirect(){
+        this.$router.push('/');
+      }
   }
 }
 

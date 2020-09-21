@@ -11,7 +11,7 @@
 <style lang="scss" scoped>
 #jumbotron{
     max-width: 1460px;
-    margin: 10% 20% 10% 20%;
+    margin: 15%;
     padding: 2% 5%;
     background-color: rgb(235, 235, 235);
     border: 2px solid #dd1d1d;

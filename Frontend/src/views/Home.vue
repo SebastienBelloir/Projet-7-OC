@@ -48,7 +48,7 @@ body{
   padding: 0;
 }
 #home {
-  height: 89vh;
+  height: 100vh;
   border: 1px solid red;
   background-image: url('~@/assets/jumbotronback.jpg');
   background-repeat: no-repeat;

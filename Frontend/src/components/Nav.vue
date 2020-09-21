@@ -49,6 +49,10 @@ export default {
   font-size: 20px;
   height: 11vh;
   width: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
   figure {
     float: left;
   }
