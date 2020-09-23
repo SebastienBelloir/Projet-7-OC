@@ -12,6 +12,7 @@ export default new Vuex.Store({
     articles: [],
     currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
     isAdmin: localStorage.getItem('isAdmin'),
+    users: [],
     },
 
   getters: {
@@ -52,9 +53,12 @@ export default new Vuex.Store({
     LOGOUT_USER(state) {
       state.currentUser = JSON.parse(window.localStorage.clear());
     },
+    DELETE_ACCOUNT(state, userId) {
+      let users = state.users.filter(a => a.id != userId)
+      state.users = users;
+    },
     SET_CURRENT_USER(state, user) {
       state.currentUser = user;
-      window.localStorage.currentUser = JSON.stringify(user);
     },
   },
   actions: {
@@ -98,17 +102,20 @@ export default new Vuex.Store({
       commit('EDIT_ARTICLE', newArticle);
       return newArticle;
     },
-    // async loadUsers({commit}) {
-    //   let response = await API().get("/users");
-    //   let users = response.data;
-    //   commit('SET_USERS', users);
-    //   let user = JSON.parse(window.localStorage.currentUser);
-    //   commit('SET_CURRENT_USER', user)
-    // },
+    async loadUsers({commit}) {
+      let response = await API().get("/users");
+      let users = response.data;
+      commit('SET_USERS', users);
+    },
     logoutUser({commit}) {
       window.location.replace("http://localhost:8080/#/");
       window.location.reload();
       commit('LOGOUT_USER');
+    },
+    async deleteAccount({commit}, user){
+      await API().delete(`/users/delete/${user.userId}`);
+      commit('DELETE_ACCOUNT', user.userId)
+      
     },
     // async loginUser({commit}, userInfo) {
     //   try{
@@ -123,9 +130,14 @@ export default new Vuex.Store({
     async registerUser({commit}, signupInfo) {
       try{
         let response = await API().post('/users/signup', signupInfo);
-        let user = response.data;
-        commit('SET_CURRENT_USER', user);
-        return user;
+        console.log(response);
+        const userId = response.data.id;
+        const token = response.data.token;
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('access_token', token);
+        localStorage.setItem('currentUser', JSON.stringify(response.data))
+        commit('SET_CURRENT_USER');
+        commit('RETRIEVE_TOKEN', token);
       }catch {
         return{ error: "Erreur lors de la création de votre compte"}
       }

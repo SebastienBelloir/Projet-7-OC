@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="heading">
     <h2>Création de votre Article</h2>
     <form>
       <label for="title">Titre de votre article</label>
@@ -93,6 +93,8 @@ export default {
                 }
               }
             ).then(() => {
+              this.$router.push('/');
+              window.location.reload();
          console.log('ARTICLE CREATED');
         })
         .catch(function(){
@@ -103,9 +105,6 @@ export default {
         this.file = this.$refs.file.files[0];
         console.log(this.file)
       },
-      redirect(){
-        this.$router.push('/');
-      }
   }
 }
 
@@ -173,5 +172,8 @@ form {
         color: #192c4adc;
         font-size: 20px;
     }
+#heading{
+    margin-top: 10%;
+  }
 
 </style>

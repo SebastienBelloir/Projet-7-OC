@@ -16,9 +16,7 @@
       <label for="title">Nouveau Titre</label><br>
       <input type="text" id="title" name="title" v-model="article.title"  required /><br>
       <label for="description">Nouvelle Description</label><br>
-      <textarea type="text" id="description" cols="87" rows="5" v-model="article.description" required /><br>
-      <label for="myImage">Nouvelle Image</label><br>
-      <input type="file" id="myImage" name="myImage" ref="file" v-on:change="handleFileUpload()" accept="image/*" /><br>
+      <textarea type="text" id="description" cols="50" rows="5" v-model="article.description" required /><br>
       <label for="contenu">Nouveau Contenu</label><br>
       <editor
         api-key="no-api-key"
@@ -40,7 +38,7 @@
         }"
         v-model="article.contenu"
       />
-      <input v-on:click="editArticle" type="submit" id="button" value="Publier mon article" />
+      <input class="button" v-on:click="editArticle" type="submit" id="button" value="Modifier mon article" />
   </div>
 </div>
 </template>
@@ -75,7 +73,6 @@ export default {
      editArticle(){
       let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
       let formData = new FormData();
-      formData.append('file', this.file);
       formData.append('title', this.article.title);
       formData.append('description', this.article.description);
       formData.append('contenu', this.article.contenu);
@@ -88,17 +85,13 @@ export default {
                 }
               }
             ).then(() => {
-              // this.$router.push('/');
-              // window.location.reload();
+              this.$router.push('/');
+              window.location.reload();
          console.log('ARTICLE MODIFIED');
         })
         .catch(function(){
           console.log('FAILURE!!');
         });
-      },
-      handleFileUpload(){
-        this.file = this.$refs.file.files[0];
-        console.log(this.file)
       },
   }
 }
@@ -106,6 +99,7 @@ export default {
 
 <style lang="scss" scoped>
 .grid-container {
+  margin-top: 11%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -118,30 +112,55 @@ export default {
 
 .Actual-Article { 
     grid-area: Actual-Article;
-    margin: 2%;  
+    margin: 2%; 
+    label{
+        padding-bottom: 1%;
+        font-weight: bold;
+        font-size: 20px;
+    } 
 }
 
 .Modified-article { 
     grid-area: Modified-article;
     margin: 2%; 
     label{
-        padding: 1%;
+      margin: 1%;
+      font-weight: bold;
+      font-size: 20px;
     }
     textarea{
-        margin: 1%;
-        font-size: 18px;
+      margin: 1%;
+      font-size: 18px;
     }
     input{
-        height: 3%;
-        width: 50%;
-        margin: 1%;
-        font-size: 18px;
+      margin: 1%;
+      width: auto;
+      font-size: 18px;
     }
-    #button{
-        margin: 5% 25% 5% 25%;
-    }
-    
 }
+.button{
+    border: 3px solid #192c4adc;
+    font-size: 20px;
+    margin-top: 3%;
+    padding: 2%;
+    border-radius: 10px;
+    background-color: #192c4adc;
+    color: #FFFF;
+    cursor: pointer;
+    -webkit-transform: translate(0px, 0);
+      -webkit-transition: -webkit-transform 0.8s ease;
+      -moz-transform: translate(0px, 0);
+      -moz-transition: -moz-transform 0.8s ease;
+      transform: translate(0px, 0);
+      transition: -webkit-transform 0.8s ease;
+    } .button:hover{
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        transform: scale(1.2);
+        background-color: #FFFF;
+        color: #192c4adc;
+        font-size: 20px;
+    }
 img{
         max-width: 500px;
       }

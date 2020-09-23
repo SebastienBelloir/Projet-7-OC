@@ -5,7 +5,7 @@ import AdminHome from "../views/AdminHome.vue";
 import CreateArticle from "../views/CreateArticle.vue";
 import ArticlePage from "../views/ArticlePage.vue";
 import EditArticle from "../views/EditArticle.vue";
-import AdminUsers from "../views/AdminUsers.vue";
+import MyProfil from "../views/MyProfil.vue";
 import SignIn from "../views/SignIn.vue";
 
 Vue.use(VueRouter);
@@ -18,9 +18,9 @@ const routes = [
     component: Home
   },
   {
-    path: "/admin/users",
-    name: "Admin-Users",
-    component: AdminUsers
+    path: "/MyProfil",
+    name: "MyProfil",
+    component: MyProfil
   },
   {
     path: '/admin/home',

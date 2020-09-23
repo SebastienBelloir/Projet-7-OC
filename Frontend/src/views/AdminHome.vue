@@ -34,11 +34,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#home{
+  margin-top: 10%;
+}
 #article {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  margin: 5%;
+  margin: 3%;
   .actions{
     display: flex;
     justify-content: center;
@@ -90,7 +93,7 @@ export default {
     color: black;
   }
   img{
-    max-width: 500px;
+   max-width: 500px;
   }
 }
   h2{
@@ -98,5 +101,6 @@ export default {
   }
   h3{
     font-size: 30px;
+    text-align: center;
   }
 </style>

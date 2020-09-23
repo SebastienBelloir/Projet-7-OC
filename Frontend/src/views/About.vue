@@ -68,23 +68,28 @@
         </p>
       </article>
     </section>
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Footer from "@/components/Footer.vue";
 export default {
   name: "About",
   data() {
     return {
       title: "A propos de votre Espace Groupomania"
     };
+  },
+  components:{
+    Footer,
   }
 };
 </script>
 
 <style lang="scss" scoped>
-#About{
-  margin: 0 5%;
+section{
+  margin: 10%;
 ul{
   list-style: none;
   }

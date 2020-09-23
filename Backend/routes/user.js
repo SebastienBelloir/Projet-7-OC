@@ -6,7 +6,7 @@ router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
 router.get('/', userCtrl.findAll);
 router.get('/email', userCtrl.findByEmail);
-router.delete('/:id', userCtrl.delete);
+router.delete('/delete/:id', userCtrl.delete);
 
 module.exports = router;
 

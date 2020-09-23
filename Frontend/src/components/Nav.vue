@@ -9,11 +9,11 @@
       /></a>
     </figure>
     <div class="nav-list">
-      <router-link to="/">Accueil</router-link>
-      <router-link to="/about">A propos</router-link>
-      <router-link to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link>
-      <router-link to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link>
-      <button v-if="loggedIn" v-on:click="logoutUser()">Se déconnecter</button>
+      <router-link class="ul-items" v-if="loggedIn" to="/">Accueil</router-link>
+      <router-link class="ul-items" to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link>
+      <router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link>
+      <router-link class="ul-items" to="/MyProfil" v-if="loggedIn" >Mon Profil</router-link>
+      <button class="ul-items" v-if="loggedIn" v-on:click="logoutUser()">Se déconnecter</button>
     </div>
   </nav>
 </template>
@@ -47,7 +47,6 @@ export default {
   justify-content: space-around;
   background-color: #192c4adc;
   font-size: 20px;
-  height: 11vh;
   width: 100%;
   position: fixed;
   top: 0;
@@ -60,21 +59,13 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 2%;
   }
-  #userLoggedIn{
-    display: flex;
-    padding: 10px;
-    #user{
-      color: white;
-      margin: 10px;
-    }
-  }
+
 }
 button{
         background-color: #dd1d1dc4;
         font-size: 20px;
-        padding: 2%;
+        padding: 1%;
         color: #FFF;
         border-radius: 10px;
         cursor: pointer;
