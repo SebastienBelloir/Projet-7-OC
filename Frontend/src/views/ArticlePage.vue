@@ -18,7 +18,7 @@
       <transition name="slide" appear>
         <div class="modal" v-if="showModal">
           <router-link :to="{ name: 'MyProfil', params: { id: currentUser.userId } }">{{ currentUser.prenom }} {{ currentUser.nom }}</router-link><br>
-          <textarea name="comments" id="comments" cols="60" rows="5" placeholder="Votre commentaire"></textarea>
+          <textarea name="comments" id="comments" cols="60" rows="5" placeholder="Votre commentaire" v-model="sharedArticle.commentaire"></textarea>
           <div class="shared-article">
           <h3 class="modal-title">{{ article.title }}</h3>
           <div class="modal-title">{{ article.description }}</div>
@@ -27,7 +27,7 @@
           <p class="modal-text">{{ article.contenu }}</p>
           </div>
           </div>
-          <button class="modal-button" v-on:click="showModal = false">Partager</button>  
+          <button class="modal-button" v-on:click="showModal = false" @click="shareArticle">Partager</button>  
         </div>
       </transition>
       <button v-if="userId === article.auteur_id"  v-on:click="deleteArticle(article)">Supprimer</button>
@@ -38,12 +38,17 @@
 
 <script>
 import { mapState } from 'vuex';
-
+import axios from 'axios';
 
 export default {
     data(){
       return{
-      showModal: false
+      showModal: false,
+      sharedArticle:{
+      sharedIdUser:"",
+      idArticle: "",
+      commentaire:""
+        }
       } 
     },
     computed: {
@@ -55,9 +60,9 @@ export default {
             return this.$store.state.articles.find(article => article.idArticles == this.$route.params.id) || {}
         },
     },
-    mounted() {
-      this.$store.dispatch("loadUsers");
-    },
+    // mounted() {
+    //   this.$store.dispatch("loadUsers");
+    // },
     methods: {
         deleteArticle(article) {
             let response = confirm(`Etes vous certains de vouloir supprimer l'article "${article.title}" ?`);
@@ -67,6 +72,28 @@ export default {
                 window.location.reload();
             }
         },
+        shareArticle() {
+      let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
+      axios.post( 'http://localhost:3000/sharedarticles/sharearticle',
+                {
+                  sharedIdUser: currentUser.userId,
+                  idArticle: this.article.idArticles,
+                  commentaire: this.sharedArticle.commentaire
+                },
+                {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+              }
+            ).then(() => {
+              // this.$router.push('/');
+              // window.location.reload();
+         console.log('ARTICLE CREATED');
+        })
+        .catch(function(){
+          console.log('FAILURE!!');
+        });
+      },
     }
 }
 </script>

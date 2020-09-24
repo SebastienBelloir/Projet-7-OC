@@ -4,7 +4,8 @@
     <SignIn v-if="!loggedIn"/>
     <h2 v-if="loggedIn">Articles Récents</h2>
     
-    <div id="articles" v-if="loggedIn">
+    <div id="articles" v-if="loggedIn" >
+      <button @click="sortByDate">click</button>
       <div class="card" v-for="article in articles" :key="article.idArticles">
         <router-link
           :to="{ name: 'Article', params: { id: article.idArticles } }">
@@ -45,6 +46,12 @@ export default {
       return this.$store.getters.loggedIn
     }
   },
+  methods:{
+    sortByDate() {
+      let datetime = this.articles.datetime;
+        console.log(datetime)
+      } 
+    }
 };
 </script>
 

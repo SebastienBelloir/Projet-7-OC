@@ -20,6 +20,7 @@ const Article = function(article) {
     });
   };
 
+
   Article.modify = (idArticles, article, callback) => {
     mysqlConnection.query(
       "UPDATE articles SET title = ?, description = ?, contenu = ?, datetime = NOW(), auteur_id = ? WHERE idArticles = ?",

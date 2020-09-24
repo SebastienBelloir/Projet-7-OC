@@ -95,7 +95,7 @@ export default {
             ).then(() => {
               this.$router.push('/');
               window.location.reload();
-         console.log('ARTICLE CREATED');
+              console.log('ARTICLE CREATED');
         })
         .catch(function(){
           console.log('FAILURE!!');

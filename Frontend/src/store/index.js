@@ -12,7 +12,7 @@ export default new Vuex.Store({
     articles: [],
     currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
     isAdmin: localStorage.getItem('isAdmin'),
-    users: [],
+    // users: [],
     },
 
   getters: {
@@ -102,11 +102,11 @@ export default new Vuex.Store({
       commit('EDIT_ARTICLE', newArticle);
       return newArticle;
     },
-    async loadUsers({commit}) {
-      let response = await API().get("/users");
-      let users = response.data;
-      commit('SET_USERS', users);
-    },
+    // async loadUsers({commit}) {
+    //   let response = await API().get("/users");
+    //   let users = response.data;
+    //   commit('SET_USERS', users);
+    // },
     logoutUser({commit}) {
       window.location.replace("http://localhost:8080/#/");
       window.location.reload();
