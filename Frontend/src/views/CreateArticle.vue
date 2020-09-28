@@ -28,8 +28,13 @@
           forced_root_block : '',
           force_br_newlines : true,
           force_p_newlines : false,
-          height: 500,
+          height: 600,
           menubar: false,
+          selector: 'textarea',
+          mobile: {
+            menubar: true,
+            width: 318,
+          },
           plugins: [
             'advlist autolink lists link image charmap print preview anchor',
             'searchreplace visualblocks code fullscreen',
@@ -89,7 +94,8 @@ export default {
                 formData,
                 {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: "Bearer " + localStorage.getItem('access_token')
                 }
               }
             ).then(() => {
@@ -150,30 +156,53 @@ form {
   }
 }
   .button{
-    border: 3px solid #192c4adc;
-    font-size: 20px;
-    margin: 4%;
-    padding: 2%;
-    border-radius: 10px;
-    background-color: #192c4adc;
-    color: #FFFF;
-    cursor: pointer;
-    -webkit-transform: translate(0px, 0);
-      -webkit-transition: -webkit-transform 0.8s ease;
-      -moz-transform: translate(0px, 0);
-      -moz-transition: -moz-transform 0.8s ease;
-      transform: translate(0px, 0);
-      transition: -webkit-transform 0.8s ease;
-    } .button:hover{
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        transform: scale(1.2);
-        background-color: #FFFF;
-        color: #192c4adc;
-        font-size: 20px;
-    }
+  appearance: none;
+  outline: none;
+  margin: 4%;
+  padding: 1%;
+  display: inline-block;
+  font-size: 18px;
+  border-radius: 10px;
+  background-image:linear-gradient(to right, #192c4adc, #467edadc);
+  color: #fff;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: 0.4s ease-out;
+  &:hover{
+    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+  }
+}
 #heading{
     margin-top: 10%;
   }
+@media screen and (max-width: 320px){
+#heading{
+    margin-top: 60%;
+    font-size: 16px;
+  }
+  form{
+
+  label {
+    font-size: 20px;
+  }
+  }
+  .button{
+  appearance: none;
+  outline: none;
+  margin: 4%;
+  padding: 1%;
+  display: inline-block;
+  font-size: 18px;
+  border-radius: 10px;
+  background-image:linear-gradient(to right, #192c4adc, #467edadc);
+  color: #fff;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: 0.4s ease-out;
+  &:hover{
+    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+  }
+}
+}
 
 </style>

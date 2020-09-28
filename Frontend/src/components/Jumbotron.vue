@@ -10,11 +10,11 @@
 
 <style lang="scss" scoped>
 #jumbotron{
-    max-width: 1460px;
-    margin: 15%;
+    max-width: 100%;
+    margin: 16% 10% 5% 10%;
     padding: 2% 5%;
     background-color: rgb(235, 235, 235);
-    border: 2px solid #dd1d1d;
+    border: 2px solid #dd1d1dc4;
     box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
     h1{
         text-align: left;
@@ -31,5 +31,21 @@
         border-radius: 10px;
         cursor: pointer;
     }
+}
+@media screen and (max-width: 320px){
+    #jumbotron{
+        margin: 80% 5% 2% 5%;
+    h1{
+        font-size: 30px;
+    }
+    p{
+        font-size: 16px;
+    }
+    button{
+        font-size: 20px;
+        padding: 2%;
+    }
+    }
+
 }
 </style>

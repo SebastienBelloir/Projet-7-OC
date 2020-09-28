@@ -26,6 +26,10 @@
           force_p_newlines : false,
           height: 500,
           menubar: false,
+          mobile: {
+            menubar: true,
+            width: 318,
+          },
           plugins: [
             'advlist autolink lists link image charmap print preview anchor',
             'searchreplace visualblocks code fullscreen',
@@ -65,7 +69,7 @@ export default {
     ...mapState(["articles"]),
     article() {
       return this.articles.find(
-        (article) => article.idArticles == this.$route.params.id
+        (article) => article.idArticle == this.$route.params.id
       );
     },
   },
@@ -81,7 +85,8 @@ export default {
                 formData,
                 {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'application/json',
+                    Authorization: "Bearer " + localStorage.getItem('access_token')
                 }
               }
             ).then(() => {
@@ -139,29 +144,56 @@ export default {
     }
 }
 .button{
-    border: 3px solid #192c4adc;
-    font-size: 20px;
-    margin-top: 3%;
-    padding: 2%;
-    border-radius: 10px;
-    background-color: #192c4adc;
-    color: #FFFF;
-    cursor: pointer;
-    -webkit-transform: translate(0px, 0);
-      -webkit-transition: -webkit-transform 0.8s ease;
-      -moz-transform: translate(0px, 0);
-      -moz-transition: -moz-transform 0.8s ease;
-      transform: translate(0px, 0);
-      transition: -webkit-transform 0.8s ease;
-    } .button:hover{
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        transform: scale(1.2);
-        background-color: #FFFF;
-        color: #192c4adc;
-        font-size: 20px;
-    }
+  appearance: none;
+  outline: none;
+  margin: 6%;
+  padding: 2%;
+  display: inline-block;
+  font-size: 18px;
+  border-radius: 10px;
+  background-image:linear-gradient(to right, #192c4adc, #467edadc);
+  color: #fff;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: 0.4s ease-out;
+  &:hover{
+    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+    transform: scale(1.02);
+  }
+}
 img{
         max-width: 500px;
       }
+
+@media screen and (max-width: 320px){
+  .grid-container {
+  margin-top: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.Actual-Article { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Modified-article { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    textarea{
+      margin: 1%;
+      width: 80%;
+      font-size: 18px;
+    }
+    input{
+      margin: 1%;
+      width: auto;
+      font-size: 18px;
+    }
+}
+img{
+  max-width: 250px;
+  max-height: 250px;
+}
+}
 </style>

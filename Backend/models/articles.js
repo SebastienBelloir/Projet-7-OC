@@ -44,7 +44,7 @@ const Article = function(article) {
   };
 
   Article.getAll = callback => {
-    mysqlConnection.query("SELECT * FROM articles", (err, res) => {
+    mysqlConnection.query("SELECT * FROM articles ORDER BY datetime DESC", (err, res) => {
       if (err) {
         console.log("error: ", err);
         callback(null, err);

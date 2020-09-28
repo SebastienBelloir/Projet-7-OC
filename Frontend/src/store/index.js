@@ -10,9 +10,11 @@ export default new Vuex.Store({
   state: { 
     token: localStorage.getItem('access_token') || null,
     articles: [],
+    sharedArticles: [],
+    allArticles: [],
     currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
     isAdmin: localStorage.getItem('isAdmin'),
-    // users: [],
+    users: [],
     },
 
   getters: {
@@ -27,6 +29,12 @@ export default new Vuex.Store({
   mutations: {
     SET_ARTICLES(state, articles) {
       state.articles = articles;
+    },
+    SET_SHAREDARTICLES(state, sharedArticles) {
+      state.sharedArticles = sharedArticles;
+    },
+    SET_ALLARTICLES(state, allArticles) {
+      state.allArticles = allArticles;
     },
     CREATE_ARTICLE(state, article, file) {
       let articles = state.articles.concat(article);
@@ -77,7 +85,6 @@ export default new Vuex.Store({
           localStorage.setItem('access_token', token);
           localStorage.setItem('currentUser', JSON.stringify(response.data))
           context.commit('RETRIEVE_TOKEN', token);
-          console.log(response)
           resolve(response)
       })
         .catch(error => {
@@ -85,12 +92,29 @@ export default new Vuex.Store({
           reject(error);
       })
     })
+  },
+  async loadArticles({commit}){
+    let response = await API().get("/articles");
+    commit('SET_ARTICLES', response.data);
+  },
+  async loadSharedArticles({commit}){
+      let response = await API().get("/sharedarticles/");
+      commit('SET_SHAREDARTICLES', response.data);
     },
-    async loadArticles({commit}){
-      let response = await API().get("/articles");
-      commit('SET_ARTICLES', response.data);
+  async loadAllArticles({commit}){
+      let one = "http://localhost:3000/sharedarticles/";
+      let two = "http://localhost:3000/articles";
+      const requestOne = API().get(one);
+      const requestTwo = API().get(two);
+      axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
+        const responseOne = responses[0].data;
+        const responseTwo = responses[1].data;
+        const joinArrays = responseOne.concat(responseTwo)
+        console.log(responses)
+        commit('SET_ALLARTICLES', joinArrays);
+      }))
     },
-    async deleteArticle({commit}, article){
+  async deleteArticle({commit}, article){
       let response = await API().delete(`/articles/delete/${article.idArticles}`);
       if(response.status == 200 || response.status == 204){
       commit('DELETE_ARTICLE', article.idArticles)
@@ -102,11 +126,11 @@ export default new Vuex.Store({
       commit('EDIT_ARTICLE', newArticle);
       return newArticle;
     },
-    // async loadUsers({commit}) {
-    //   let response = await API().get("/users");
-    //   let users = response.data;
-    //   commit('SET_USERS', users);
-    // },
+    async loadUsers({commit}) {
+      let response = await API().get("/users");
+      let users = response.data;
+      commit('SET_USERS', users);
+    },
     logoutUser({commit}) {
       window.location.replace("http://localhost:8080/#/");
       window.location.reload();

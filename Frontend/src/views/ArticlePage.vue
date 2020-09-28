@@ -8,7 +8,7 @@
       <div class="buttons">
       <router-link v-if="userId === article.auteur_id"
         class="routerlink"
-        :to="{ name: 'EditArticle', params: { id: article.idArticles } }"
+        :to="{ name: 'EditArticle', params: { id: article.idArticle } }"
         >Modifier</router-link
       >
       <button v-on:click="showModal = true">Partager</button>
@@ -17,7 +17,7 @@
       </transition>
       <transition name="slide" appear>
         <div class="modal" v-if="showModal">
-          <router-link :to="{ name: 'MyProfil', params: { id: currentUser.userId } }">{{ currentUser.prenom }} {{ currentUser.nom }}</router-link><br>
+          <router-link id="profil" :to="{ name: 'MyProfil', params: { id: currentUser.userId } }">{{ currentUser.prenom }} {{ currentUser.nom }}</router-link><br>
           <textarea name="comments" id="comments" cols="60" rows="5" placeholder="Votre commentaire" v-model="sharedArticle.commentaire"></textarea>
           <div class="shared-article">
           <h3 class="modal-title">{{ article.title }}</h3>
@@ -30,7 +30,7 @@
           <button class="modal-button" v-on:click="showModal = false" @click="shareArticle">Partager</button>  
         </div>
       </transition>
-      <button v-if="userId === article.auteur_id"  v-on:click="deleteArticle(article)">Supprimer</button>
+      <button class="delete" v-if="userId === article.auteur_id"  v-on:click="deleteArticle(article)">Supprimer</button>
       </div>
     </div>
   </section>
@@ -57,7 +57,7 @@ export default {
             return this.$store.state.currentUser.userId
         },
         article(){
-            return this.$store.state.articles.find(article => article.idArticles == this.$route.params.id) || {}
+            return this.$store.state.articles.find(article => article.idArticle == this.$route.params.id) || {}
         },
     },
     // mounted() {
@@ -77,18 +77,19 @@ export default {
       axios.post( 'http://localhost:3000/sharedarticles/sharearticle',
                 {
                   sharedIdUser: currentUser.userId,
-                  idArticle: this.article.idArticles,
+                  idArticle: this.article.idArticle,
                   commentaire: this.sharedArticle.commentaire
                 },
                 {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: "Bearer " + localStorage.getItem('access_token')
                 }
               }
             ).then(() => {
               // this.$router.push('/');
               // window.location.reload();
-         console.log('ARTICLE CREATED');
+         console.log('ARTICLE PARTAGE');
         })
         .catch(function(){
           console.log('FAILURE!!');
@@ -103,6 +104,7 @@ export default {
 .article {
   display: flex;
   margin: 15% 2% 15% 2%;
+  font-size: 18px;
   h2 {
     margin: 2%;
   }
@@ -116,6 +118,7 @@ export default {
 
 img {
   max-width: 500px;
+  max-height: 500px;
 }
 
 .buttons{
@@ -126,7 +129,7 @@ button {
   appearance: none;
   outline: none;
   margin: 4%;
-  padding: 1%;
+  padding: 2%;
   display: inline-block;
   font-size: 20px;
   border-radius: 10px;
@@ -140,13 +143,32 @@ button {
   }
 }
 
+.delete{
+  appearance: none;
+  outline: none;
+  margin: 4%;
+  padding: 2%;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 10px;
+  background-image:linear-gradient(to right,  #4a1925dc, #e90b0bdc);
+  color: #fff;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: 0.4s ease-out;
+  &:hover{
+    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+  }
+}
+
 .routerlink{
   appearance: none;
   outline: none;
   margin: 4%;
-  padding: 1%;
+  padding: 2%;
   display: inline-block;
   font-size: 20px;
+  border: 2px solid black;
   border-radius: 10px;
   background-image:linear-gradient(to right, #192c4adc, #467edadc);
   color: #fff;
@@ -180,12 +202,14 @@ button {
   max-height: 430px;
   background-color: #FFF;
   border-radius: 16px;
+  border: 2px solid black;
   padding: 1%;
 }
 
 .image-modal{
 width: 100%;
 max-width: 300px;
+max-height: 200px;
 }
 
 .modal-button{
@@ -197,7 +221,11 @@ max-width: 300px;
 }
 
 .modal-text{
-  padding: 1%;
+  padding: 2%;
+}
+
+#profil{
+  padding: 2%;
 }
 
 .modal-title{
@@ -227,4 +255,32 @@ max-width: 300px;
 a {
   text-decoration: none;
 }
+
+ @media screen and (max-width: 320px){
+  .article {
+  flex-direction: column;
+  align-items: center;
+  margin: 70% 5% 15% 5%;
+    img {
+    max-width: 250px;
+    max-height: 250px;
+    }
+    .buttons{
+    justify-content: center;
+    align-items: center;
+    } 
+    button {
+    font-size: 18px;
+    }
+    .routerlink{
+    font-size: 18px;
+  }
+}
+.image-modal{
+width: 150px;
+}
+
+
+
+ }
 </style>

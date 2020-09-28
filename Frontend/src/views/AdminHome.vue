@@ -6,8 +6,8 @@
         <h3>{{ article.title }}</h3>
         <img :src="article.imageUrl" alt="">
         <div class="actions">
-          <router-link class="router-link" :to=" {name: 'Article', params: {id: article.idArticles}} ">Voir</router-link>
-          <router-link class="router-link" :to=" {name: 'EditArticle', params: {id: article.idArticles}} ">Modifier</router-link>
+          <router-link class="router-link" :to=" {name: 'Article', params: {id: article.idArticle}} ">Voir</router-link>
+          <router-link class="router-link" :to=" {name: 'EditArticle', params: {id: article.idArticle}} ">Modifier</router-link>
           <button v-on:click="deleteArticle(article)">Supprimer</button>
         </div>
       </div>
@@ -17,6 +17,7 @@
 
 <script>
 import { mapState } from 'vuex';
+
 export default {
   computed: {
     ...mapState(['articles'])
@@ -39,7 +40,8 @@ export default {
 }
 #article {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   margin: 3%;
   .actions{
@@ -47,46 +49,40 @@ export default {
     justify-content: center;
     align-items: center;
   }
-  button{
-      margin: 4%;
-      padding: 2%;
-      font-size: 20px;
-      border: 3px solid #192c4adc;
-      border-radius: 10px;
-      background-color: #192c4adc;
-      color: #FFFF;
-      cursor: pointer;
-      -webkit-transform: translate(0px, 0);
-      -webkit-transition: -webkit-transform 0.8s ease;
-      -moz-transform: translate(0px, 0);
-      -moz-transition: -moz-transform 0.8s ease;
-      transform: translate(0px, 0);
-      transition: -webkit-transform 0.8s ease;
-    } button:hover{
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        transform: scale(1.2);
-        background-color: red;
-    }
-    .router-link{
-      border: 3px solid #192c4adc;
-      font-size: 20px;
-      margin: 4%;
-      padding: 2%;
-      border-radius: 10px;
-      background-color: #192c4adc;
-      color: #FFFF;
-      cursor: pointer;
-      -webkit-transform: translate(0px, 0);
-      -webkit-transition: -webkit-transform 0.8s ease;
-      -moz-transform: translate(0px, 0);
-      -moz-transition: -moz-transform 0.8s ease;
-      transform: translate(0px, 0);
-      transition: -webkit-transform 0.8s ease;
-    } .router-link:hover{
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        transform: scale(1.2);
+  button {
+  appearance: none;
+  outline: none;
+  margin: 4%;
+  padding: 2%;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 10px;
+  background-image:linear-gradient(to right, #4a1925dc, #e90b0bdc);
+  color: #fff;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: 0.4s ease-out;
+  &:hover{
+    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+  }
+}
+  .router-link{
+  appearance: none;
+  outline: none;
+  margin: 4%;
+  padding: 2%;
+  display: inline-block;
+  font-size: 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-image:linear-gradient(to right, #192c4adc, #467edadc);
+  color: #fff;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: 0.4s ease-out;
+  &:hover{
+    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+  }
     }
   a {
     text-decoration: none;
@@ -103,4 +99,25 @@ export default {
     font-size: 30px;
     text-align: center;
   }
+@media screen and (max-width: 320px){
+#home{
+  margin-top: 60%;
+}
+#article{
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin-bottom: 10%;
+}
+h2{
+    font-size: 30px;
+}
+
+h3{
+  font-size: 25px;
+}
+
+img{
+  width: 250px;
+  }
+}
 </style>

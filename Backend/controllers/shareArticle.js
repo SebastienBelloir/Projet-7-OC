@@ -18,3 +18,13 @@ exports.sharedArticle = (req, res, next) => {
     });
   };
   
+  exports.findAllSharedArticle = (req, res) => {
+    ShareArticle.getAll((err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Une erreur est survenu lors de la recherche des articles.",
+        });
+      else res.send(data);
+    });
+  };

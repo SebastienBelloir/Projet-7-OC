@@ -1,5 +1,5 @@
 <template>
-  <nav id="nav">
+  <header>
     <figure>
       <a href="../"
         ><img
@@ -8,14 +8,26 @@
           alt="Logo Groupomania"
       /></a>
     </figure>
-    <div class="nav-list">
-      <router-link class="ul-items" v-if="loggedIn" to="/">Accueil</router-link>
-      <router-link class="ul-items" to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link>
-      <router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link>
-      <router-link class="ul-items" to="/MyProfil" v-if="loggedIn" >Mon Profil</router-link>
-      <button class="ul-items" v-if="loggedIn" v-on:click="logoutUser()">Se déconnecter</button>
+    <div id="hamburger">
+      <div id="hamburger-content">
+        <nav>
+          <ul>
+            <li> <router-link class="ul-items" v-if="loggedIn" to="/">Accueil</router-link></li>
+            <li><router-link class="ul-items" to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link></li>
+            <li><router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link></li>
+            <li><router-link class="ul-items" to="/MyProfil" v-if="loggedIn" >Mon Profil</router-link></li>
+            <button class="ul-items button" v-if="loggedIn" v-on:click="logoutUser">Se déconnecter</button>
+          </ul>
+        </nav>
+      </div>
+      <button id="hamburger-button" @click="hamburgerMenu">&#9776;</button>
+      <div id="hamburger-sidebar">
+        <div id="hamburger-sidebar-header"></div>
+        <div id="hamburger-sidebar-body"></div>
+      </div>
+      <div id="hamburger-overlay"></div>
     </div>
-  </nav>
+  </header>
 </template>
 
 <script>
@@ -34,40 +46,158 @@ export default {
   methods: {
     logoutUser() {
       this.$store.dispatch("logoutUser");
-      // 
+      },
+      hamburgerMenu() {
+        let content = document.querySelector('#hamburger-content');
+        let sidebarBody = document.querySelector('#hamburger-sidebar-body');
+        let button = document.querySelector('#hamburger-button');
+        let overlay = document.querySelector('#hamburger-overlay');
+        let activatedClass = 'hamburger-activated';
+        sidebarBody.innerHTML = content.innerHTML;
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          this.parentNode.classList.add(activatedClass);
+        })
+        overlay.addEventListener('click', function(e){
+          e.preventDefault();
+          this.parentNode.classList.remove(activatedClass);
+        })
+        button.addEventListener('keydown', function(e){
+          if (this.parentNode.classList.contains(activatedClass)){
+            if (e.repeat === false && e.which === 27)
+            this.parentNode.classList.remove(activatedClass);
+          }
+        })
       }
     },
 }
 </script>
 
 <style lang="scss" scoped>
-#nav {
+header {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: #192c4adc;
   font-size: 20px;
   width: 100%;
   position: fixed;
   top: 0;
-  width: 100%;
   z-index: 10;
-  figure {
-    float: left;
-  }
-  .nav-list{
+}
+  ul{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    list-style: none;
+    li{
+      margin-right: 20px;
+      a{
+        text-decoration: none;
+        color: white;
+      }
+    }
   }
+#hamburger, #hamburger-content{
+  display: inline;
+}
 
+#hamburger-button{
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 35px;
+  padding: 0;
+  vertical-align: top;
+  line-height: 47px;
+  margin-right: 32px;
+  // float: right;
+}
+
+#hamburger-overlay{
+  display: none;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .4);
+}
+
+#hamburger-sidebar{
+  display: none;
+  position: fixed;
+  width: 80%;
+  z-index: 20;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #192c4adc;
+  transform: translateX(-100%);
+  transition: transform .2s ease-out;
+}
+
+#hamburger-sidebar li {
+  display: block;
+}
+
+#hamburger-sidebar-body{
+  padding: 16px 8px;
+}
+
+#hamburger-sidebar-body .button{
+  display: block;
 }
 button{
         background-color: #dd1d1dc4;
         font-size: 20px;
         padding: 1%;
+        margin-right: 10px;
         color: #FFF;
         border-radius: 10px;
         cursor: pointer;
     }
+@media screen and (max-width: 1024px){
+h1{
+font-size: 42px;
+line-height: 56px;
+}
+
+ul {
+  display: none;
+}
+#hamburger-content{
+  display: none;
+}
+#hamburger-button, #hamburger-sidebar, .hamburger-activated #hamburger-overlay{
+  display: block;
+}
+.hamburger-activated #hamburger-sidebar {
+  transform: translateX(0);
+}
+
+.hamburger-activated #hamburger-sidebar ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hamburger-activated #hamburger-sidebar li{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+figure {
+  
+    img{
+      margin: auto;
+      width: 150px;
+    }
+  }
+  
+  }
 </style>
