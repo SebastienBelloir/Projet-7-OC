@@ -175,7 +175,27 @@ form {
 #heading{
     margin-top: 10%;
   }
-@media screen and (max-width: 320px){
+@media screen and (max-width: 1024px){
+#heading{
+    margin-top: 20%;
+    font-size: 20px;
+  }
+form{
+  label {
+    font-size: 30px;
+  }
+  }
+.button{
+  font-size: 24px;
+}
+}
+@media screen and (max-width: 768px){
+#heading{
+    margin-top: 30%;
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 375px){
 #heading{
     margin-top: 60%;
     font-size: 16px;
@@ -186,23 +206,7 @@ form {
     font-size: 20px;
   }
   }
-  .button{
-  appearance: none;
-  outline: none;
-  margin: 4%;
-  padding: 1%;
-  display: inline-block;
-  font-size: 18px;
-  border-radius: 10px;
-  background-image:linear-gradient(to right, #192c4adc, #467edadc);
-  color: #fff;
-  box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
-  cursor: pointer;
-  transition: 0.4s ease-out;
-  &:hover{
-    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
-  }
-}
+  
 }
 
 </style>

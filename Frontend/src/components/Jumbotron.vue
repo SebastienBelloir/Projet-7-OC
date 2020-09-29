@@ -32,14 +32,37 @@
         cursor: pointer;
     }
 }
-@media screen and (max-width: 320px){
+@media screen and (max-width: 1024px){
+#jumbotron{
+        margin: 40% 5% 2% 5%;
+        h1{
+        font-size: 60px;
+    }
+    p{
+        font-size: 25px;
+    }
+        }
+}
+
+@media screen and (max-width: 768px){
+#jumbotron{
+        margin: 30% 5% 2% 5%;
+        h1{
+        font-size: 40px;
+    }
+    p{
+        font-size: 20px;
+    }
+        }
+}
+@media screen and (max-width: 375px){
     #jumbotron{
         margin: 80% 5% 2% 5%;
     h1{
         font-size: 30px;
     }
     p{
-        font-size: 16px;
+        font-size: 18px;
     }
     button{
         font-size: 20px;

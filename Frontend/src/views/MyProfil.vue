@@ -1,41 +1,42 @@
 <template>
-    <div id="wrapper">
-        <div id="aboutme" v-if="loggedIn">
-        <h2>Mes informations personnelles</h2>
-        <p>Nom : {{currentUser.nom}} </p>
-        <p>Prénom : {{currentUser.prenom}} </p>
-        <p>Adresse Email : {{currentUser.email}} </p>
-        <button v-on:click="deleteAccount">Supprimer mon compte</button>
-        </div>  
-        <div id="second-wrapper" v-if="loggedIn">
-            <div id="shared-articles">
-                <h3>Articles que vous avez partagé</h3>
-                <div v-for="sharedarticle in sharedArticles" :key="sharedarticle.idArticle">
-                    <div v-for="article in articles" :key="article.idArticle">
-                    <div v-if="sharedarticle.sharedIdUser === currentUser.userId && sharedarticle.idArticle === article.idArticle">
-                        <router-link class="solo-article"
-          :to="{ name: 'Article', params: { id: article.idArticle } }">{{ article.title }}, {{ sharedarticle.datetime}}
-          <img :src="article.imageUrl" alt="">
-          </router-link>
+    <div id="main-wrapper">
+        <div id="background">
+            <div id="aboutme">
+                <h2>Mes informations personnelles</h2>
+                    <p>Nom : {{currentUser.nom}} </p>
+                    <p>Prénom : {{currentUser.prenom}} </p>
+                    <p>Adresse Email : {{currentUser.email}} </p>
+                    <button v-on:click="deleteAccount">Supprimer mon compte</button>
+            </div>  
+            <div id="second-wrapper">
+                <div id="shared-articles">
+                    <h3>Articles que vous avez partagé</h3>
+                        <div v-for="sharedarticle in sharedArticles" :key="sharedarticle.idArticle">
+                            <div v-for="article in articles" :key="article.idArticle">
+                                <div v-if="sharedarticle.sharedIdUser === currentUser.userId && sharedarticle.idArticle === article.idArticle">
+                                    <router-link class="solo-article"
+                                    :to="{ name: 'Article', params: { id: article.idArticle } }">{{ article.title }}, {{ sharedarticle.datetime}}
+                                    <img :src="article.imageUrl" alt="">
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="published-articles">
-                <h3 >Articles que vous avez publié</h3>
-                <div v-for="article in articles" :key="article.idArticle">
-                    <div v-if="article.auteur_id === currentUser.userId"><router-link class="solo-article"
-          :to="{ name: 'Article', params: { id: article.idArticle } }">{{ article.title }}, {{ article.datetime }}
-          <img :src="article.imageUrl" alt="">
-          </router-link>
+                <div id="published-articles">
+                    <h3 >Articles que vous avez publié</h3>
+                        <div v-for="article in articles" :key="article.idArticle">
+                            <div v-if="article.auteur_id === currentUser.userId">
+                                <router-link class="solo-article"
+                                :to="{ name: 'Article', params: { id: article.idArticle } }">{{ article.title }}, {{ article.datetime }}
+                                <img :src="article.imageUrl" alt="">
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                </div>
+                <Footer />
             </div>
         </div>
-        <div class="footer">
-        <Footer />
-        </div>
-    </div>
 </template>
 
 <script>
@@ -48,10 +49,7 @@ export default {
             Footer,
     },
     computed: {
-        ...mapState(["currentUser", "articles", "sharedArticles"]),
-        loggedIn() {
-      return this.$store.getters.loggedIn
-    }      
+        ...mapState(["currentUser", "articles", "sharedArticles"]),     
     },
     methods: {
     deleteAccount(){
@@ -71,22 +69,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#wrapper{
-    margin-top: 10%;
+#main-wrapper{
+    padding-top: 9%;
     background-color: rgba(235, 235, 235, 0.411);
-    #aboutme{
+}
+#aboutme{
         text-align: center;
         border: 2px solid black;
         margin: 1%;
         background-color: #FFF;
     }
-}
-
 button {
   appearance: none;
   outline: none;
   margin: 2%;
-  padding: 2%;
+  padding: 1%;
   display: inline-block;
   font-size: 20px;
   border-radius: 10px;
@@ -144,11 +141,57 @@ h3{
     text-decoration: underline;
     text-align: center;
   }
+@media screen and (max-width: 1024px){
+#main-wrapper{
+    padding-top: 25%;
+    padding-bottom: 20%;
+}
 
-@media screen and (max-width: 320px){
-#wrapper{
-    margin-top: 50%;
-    margin-bottom: 40%;
+#second-wrapper {
+    flex-direction: column;
+}
+img{
+    max-width: 500px;
+}
+.solo-article{
+    align-items: center;
+    font-size: 24px;
+}
+h2{
+    font-size: 30px;
+}
+h3{
+    font-size: 30px;
+}
+p{
+    font-size: 24px;
+}
+}
+@media screen and (max-width: 768px){
+#main-wrapper{
+    padding-top: 25%;
+    padding-bottom:20%;
+}
+
+#second-wrapper {
+    flex-direction: column;
+}
+img{
+    max-width: 400px;
+}
+.solo-article{
+    align-items: center;
+    font-size: 20px;
+}
+
+p{
+    font-size: 20px;
+}
+}
+@media screen and (max-width: 375px){
+#main-wrapper{
+    padding-top: 45%;
+    padding-bottom:40%;
 }
 button{
     font-size: 18px;
@@ -161,6 +204,16 @@ img{
 }
 .solo-article{
     align-items: center;
+    font-size: 18px;
+}
+h2{
+    font-size: 18px;
+}
+h3{
+    font-size: 18px;
+}
+p{
+    font-size: 18px;
 }
 
 }

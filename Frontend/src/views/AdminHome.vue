@@ -55,7 +55,7 @@ export default {
   margin: 4%;
   padding: 2%;
   display: inline-block;
-  font-size: 20px;
+  font-size: 25px;
   border-radius: 10px;
   background-image:linear-gradient(to right, #4a1925dc, #e90b0bdc);
   color: #fff;
@@ -72,7 +72,7 @@ export default {
   margin: 4%;
   padding: 2%;
   display: inline-block;
-  font-size: 20px;
+  font-size: 25px;
   border: 2px solid black;
   border-radius: 10px;
   background-image:linear-gradient(to right, #192c4adc, #467edadc);
@@ -90,6 +90,7 @@ export default {
   }
   img{
    max-width: 500px;
+   max-height: 300px;
   }
 }
   h2{
@@ -99,7 +100,38 @@ export default {
     font-size: 30px;
     text-align: center;
   }
-@media screen and (max-width: 320px){
+@media screen and (max-width: 1024px){
+#home{
+  margin-top: 20%;
+}
+#article{
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin-bottom: 10%;
+}
+h2{
+    font-size: 50px;
+}
+
+h3{
+  font-size: 35px;
+}
+
+img{
+  max-width: 600px;
+  }
+}
+@media screen and (max-width: 768px){
+#home{
+  margin-top: 20%;
+}
+#article{
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin-bottom: 10%;
+}
+}
+@media screen and (max-width: 375px){
 #home{
   margin-top: 60%;
 }

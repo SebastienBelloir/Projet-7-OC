@@ -110,7 +110,7 @@ export default new Vuex.Store({
         const responseOne = responses[0].data;
         const responseTwo = responses[1].data;
         const joinArrays = responseOne.concat(responseTwo)
-        console.log(responses)
+        console.log(responseOne, responseTwo)
         commit('SET_ALLARTICLES', joinArrays);
       }))
     },

@@ -5,6 +5,7 @@
     <SignIn v-if="!loggedIn"/>
     </div>
     <div id="layout">
+    <div>
     <h2 v-if="loggedIn">Fil d'actualité</h2>
     <div id="articles" v-if="loggedIn" >
       <div class="card" v-for="eachArticle in allArticles" :key="eachArticle.idArticle">
@@ -16,13 +17,16 @@
             <router-link class="author" :to="{ name: 'MyProfil', params: { id: user.idUser } }">{{ user.prenom }} {{ user.nom }}</router-link>
           <span class="datetime">{{ eachArticle.datetime }}</span></div>
         </div>
+        <div id="image-container">
           <img :src="eachArticle.imageUrl" alt="">
+          </div>
         </div>
           <h3 class="title">{{ eachArticle.title }}</h3>
         <div class="description">
           {{ eachArticle.description }}
         </div>
         </router-link>
+        </div>
       </div>
     </div>
     </div>
@@ -73,6 +77,8 @@ body{
 }
 #layout{
   background-color: rgba(235, 235, 235, 0.411);
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
   #articles {
     display: flex;
@@ -84,6 +90,7 @@ body{
     .card{
   appearance: none;
   outline: none;
+  width: 90%;
   margin: 4%;
   padding: 1%;
   display: inline-block;
@@ -97,7 +104,13 @@ body{
   transition: 0.4s ease-out;
   &:hover{
     box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
-    transform: scale(1.02);
+    transform: scale(1.01);
+  }
+  #image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
   }
       img{
         max-width: 500px;
@@ -117,7 +130,6 @@ body{
       flex-wrap: wrap;
     }
   h2 {
-    margin-top: 5%;
     margin-block-start: 0%;
     margin-block-end: 0%;
     font-size: 40px;
@@ -132,25 +144,45 @@ body{
     color: #192c4adc;
   }
 
-  @media screen and (max-width: 320px){
+@media screen and (max-width: 1024px){
+#articles{
+   margin: 1% 10% 1% 10%;
+.card{
+  font-size: 24px;
+  width: 650px;
+}
+}
+}
+@media screen and (max-width: 768px){
+#articles {
+  .card{
+  padding: 1%;
+  font-size: 18px;
+  width: 450px;
+img{
+        max-width: 250px;
+        max-height: 250px;
+      }
+    }
+  }
+}  
+@media screen and (max-width: 375px){
  #articles {
-    margin: 1% 5% 4% 5%;
+    margin: 10px 10px 10px 10px;
+    max-width: 350px;
     .card{
   padding: 2%;
   font-size: 16px;
+  max-width: 250px;
   &:hover{
     transform: scale(1.0);
   }
       img{
-        max-width: 250px;
+        max-width: 200px;
         max-height: 250px;
       }
       
     }
-    .author{
-      color: #3c77d6;
-    }
-    
   h3 {
     font-size: 20px;
     text-align: center;

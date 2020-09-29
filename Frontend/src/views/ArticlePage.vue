@@ -255,15 +255,53 @@ max-height: 200px;
 a {
   text-decoration: none;
 }
-
- @media screen and (max-width: 320px){
-  .article {
+@media screen and (max-width: 1024px){
+h2 {
+    font-size: 40px;
+  }
+#description {
+  font-size: 30px;
+}
+#content {
+  font-size: 25px;
+}
+button, .delete, .routerlink{
+  font-size: 25px;
+}
+.shared-article{
+  margin: 15px;
+  font-size: 25px;
+}
+textarea{
+  margin: 20px;
+  font-size: 20px;
+}
+.image-modal{
+max-width: 300px;
+}
+.modal-button{
+  margin: 0px 15px 50px 0px;
+}
+.modal{
+  max-width: 1000px;
+  max-height: 600px;
+  background-color: #FFF;
+  border-radius: 16px;
+  border: 2px solid black;
+  padding: 1%;
+}
+#profil{
+  font-size: 25px;
+}
+} 
+@media screen and (max-width: 768px){
+.article {
   flex-direction: column;
   align-items: center;
-  margin: 70% 5% 15% 5%;
+  margin: 20% 5% 15% 5%;
     img {
-    max-width: 250px;
-    max-height: 250px;
+    max-width: 350px;
+    max-height: 350px;
     }
     .buttons{
     justify-content: center;
@@ -276,11 +314,30 @@ a {
     font-size: 18px;
   }
 }
+.shared-article{
+  margin: 10px;
+}
+textarea{
+  margin: 10px;
+}
+.image-modal{
+width: 200px;
+}
+.modal-button{
+  margin: 0px 15px 0px 0px;
+}
+
+}
+@media screen and (max-width: 375px){
+  .article {
+  margin: 70% 5% 15% 5%;
+    img {
+    max-width: 250px;
+    max-height: 250px;
+    }
+}
 .image-modal{
 width: 150px;
 }
-
-
-
- }
+}
 </style>

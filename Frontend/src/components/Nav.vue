@@ -160,16 +160,18 @@ button{
         cursor: pointer;
     }
 @media screen and (max-width: 1024px){
-h1{
-font-size: 42px;
-line-height: 56px;
-}
+header{
+  font-size: 30px;
+} 
 
 ul {
   display: none;
 }
 #hamburger-content{
   display: none;
+}
+#hamburger-button{
+  font-size: 40px;
 }
 #hamburger-button, #hamburger-sidebar, .hamburger-activated #hamburger-overlay{
   display: block;
@@ -190,12 +192,36 @@ ul {
   margin-top: 15px;
   margin-bottom: 15px;
 }
-
 figure {
-  
     img{
       margin: auto;
-      width: 150px;
+      width: 270px;
+    }
+  }
+button{
+    font-size: 30px;   
+    }
+}
+@media screen and (max-width: 768px){
+header{
+  font-size: 25px;
+}
+button{
+    font-size: 25px;   
+    }
+}
+@media screen and (max-width: 375px){
+h1{
+font-size: 42px;
+line-height: 56px;
+}
+#hamburger-button{
+  font-size: 30px;
+}
+figure {
+    img{
+      margin: auto;
+      width: 180px;
     }
   }
   

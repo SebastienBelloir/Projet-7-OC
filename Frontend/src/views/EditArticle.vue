@@ -164,8 +164,69 @@ export default {
 img{
         max-width: 500px;
       }
-
-@media screen and (max-width: 320px){
+@media screen and (max-width: 1024px){
+.grid-container {
+  margin-top: 15%;
+  display: flex;
+  flex-direction: column;
+}
+.Actual-Article { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+    label{
+      font-size: 24px;
+    }
+}
+.Modified-article { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+    textarea{
+      margin: 1%;
+      width: 80%;
+      font-size: 20px;
+    }
+    label{
+      font-size: 24px;
+    }
+    input{
+      width: auto;
+      font-size: 22px;
+    }
+}
+img{
+  max-width: 550px;
+  max-height: 550px;
+}
+}
+@media screen and (max-width: 768px){
+.Actual-Article { 
+    font-size: 20px;
+    label{
+      font-size: 20px;
+    }
+}
+.Modified-article { 
+    font-size: 20px;
+    textarea{
+      font-size: 20px;
+    }
+    label{
+      font-size: 20px;
+    }
+    input{
+      font-size: 20px;
+    }
+}
+img{
+  max-width: 450px;
+  max-height: 450px;
+}
+}
+@media screen and (max-width: 375px){
   .grid-container {
   margin-top: 60%;
   display: flex;
