@@ -68,8 +68,8 @@ export default {
             let response = confirm(`Etes vous certains de vouloir supprimer l'article "${article.title}" ?`);
             if (response){
                 this.$store.dispatch("deleteArticle", article);
-                this.$router.push('/');
-                window.location.reload();
+                // this.$router.push('/');
+                // window.location.reload();
             }
         },
         shareArticle() {
@@ -100,19 +100,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .article {
   display: flex;
   margin: 15% 2% 15% 2%;
   font-size: 18px;
   h2 {
     margin: 2%;
+    font-size: 35px;
   }
 #description {
   margin: 5%;
+  font-size: 30px;
 }
 #content {
   margin: 5%;
+  font-size: 30px;
 }
 }
 
@@ -131,7 +133,7 @@ button {
   margin: 4%;
   padding: 2%;
   display: inline-block;
-  font-size: 20px;
+  font-size: 30px;
   border-radius: 10px;
   background-image:linear-gradient(to right, #192c4adc, #467edadc);
   color: #fff;
@@ -149,7 +151,7 @@ button {
   margin: 4%;
   padding: 2%;
   display: inline-block;
-  font-size: 20px;
+  font-size: 30px;
   border-radius: 10px;
   background-image:linear-gradient(to right,  #4a1925dc, #e90b0bdc);
   color: #fff;
@@ -167,7 +169,7 @@ button {
   margin: 4%;
   padding: 2%;
   display: inline-block;
-  font-size: 20px;
+  font-size: 30px;
   border: 2px solid black;
   border-radius: 10px;
   background-image:linear-gradient(to right, #192c4adc, #467edadc);
@@ -214,6 +216,7 @@ max-height: 200px;
 
 .modal-button{
   float: right;
+  margin: -20px 0px -20px -10px;
 }
 
 .modal-content{
@@ -310,6 +313,15 @@ max-width: 300px;
     button {
     font-size: 18px;
     }
+h2 {
+    font-size: 35px;
+  }
+#description {
+  font-size: 30px;
+}
+#content {
+  font-size: 25px;
+}
     .routerlink{
     font-size: 18px;
   }
@@ -326,7 +338,6 @@ width: 200px;
 .modal-button{
   margin: 0px 15px 0px 0px;
 }
-
 }
 @media screen and (max-width: 375px){
   .article {
@@ -335,6 +346,15 @@ width: 200px;
     max-width: 250px;
     max-height: 250px;
     }
+h2 {
+    font-size: 25px;
+  }
+#description {
+  font-size: 20px;
+}
+#content {
+  font-size: 20px;
+}
 }
 .image-modal{
 width: 150px;

@@ -13,7 +13,7 @@
     max-width: 100%;
     margin: 16% 10% 5% 10%;
     padding: 2% 5%;
-    background-color: rgb(235, 235, 235);
+    background-color: rgb(240, 240, 240);
     border: 2px solid #dd1d1dc4;
     box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
     h1{
@@ -34,7 +34,7 @@
 }
 @media screen and (max-width: 1024px){
 #jumbotron{
-        margin: 40% 5% 2% 5%;
+        margin: 20% 5% 2% 5%;
         h1{
         font-size: 60px;
     }

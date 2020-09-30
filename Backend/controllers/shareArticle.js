@@ -27,4 +27,22 @@ exports.sharedArticle = (req, res, next) => {
         });
       else res.send(data);
     });
-  };
+};
+  
+exports.deleteSharedArticle = (req, res) => {
+  ShareArticle.delete(req.params.idArticle, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Article avec id ${req.params.idArticle} non trouvé.`,
+        });
+      } else {
+        res.status(500).send({
+          message:
+            "Problème lors de la suppression de l'article avec l'id " +
+            req.params.idArticle,
+        });
+      }
+    } else res.send({ message: `L'article a été supprimé.` });
+  });
+};

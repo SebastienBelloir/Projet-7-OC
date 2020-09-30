@@ -15,7 +15,7 @@
                             <div v-for="article in articles" :key="article.idArticle">
                                 <div v-if="sharedarticle.sharedIdUser === currentUser.userId && sharedarticle.idArticle === article.idArticle">
                                     <router-link class="solo-article"
-                                    :to="{ name: 'Article', params: { id: article.idArticle } }">{{ article.title }}, {{ sharedarticle.datetime}}
+                                    :to="{ name: 'Article', params: { id: article.idArticle } }">{{ article.title }}, {{ sharedarticle.datetime | formatDate}}
                                     <img :src="article.imageUrl" alt="">
                                 </router-link>
                             </div>
@@ -27,7 +27,7 @@
                         <div v-for="article in articles" :key="article.idArticle">
                             <div v-if="article.auteur_id === currentUser.userId">
                                 <router-link class="solo-article"
-                                :to="{ name: 'Article', params: { id: article.idArticle } }">{{ article.title }}, {{ article.datetime }}
+                                :to="{ name: 'Article', params: { id: article.idArticle } }">{{ article.title }}, {{ article.datetime | formatDate}}
                                 <img :src="article.imageUrl" alt="">
                                 </router-link>
                             </div>
@@ -144,7 +144,7 @@ h3{
 @media screen and (max-width: 1024px){
 #main-wrapper{
     padding-top: 25%;
-    padding-bottom: 20%;
+    
 }
 
 #second-wrapper {
@@ -170,7 +170,6 @@ p{
 @media screen and (max-width: 768px){
 #main-wrapper{
     padding-top: 25%;
-    padding-bottom:20%;
 }
 
 #second-wrapper {
@@ -191,7 +190,6 @@ p{
 @media screen and (max-width: 375px){
 #main-wrapper{
     padding-top: 45%;
-    padding-bottom:40%;
 }
 button{
     font-size: 18px;

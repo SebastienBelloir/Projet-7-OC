@@ -5,7 +5,7 @@
         <h2>Connexion</h2>
         <input type="email" placeholder="Email" v-model="userInfo.email" required/>
         <input type="password" placeholder="Votre mot de passe" v-model="userInfo.password"  required/>
-        <a href="#">Mot de passe oublié ?</a><br>
+        <a href="#">Mot de passe oublié ?</a><br><br>
         <a href="#" @click="showRegisterForm">Créer un compte</a>
         <button v-on:click="login" >Valider</button>
       </form>
@@ -113,7 +113,7 @@ body{
 a{
   text-decoration: none;
   color: white;
-  font-size: 20px;
+  font-size: 25px;
   &:hover{
     color: #dd1d1dc4;
   }
@@ -232,6 +232,7 @@ p {
 #firstBox a {
   color: white;
   text-decoration: none;
+  padding-top: 10px;
   font-size: 20px;
 }
 

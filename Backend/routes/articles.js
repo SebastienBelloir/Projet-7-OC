@@ -5,10 +5,10 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
  
 router.post('/createArticle', auth, multer, articleCtrl.createArticle);
-router.put('/modify/:idArticles', auth,  multer, articleCtrl.modifyArticle);
-router.get('/find/:idArticles', auth, articleCtrl.findOne);
+router.put('/modify/:idArticle', auth,  multer, articleCtrl.modifyArticle);
+router.get('/find/:idArticle', auth, articleCtrl.findOne);
 router.get('/', auth, articleCtrl.findAll);
-router.delete('/delete/:idArticles', auth, articleCtrl.deleteArticle);
+router.delete('/delete/:idArticle', auth, articleCtrl.deleteArticle);
 
 
 module.exports = router

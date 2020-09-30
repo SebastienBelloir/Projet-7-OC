@@ -12,9 +12,9 @@ export default new Vuex.Store({
     articles: [],
     sharedArticles: [],
     allArticles: [],
+    users: [],
     currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
     isAdmin: localStorage.getItem('isAdmin'),
-    users: [],
     },
 
   getters: {
@@ -92,7 +92,8 @@ export default new Vuex.Store({
           reject(error);
       })
     })
-  },
+    },
+
   async loadArticles({commit}){
     let response = await API().get("/articles");
     commit('SET_ARTICLES', response.data);
@@ -115,13 +116,13 @@ export default new Vuex.Store({
       }))
     },
   async deleteArticle({commit}, article){
-      let response = await API().delete(`/articles/delete/${article.idArticles}`);
+      let response = await API().delete(`/articles/delete/${article.idArticle}`);
       if(response.status == 200 || response.status == 204){
-      commit('DELETE_ARTICLE', article.idArticles)
+      commit('DELETE_ARTICLE', article.idArticle)
       } 
     },
     async editArticle({commit}, article){
-      let response = await API().put(`/articles/modify/${article.idArticles}`, article);
+      let response = await API().put(`/articles/modify/${article.idArticle}`, article);
       let newArticle = response.data;
       commit('EDIT_ARTICLE', newArticle);
       return newArticle;

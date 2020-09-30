@@ -139,6 +139,12 @@ img{
   flex-direction: column;
   flex-wrap: nowrap;
   margin-bottom: 10%;
+.router-link{
+  font-size: 20px;
+}
+button{
+  font-size: 20px;
+}
 }
 h2{
     font-size: 30px;

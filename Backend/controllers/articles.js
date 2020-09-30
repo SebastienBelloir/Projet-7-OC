@@ -28,17 +28,17 @@ exports.modifyArticle = (req, res) => {
     });
   }
 
-  Article.modify(req.params.idArticles, new Article(req.body), (err, data) => {
+  Article.modify(req.params.idArticle, new Article(req.body), (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Article avec id ${req.params.idArticles} non trouvé.`,
+          message: `Article avec id ${req.params.idArticle} non trouvé.`,
         });
       } else {
         res.status(500).send({
           message:
             "Problème lors de la modification de l'article avec l'id " +
-            req.params.idArticles,
+            req.params.idArticle,
         });
       }
     } else res.send(data);
@@ -57,15 +57,15 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-  Article.findById(req.params.idArticles, (err, data) => {
+  Article.findById(req.params.idArticle, (err, data) => {
     if (err) {
       if (err.kind === "non_trouvé") {
         res.status(404).send({
-          message: `Article ayant pour id :  ${req.params.idArticles} non trouvé".`
+          message: `Article ayant pour id :  ${req.params.idArticle} non trouvé".`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Customer with id " + req.params.idArticles
+          message: "Error retrieving Customer with id " + req.params.idArticle
         });
       }
     } else res.send(data);
@@ -73,17 +73,17 @@ exports.findOne = (req, res) => {
 };
 
 exports.deleteArticle = (req, res) => {
-  Article.delete(req.params.idArticles, (err, data) => {
+  Article.delete(req.params.idArticle, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Article avec id ${req.params.idArticles} non trouvé.`,
+          message: `Article avec id ${req.params.idArticle} non trouvé.`,
         });
       } else {
         res.status(500).send({
           message:
             "Problème lors de la suppression de l'article avec l'id " +
-            req.params.idArticles,
+            req.params.idArticle,
         });
       }
     } else res.send({ message: `L'article a été supprimé.` });

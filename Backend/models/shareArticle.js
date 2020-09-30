@@ -33,4 +33,27 @@ const ShareArticle = function(sharedArticle) {
     });
   };
 
+
+  ShareArticle.delete = (idArticle, callback) => {
+    mysqlConnection.query(
+      "DELETE FROM share WHERE idArticle = ?",
+      idArticle,
+      (err, res) => {
+        if (err) {
+          console.log("erreur : ", err);
+          callback(null, err);
+          return;
+        }
+
+        if (res.affectedRows == 0) {
+          callback({ kind: "non_trouvé" }, null);
+          return;
+        }
+
+        console.log("Suppression de l'article ayant pour id: ", idArticle);
+        callback(null, res);
+      }
+    );
+  };
+   
   module.exports = ShareArticle; 

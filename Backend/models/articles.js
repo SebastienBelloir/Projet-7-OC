@@ -21,10 +21,10 @@ const Article = function(article) {
   };
 
 
-  Article.modify = (idArticles, article, callback) => {
+  Article.modify = (idArticle, article, callback) => {
     mysqlConnection.query(
-      "UPDATE articles SET title = ?, description = ?, contenu = ?, datetime = NOW(), auteur_id = ? WHERE idArticles = ?",
-      [article.title, article.description, article.contenu, article.auteur, idArticles],
+      "UPDATE articles SET title = ?, description = ?, contenu = ?, datetime = NOW(), auteur_id = ? WHERE idArticle = ?",
+      [article.title, article.description, article.contenu, article.auteur, idArticle],
       (err, res) => {
         if (err) {
           console.log("erreur: ", err);
@@ -37,8 +37,8 @@ const Article = function(article) {
           return;
         }
   
-        console.log("Article modifié: ", { id: idArticles, ...article });
-        callback(null, { id: idArticles, ...article });
+        console.log("Article modifié: ", { id: idArticle, ...article });
+        callback(null, { id: idArticle, ...article });
       }
     );
   };
@@ -56,8 +56,8 @@ const Article = function(article) {
     });
   };
 
-  Article.findById = (idArticles, callback) => {
-    mysqlConnection.query(`SELECT * FROM articles WHERE idArticles = ${idArticles}`, (err, res) => {
+  Article.findById = (idArticle, callback) => {
+    mysqlConnection.query(`SELECT * FROM articles WHERE idArticle = ${idArticle}`, (err, res) => {
       if (err) {
         console.log("erreur: ", err);
         callback(err, null);
@@ -74,8 +74,8 @@ const Article = function(article) {
     });
   };
 
-  Article.delete = (id, callback) => {
-    mysqlConnection.query("DELETE FROM articles WHERE idArticles = ?", id, (err, res) => {
+  Article.delete = (idArticle, callback) => {
+    mysqlConnection.query("DELETE FROM articles WHERE idArticle = ?", idArticle, (err, res) => {
       if (err) {
         console.log("erreur : ", err);
         callback(null, err);
@@ -87,7 +87,7 @@ const Article = function(article) {
         return;
       }
   
-      console.log("Suppression de l'article ayant pour id: ", id);
+      console.log("Suppression de l'article ayant pour id: ", idArticle);
       callback(null, res);
     });
   };

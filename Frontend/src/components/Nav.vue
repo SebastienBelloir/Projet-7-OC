@@ -16,14 +16,23 @@
             <li><router-link class="ul-items" to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link></li>
             <li><router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link></li>
             <li><router-link class="ul-items" to="/MyProfil" v-if="loggedIn" >Mon Profil</router-link></li>
-            <button class="ul-items button" v-if="loggedIn" v-on:click="logoutUser">Se déconnecter</button>
+            <button id="logoutButton" v-if="loggedIn" v-on:click="logoutUser">Se déconnecter</button>
           </ul>
         </nav>
       </div>
       <button id="hamburger-button" @click="hamburgerMenu">&#9776;</button>
       <div id="hamburger-sidebar">
-        <div id="hamburger-sidebar-header"></div>
-        <div id="hamburger-sidebar-body"></div>
+        <div id="hamburger-sidebar-body">
+        <nav>
+          <ul>
+            <li> <router-link class="ul-items" v-if="loggedIn" to="/">Accueil</router-link></li>
+            <li><router-link class="ul-items" to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link></li>
+            <li><router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link></li>
+            <li><router-link class="ul-items" to="/MyProfil" v-if="loggedIn" >Mon Profil</router-link></li>
+            <button id="logoutButton" v-if="loggedIn" v-on:click="logoutUser">Se déconnecter</button>
+          </ul>
+        </nav>
+        </div>
       </div>
       <div id="hamburger-overlay"></div>
     </div>
@@ -48,25 +57,18 @@ export default {
       this.$store.dispatch("logoutUser");
       },
       hamburgerMenu() {
-        let content = document.querySelector('#hamburger-content');
         let sidebarBody = document.querySelector('#hamburger-sidebar-body');
         let button = document.querySelector('#hamburger-button');
         let overlay = document.querySelector('#hamburger-overlay');
         let activatedClass = 'hamburger-activated';
-        sidebarBody.innerHTML = content.innerHTML;
         button.addEventListener('click', function(e) {
           e.preventDefault();
           this.parentNode.classList.add(activatedClass);
+          sidebarBody.style.display = "block";
         })
         overlay.addEventListener('click', function(e){
           e.preventDefault();
           this.parentNode.classList.remove(activatedClass);
-        })
-        button.addEventListener('keydown', function(e){
-          if (this.parentNode.classList.contains(activatedClass)){
-            if (e.repeat === false && e.which === 27)
-            this.parentNode.classList.remove(activatedClass);
-          }
         })
       }
     },
@@ -92,6 +94,7 @@ header {
     list-style: none;
     li{
       margin-right: 20px;
+      margin-left: 20px;
       a{
         text-decoration: none;
         color: white;
