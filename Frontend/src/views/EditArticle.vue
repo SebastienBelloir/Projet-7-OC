@@ -226,9 +226,18 @@ img{
   max-height: 450px;
 }
 }
+@media screen and (max-width: 425px){
+.grid-container {
+  margin-top: 25%;
+}
+img{
+  max-width: 250px;
+  max-height: 250px;
+}
+}
 @media screen and (max-width: 375px){
   .grid-container {
-  margin-top: 60%;
+  margin-top: 40%;
   display: flex;
   flex-direction: column;
 }

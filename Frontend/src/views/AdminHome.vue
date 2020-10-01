@@ -131,6 +131,29 @@ img{
   margin-bottom: 10%;
 }
 }
+@media screen and (max-width: 425px){
+#home{
+  margin-top: 40%;
+}
+img{
+  width: 300px;
+  }
+h2{
+    font-size: 25px;
+}
+
+h3{
+  font-size: 20px;
+}
+#article{
+.router-link{
+  font-size: 20px;
+}
+button{
+  font-size: 20px;
+}
+}
+}
 @media screen and (max-width: 375px){
 #home{
   margin-top: 60%;

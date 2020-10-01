@@ -92,6 +92,7 @@ header {
     justify-content: space-between;
     align-items: center;
     list-style: none;
+    white-space: nowrap;
     li{
       margin-right: 20px;
       margin-left: 20px;
@@ -189,6 +190,7 @@ ul {
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin-right: 30px;
 }
 
 .hamburger-activated #hamburger-sidebar li{

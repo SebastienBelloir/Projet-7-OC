@@ -78,6 +78,7 @@ export default {
         border: 2px solid black;
         margin: 1%;
         background-color: #FFF;
+        font-size: 20px;
     }
 button {
   appearance: none;
@@ -108,6 +109,7 @@ img{
     margin: 3%;
     padding: 5%;
     border-bottom: 2px solid black;
+    font-size: 20px;
     
 }
 #shared-articles{

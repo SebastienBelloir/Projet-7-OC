@@ -41,6 +41,10 @@ export default new Vuex.Store({
       state.articles = articles;
       state.file = file;
     },
+    DELETE_SHAREDARTICLE(state, sharedIdArticles) {
+      let articles = state.articles.filter(a => a.id != sharedIdArticles)
+      state.articles = articles;
+    },
     DELETE_ARTICLE(state, idArticles) {
       let articles = state.articles.filter(a => a.id != idArticles)
       state.articles = articles;
@@ -110,8 +114,24 @@ export default new Vuex.Store({
       axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
         const responseOne = responses[0].data;
         const responseTwo = responses[1].data;
-        const joinArrays = responseOne.concat(responseTwo)
-        console.log(responseOne, responseTwo)
+        const sharedArticle = [];
+        responseOne.forEach(article => {
+          let realArticles = responseTwo.map(obj => ({...obj}));
+          let realArticle = realArticles.find(el => el.idArticle === article.idArticle);
+          let realComments = responseOne.map(obj => ({...obj}));
+          let realComment = realComments.find(el => el.commentaire === article.commentaire)
+          // realArticle.idArticle = `${article.idArticle}-${article.sharedIdUser}`;
+          realArticle.shared = true;
+          realArticle.sharedDateTime = article.datetime;
+          realArticle.commentaire = article.commentaire;
+          console.log(realComment)
+          sharedArticle.push(realArticle);
+        })
+        const joinArrays = responseTwo.concat(sharedArticle);
+        joinArrays.sort(function(a,b) {
+          return new Date(b.sharedDateTime || b.datetime) - new Date(a.sharedDateTime || a.datetime)
+        })
+        console.log(joinArrays)
         commit('SET_ALLARTICLES', joinArrays);
       }))
     },
@@ -119,6 +139,12 @@ export default new Vuex.Store({
       let response = await API().delete(`/articles/delete/${article.idArticle}`);
       if(response.status == 200 || response.status == 204){
       commit('DELETE_ARTICLE', article.idArticle)
+      } 
+    },
+    async deleteSharedArticle({commit}, sharedArticle){
+      let response = await API().delete(`/sharedarticles/delete/${sharedArticle.idArticle}`);
+      if(response.status == 200 || response.status == 204){
+      commit('DELETE_SHAREDARTICLE', sharedArticle.idArticle)
       } 
     },
     async editArticle({commit}, article){

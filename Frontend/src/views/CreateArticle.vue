@@ -28,6 +28,7 @@
           forced_root_block : '',
           force_br_newlines : true,
           force_p_newlines : false,
+          basicEntities: false,
           height: 600,
           menubar: false,
           selector: 'textarea',
@@ -191,13 +192,25 @@ form{
 }
 @media screen and (max-width: 768px){
 #heading{
-    margin-top: 30%;
+    margin-top: 25%;
     font-size: 18px;
+  }
+}
+@media screen and (max-width: 425px){
+#heading{
+    margin-top: 40%;
+    font-size: 18px;
+  }
+  form{
+
+  label {
+    font-size: 18px;
+  }
   }
 }
 @media screen and (max-width: 375px){
 #heading{
-    margin-top: 60%;
+    margin-top: 50%;
     font-size: 16px;
   }
   form{

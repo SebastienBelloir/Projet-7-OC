@@ -30,7 +30,8 @@
           <button class="modal-button" v-on:click="showModal = false" @click="shareArticle">Partager</button>  
         </div>
       </transition>
-      <button class="delete" v-if="userId === article.auteur_id"  v-on:click="deleteArticle(article)">Supprimer</button>
+      <button class="delete" v-if="article.shared"  v-on:click="deleteSharedArticle(article)">Supprimer</button>
+      <button class="delete" v-else-if="userId === article.auteur_id"  v-on:click="deleteArticle(article)">Supprimer</button>
       </div>
     </div>
   </section>
@@ -57,7 +58,7 @@ export default {
             return this.$store.state.currentUser.userId
         },
         article(){
-            return this.$store.state.articles.find(article => article.idArticle == this.$route.params.id) || {}
+            return this.$store.state.allArticles.find(article => article.idArticle == this.$route.params.id) || {}
         },
     },
     // mounted() {
@@ -68,6 +69,14 @@ export default {
             let response = confirm(`Etes vous certains de vouloir supprimer l'article "${article.title}" ?`);
             if (response){
                 this.$store.dispatch("deleteArticle", article);
+                // this.$router.push('/');
+                // window.location.reload();
+            }
+        },
+        deleteSharedArticle(article) {
+            let response = confirm(`Etes vous certains de vouloir supprimer l'article "${article.title}" ?`);
+            if (response){
+                this.$store.dispatch("deleteSharedArticle", article);
                 // this.$router.push('/');
                 // window.location.reload();
             }
@@ -222,6 +231,10 @@ max-height: 200px;
 .modal-content{
   display: flex;
 }
+.shared-article{
+  border: 1px solid black;
+  padding: 5px;
+}
 
 .modal-text{
   padding: 2%;
@@ -286,12 +299,13 @@ max-width: 300px;
   margin: 0px 15px 50px 0px;
 }
 .modal{
-  max-width: 1000px;
+  max-width: 800px;
   max-height: 600px;
   background-color: #FFF;
   border-radius: 16px;
   border: 2px solid black;
   padding: 1%;
+  margin-top: 2%;
 }
 #profil{
   font-size: 25px;
@@ -326,17 +340,64 @@ h2 {
     font-size: 18px;
   }
 }
+.modal{
+  max-width: 680px;
+  max-height: 600px;
+}
 .shared-article{
   margin: 10px;
 }
 textarea{
-  margin: 10px;
+  margin: 5px;
 }
 .image-modal{
 width: 200px;
 }
 .modal-button{
+  margin: 20px 15px 0px 0px;
+}
+}
+@media screen and (max-width: 425px){
+.article {
+  margin: 45% 5% 15% 5%;
+    img {
+    max-width: 250px;
+    max-height: 250px;
+    }
+h2 {
+    font-size: 20px;
+  }
+#description {
+  font-size: 20px;
+}
+#content {
+  font-size: 20px;
+}
+}
+.modal{
+  max-width: 380px;
+  max-height: 450px;
+}
+.modal-button{
   margin: 0px 15px 0px 0px;
+}
+#profil{
+  font-size: 18px;
+}
+textarea{
+  margin: 5px;
+  font-size: 16px;
+  width: 70%;
+}
+.shared-article{
+  margin: 5px;
+  font-size: 16px;
+}
+.image-modal{
+width: 150px;
+}
+.modal-button{
+  margin: 30px 15px 0px 0px;
 }
 }
 @media screen and (max-width: 375px){
@@ -356,8 +417,30 @@ h2 {
   font-size: 20px;
 }
 }
+.modal{
+  max-width: 300px;
+  max-height: 500px;
+}
+.modal-button{
+  margin: 0px 15px 0px 0px;
+}
+#profil{
+  font-size: 18px;
+}
+textarea{
+  margin: 5px;
+  font-size: 16px;
+  width: 70%;
+}
+.shared-article{
+  margin: 5px;
+  font-size: 16px;
+}
 .image-modal{
 width: 150px;
+}
+.modal-button{
+  margin: 30px 15px 0px 0px;
 }
 }
 </style>
