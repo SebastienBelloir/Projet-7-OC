@@ -13,7 +13,8 @@
         >
           <Article :content="article"/>
         </div>
-      </div>
+        </div>
+      
     </div>
     <Footer v-if="loggedIn" />
   </div>

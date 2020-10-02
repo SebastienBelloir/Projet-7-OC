@@ -1,4 +1,5 @@
 const Article = require("../models/articles");
+const fs = require("fs");
 
 
 exports.createArticle = (req, res, next) => {
@@ -73,6 +74,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.deleteArticle = (req, res) => {
+  Article.findById(req.params.idArticle)
   Article.delete(req.params.idArticle, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {

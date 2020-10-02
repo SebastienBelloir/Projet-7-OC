@@ -30,8 +30,8 @@
           <button class="modal-button" v-on:click="showModal = false" @click="shareArticle">Partager</button>  
         </div>
       </transition>
-      <button class="delete" v-if="article.shared"  v-on:click="deleteSharedArticle(article)">Supprimer</button>
-      <button class="delete" v-else-if="userId === article.auteur_id"  v-on:click="deleteArticle(article)">Supprimer</button>
+      <button class="delete" v-if="article.shared && article.sharedBy === userId"  v-on:click="deleteSharedArticle(article)">Supprimer</button>
+      <button class="delete" v-if="article.auteur_id === userId" v-on:click="deleteArticle(article)">Supprimer</button>
       </div>
     </div>
   </section>
@@ -69,16 +69,16 @@ export default {
             let response = confirm(`Etes vous certains de vouloir supprimer l'article "${article.title}" ?`);
             if (response){
                 this.$store.dispatch("deleteArticle", article);
-                // this.$router.push('/');
-                // window.location.reload();
+                this.$router.push('/');
+                window.location.reload();
             }
         },
         deleteSharedArticle(article) {
-            let response = confirm(`Etes vous certains de vouloir supprimer l'article "${article.title}" ?`);
+            let response = confirm(`Etes vous certains de vouloir supprimer votre partage de l'article "${article.title}" ?`);
             if (response){
                 this.$store.dispatch("deleteSharedArticle", article);
-                // this.$router.push('/');
-                // window.location.reload();
+                this.$router.push('/');
+                window.location.reload();
             }
         },
         shareArticle() {
@@ -96,8 +96,8 @@ export default {
                 }
               }
             ).then(() => {
-              // this.$router.push('/');
-              // window.location.reload();
+              this.$router.push('/');
+              window.location.reload();
          console.log('ARTICLE PARTAGE');
         })
         .catch(function(){
@@ -111,7 +111,7 @@ export default {
 <style lang="scss" scoped>
 .article {
   display: flex;
-  margin: 15% 2% 15% 2%;
+  margin: 10% 2% 0% 2%;
   font-size: 18px;
   h2 {
     margin: 2%;
@@ -119,11 +119,11 @@ export default {
   }
 #description {
   margin: 5%;
-  font-size: 30px;
+  font-size: 28px;
 }
 #content {
   margin: 5%;
-  font-size: 30px;
+  font-size: 24px;
 }
 }
 
@@ -208,13 +208,19 @@ button {
   transform:translate(-50%, -50%) ;
   z-index: 99;
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   height: 100%;
-  max-height: 430px;
+  max-height: 600px;
   background-color: #FFF;
   border-radius: 16px;
   border: 2px solid black;
   padding: 1%;
+}
+
+#profil{
+  padding: 2%;
+  font-size: 25px;
+  
 }
 
 .image-modal{
@@ -225,7 +231,7 @@ max-height: 200px;
 
 .modal-button{
   float: right;
-  margin: -20px 0px -20px -10px;
+  margin: 30px 0px -20px -10px;
 }
 
 .modal-content{
@@ -240,8 +246,9 @@ max-height: 200px;
   padding: 2%;
 }
 
-#profil{
-  padding: 2%;
+textarea{
+  margin: 20px 0px 20px 0px;
+  font-size: 20px;
 }
 
 .modal-title{
@@ -378,9 +385,6 @@ h2 {
   max-width: 380px;
   max-height: 450px;
 }
-.modal-button{
-  margin: 0px 15px 0px 0px;
-}
 #profil{
   font-size: 18px;
 }
@@ -397,7 +401,7 @@ textarea{
 width: 150px;
 }
 .modal-button{
-  margin: 30px 15px 0px 0px;
+  margin: 10px 15px 0px 0px;
 }
 }
 @media screen and (max-width: 375px){
@@ -421,9 +425,7 @@ h2 {
   max-width: 300px;
   max-height: 500px;
 }
-.modal-button{
-  margin: 0px 15px 0px 0px;
-}
+
 #profil{
   font-size: 18px;
 }
@@ -440,7 +442,7 @@ textarea{
 width: 150px;
 }
 .modal-button{
-  margin: 30px 15px 0px 0px;
+  margin: 20px 15px 0px 0px;
 }
 }
 </style>

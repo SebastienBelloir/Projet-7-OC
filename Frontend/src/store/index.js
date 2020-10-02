@@ -118,13 +118,16 @@ export default new Vuex.Store({
         responseOne.forEach(article => {
           let realArticles = responseTwo.map(obj => ({...obj}));
           let realArticle = realArticles.find(el => el.idArticle === article.idArticle);
+          let sharedBy = responseOne.map(obj => ({...obj}));
+          let sharedUsers = sharedBy.find(el => el.sharedIdUser === article.sharedIdUser);
           let realComments = responseOne.map(obj => ({...obj}));
-          let realComment = realComments.find(el => el.commentaire === article.commentaire)
+          let realComment = realComments.find(el => el.commentaire === article.commentaire);
           // realArticle.idArticle = `${article.idArticle}-${article.sharedIdUser}`;
           realArticle.shared = true;
           realArticle.sharedDateTime = article.datetime;
+          realArticle.sharedBy = article.sharedIdUser;
           realArticle.commentaire = article.commentaire;
-          console.log(realComment)
+          console.log(sharedUsers, realComment);
           sharedArticle.push(realArticle);
         })
         const joinArrays = responseTwo.concat(sharedArticle);
