@@ -1,4 +1,4 @@
-# project-7-oc
+# projet7
 
 ## Project setup
 ```

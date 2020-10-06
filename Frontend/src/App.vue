@@ -1,31 +1,55 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Nav/>
+    <router-view />
   </div>
 </template>
 
+<script>
+import Nav from "@/components/Nav.vue";
+
+
+export default {
+  components: {
+    Nav,
+  },
+   mounted() {
+    this.$store.dispatch('loadUsers');
+    this.$store.dispatch('loadArticles');
+    this.$store.dispatch('loadAllArticles');
+  },
+  
+}
+</script>
+
 <style lang="scss">
+body{
+  margin: 0;
+h1{
+  text-align: center;
+}
+
+h2{
+  text-align: center;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
 #nav {
-  padding: 30px;
 
   a {
     font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+    color: #FFF;
+    padding: 0 10px;
+    text-decoration: none;
+        &.router-link-exact-active {
+        color: #dd1d1d;
+      }
     }
   }
 }
