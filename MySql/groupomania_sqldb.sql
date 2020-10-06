@@ -149,7 +149,7 @@ ALTER TABLE `articles`
 --
 ALTER TABLE `share`
   ADD CONSTRAINT `fk_User_has_Articles_Articles1` FOREIGN KEY (`idArticle`) REFERENCES `articles` (`idArticle`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_User_has_Articles_User1` FOREIGN KEY (`sharedIdUser`) REFERENCES `users` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_User_has_Articles_User1` FOREIGN KEY (`sharedIdUser`) REFERENCES `users` (`idUser`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

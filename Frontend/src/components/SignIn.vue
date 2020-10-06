@@ -59,7 +59,7 @@
        if(user.error) {
          alert(user.error)
        }else {
-         alert('Création de compte réussie ' + user.prenom);
+         alert('Création de compte réussie, merci de vous reconnecter pour avoir accès à toutes les fonctions du site.');
         window.location.reload();
         this.$router.push('/');
        }

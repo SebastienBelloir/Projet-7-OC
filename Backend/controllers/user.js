@@ -22,12 +22,12 @@ exports.signup = (req, res) => {
     };
     User.create(user, (err, data) => {
       if (err) {
-        res.status(500).send({
+        res.status(500).send({ 
           message:
           err.message || "Erreur lors de la création de l'utilisateur."
         });
       } else {
-        res.status(201).send(data);
+        res.status(201).send(data); 
       }
     });
   })

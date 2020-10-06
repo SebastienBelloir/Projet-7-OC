@@ -5,7 +5,7 @@ const sharedArtlCtrl = require("../controllers/shareArticle");
 
 
 router.post('/sharearticle', auth, sharedArtlCtrl.sharedArticle);
-router.get('/', auth, sharedArtlCtrl.findAllSharedArticle);
+router.get('/',  sharedArtlCtrl.findAllSharedArticle);
 router.delete("/delete/:idArticle", auth, sharedArtlCtrl.deleteSharedArticle);
 
 module.exports = router

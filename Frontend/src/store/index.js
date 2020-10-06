@@ -5,6 +5,7 @@ import API from "@/Services/API.services";
 
 
 Vue.use(Vuex, axios);
+Vue.config.silent = true;
 
 export default new Vuex.Store({
   state: { 
@@ -106,6 +107,7 @@ export default new Vuex.Store({
       let response = await API().get("/sharedarticles/");
       commit('SET_SHAREDARTICLES', response.data);
     },
+    /*eslint-disable no-unused-vars*/
   async loadAllArticles({commit}){
       let one = "http://localhost:3000/sharedarticles/";
       let two = "http://localhost:3000/articles";
@@ -127,17 +129,16 @@ export default new Vuex.Store({
           realArticle.sharedDateTime = article.datetime;
           realArticle.sharedBy = article.sharedIdUser;
           realArticle.commentaire = article.commentaire;
-          console.log(sharedUsers, realComment);
           sharedArticle.push(realArticle);
         })
         const joinArrays = responseTwo.concat(sharedArticle);
         joinArrays.sort(function(a,b) {
           return new Date(b.sharedDateTime || b.datetime) - new Date(a.sharedDateTime || a.datetime)
         })
-        console.log(joinArrays)
         commit('SET_ALLARTICLES', joinArrays);
       }))
     },
+    /*eslint-disable no-unused-vars*/
   async deleteArticle({commit}, article){
       let response = await API().delete(`/articles/delete/${article.idArticle}`);
       if(response.status == 200 || response.status == 204){
@@ -183,14 +184,7 @@ export default new Vuex.Store({
     // },
     async registerUser({commit}, signupInfo) {
       try{
-        let response = await API().post('/users/signup', 
-        signupInfo,
-        {
-          'Content-Type': 'application/json',
-          Authorization: "Bearer " + localStorage.getItem('access_token')
-      }
-      );
-        console.log(response);
+        let response = await API().post('/users/signup', signupInfo);
         const userId = response.data.id;
         const token = response.data.token;
         localStorage.setItem('userId', userId);
