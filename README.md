@@ -4,7 +4,7 @@ Ce projet est réalisé dans le cadre du parcours Développeur Web du site [Open
 
 
 # Documentations
-[Note de cadrage](https://github.com/SebastienBelloir/project-6/blob/master/documents/P6_Note%20de%20cadrage%20So%20Pekocko_V3.pdf)
+[Note de cadrage](https://github.com/SebastienBelloir/Projet-7-OC/blob/dev/docs/Groupomania_Specs_FR_DWJ_VF.pdf)
 
 
 
