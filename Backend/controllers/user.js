@@ -1,3 +1,5 @@
+// Contient la logique métier concernant les utilisateurs, à appliquer aux différentes routes CRUD
+
 const mysqlConnection = require("../mysqlConnection");
 const bcrypt = require("bcrypt");
 const jsonWebToken = require("jsonwebtoken");

@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import axios from 'axios';
-import Editor from "@tinymce/tinymce-vue";
+import { mapState } from "vuex"; // importation de mapState qui nous permet d'avoir acces au différents éléments présent dans notre state.
+import axios from 'axios'; // importation d'axios qui nous permet de communiquer avec l'API.
+import Editor from "@tinymce/tinymce-vue"; // importation de Editor qui nous permet d'avoir la fenêtre d'édition de l'article.
 
 export default {
   data() {
@@ -66,15 +66,15 @@ export default {
         Editor,
     },
     computed: {
-    ...mapState(["articles"]),
+    ...mapState(["articles"]), // on récupère le tableau articles présent dans notre state
     article() {
-      return this.articles.find(
+      return this.articles.find( // récupération de l'article à modifier
         (article) => article.idArticle == this.$route.params.id
       );
     },
   },
   methods: {
-     editArticle(){
+     editArticle(){ // méthode qui permet de modifier l'article.
       let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
       let formData = new FormData();
       formData.append('title', this.article.title);

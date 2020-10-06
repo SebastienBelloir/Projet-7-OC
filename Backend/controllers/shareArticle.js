@@ -1,3 +1,5 @@
+// Contient la logique métier concernant les articles partagés, à appliquer aux différentes routes CRUD
+
 const ShareArticle = require("../models/shareArticle");
 
 exports.sharedArticle = (req, res, next) => {

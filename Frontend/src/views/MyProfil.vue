@@ -52,7 +52,7 @@ export default {
         ...mapState(["currentUser", "articles", "sharedArticles"]),     
     },
     methods: {
-    deleteAccount(){
+    deleteAccount(){ // méthode qui permet de supprimer le compte utilisateur.
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         console.log(currentUser);
         let response = confirm(`Etes vous certains de vouloir supprimer votre compte ?`);

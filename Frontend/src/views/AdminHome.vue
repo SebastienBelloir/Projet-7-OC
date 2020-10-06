@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'; // importation de mapState qui nous permet d'avoir acces au différents éléments présent dans notre state.
 
 export default {
   computed: {
-    ...mapState(['articles'])
+    ...mapState(['articles']) // on récupère le tableau articles présent dans notre state
   },
   methods: {
-    deleteArticle(article) {
+    deleteArticle(article) { // méthode qui nous permet de supprimer l'article
       let response = confirm(`Etes vous certains de vouloir supprimer l'article "${article.title}" ?`);
       if (response){
         this.$store.dispatch("deleteArticle", article);

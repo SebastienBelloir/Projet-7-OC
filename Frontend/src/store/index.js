@@ -1,3 +1,5 @@
+//Store de notre application grâce à vuex.
+
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
@@ -8,7 +10,7 @@ Vue.use(Vuex, axios);
 Vue.config.silent = true;
 
 export default new Vuex.Store({
-  state: { 
+  state: { // toutes nos données présente dans le state de l'application
     token: localStorage.getItem('access_token') || null,
     articles: [],
     sharedArticles: [],
@@ -18,7 +20,7 @@ export default new Vuex.Store({
     isAdmin: localStorage.getItem('isAdmin'),
     },
 
-  getters: {
+  getters: { // nos getters qui nous permettent de définir si un utilisateur est connecter et/ou admin
     loggedIn(state) {
       return state.token !== null;
     },
@@ -27,7 +29,7 @@ export default new Vuex.Store({
     },
   }, 
   
-  mutations: {
+  mutations: { // toutes les mutations qui nous permettent de modifier l'état de notre store
     SET_ARTICLES(state, articles) {
       state.articles = articles;
     },
@@ -74,8 +76,8 @@ export default new Vuex.Store({
       state.currentUser = user;
     },
   },
-  actions: {
-    retrieveToken(context, credentials) {
+  actions: { // toutes les méthodes utiles pour faire fonctionner notre application / communiquer avec notre API
+    retrieveToken(context, credentials) { // attribution du token lors de la connexion
       return new Promise((resolve, reject) => {
        API().post('/users/login', {
         email: credentials.email,
@@ -99,16 +101,16 @@ export default new Vuex.Store({
     })
     },
 
-  async loadArticles({commit}){
+  async loadArticles({commit}){ // chargement des articles
     let response = await API().get("/articles");
     commit('SET_ARTICLES', response.data);
   },
-  async loadSharedArticles({commit}){
+  async loadSharedArticles({commit}){ // chargement des articles partagés
       let response = await API().get("/sharedarticles/");
       commit('SET_SHAREDARTICLES', response.data);
     },
     /*eslint-disable no-unused-vars*/
-  async loadAllArticles({commit}){
+  async loadAllArticles({commit}){ // chargement de tous les articles
       let one = "http://localhost:3000/sharedarticles/";
       let two = "http://localhost:3000/articles";
       const requestOne = API().get(one);
@@ -139,50 +141,40 @@ export default new Vuex.Store({
       }))
     },
     /*eslint-disable no-unused-vars*/
-  async deleteArticle({commit}, article){
+  async deleteArticle({commit}, article){ // suppression d'un article en particulier
       let response = await API().delete(`/articles/delete/${article.idArticle}`);
       if(response.status == 200 || response.status == 204){
       commit('DELETE_ARTICLE', article.idArticle)
       } 
     },
-    async deleteSharedArticle({commit}, sharedArticle){
+    async deleteSharedArticle({commit}, sharedArticle){ // suppression d'un article partagé
       let response = await API().delete(`/sharedarticles/delete/${sharedArticle.idArticle}`);
       if(response.status == 200 || response.status == 204){
       commit('DELETE_SHAREDARTICLE', sharedArticle.idArticle)
       } 
     },
-    async editArticle({commit}, article){
+    async editArticle({commit}, article){ // modification d'un article
       let response = await API().put(`/articles/modify/${article.idArticle}`, article);
       let newArticle = response.data;
       commit('EDIT_ARTICLE', newArticle);
       return newArticle;
     },
-    async loadUsers({commit}) {
+    async loadUsers({commit}) { // chargement de tous les utilisateurs
       let response = await API().get("/users");
       let users = response.data;
       commit('SET_USERS', users);
     },
-    logoutUser({commit}) {
+    logoutUser({commit}) { // déconnexion d'un utilisateur
       window.location.replace("http://localhost:8080/#/");
       window.location.reload();
       commit('LOGOUT_USER');
     },
-    async deleteAccount({commit}, user){
+    async deleteAccount({commit}, user){ // suppression d'un compte utilisateur
       await API().delete(`/users/delete/${user.userId}`);
       commit('DELETE_ACCOUNT', user.userId)
       
     },
-    // async loginUser({commit}, userInfo) {
-    //   try{
-    //     let response = await API().post('/users/login', userInfo);
-    //     let user = response.data;
-    //     commit('SET_CURRENT_USER', user);
-    //     return user;
-    //   }catch {
-    //     return{ error: "Mot de passe ou email incorrect"}
-    //   }
-    // },
-    async registerUser({commit}, signupInfo) {
+    async registerUser({commit}, signupInfo) { // enregistrement d'un nouvel utilisateur
       try{
         let response = await API().post('/users/signup', signupInfo);
         const userId = response.data.id;

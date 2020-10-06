@@ -30,7 +30,7 @@
           <button class="modal-button" v-on:click="showModal = false" @click="shareArticle">Partager</button>  
         </div>
       </transition>
-      <button class="delete" v-if="article.shared && article.sharedBy === userId"  v-on:click="deleteSharedArticle(article)">Supprimer</button>
+      <button class="delete" v-if="article.shared && article.sharedBy === userId"  v-on:click="deleteSharedArticle(article)">Supprimer le partage</button>
       <button class="delete" v-if="article.auteur_id === userId" v-on:click="deleteArticle(article)">Supprimer</button>
       </div>
     </div>
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import axios from 'axios';
+import { mapState } from 'vuex'; // importation de mapState qui nous permet d'avoir acces au différents éléments présent dans notre state.
+import axios from 'axios'; // importation d'axios qui nous permet de communiquer avec l'API.
 
 export default {
     data(){
@@ -53,27 +53,24 @@ export default {
       } 
     },
     computed: {
-      ...mapState(["currentUser"]),
-        userId(){
+      ...mapState(["currentUser"]),  // on récupère le tableau currentUser présent dans notre state.
+        userId(){ // on récupère l'id de l'utilisateur connecté
             return this.$store.state.currentUser.userId
         },
-        article(){
+        article(){ // on récupère l'article correspondant grâce à son ID unique
             return this.$store.state.allArticles.find(article => article.idArticle == this.$route.params.id) || {}
         },
     },
-    // mounted() {
-    //   this.$store.dispatch("loadUsers");
-    // },
     methods: {
-        deleteArticle(article) {
+        deleteArticle(article) { // suppression de l'article
             let response = confirm(`Etes vous certains de vouloir supprimer l'article "${article.title}" ?`);
             if (response){
                 this.$store.dispatch("deleteArticle", article);
-                // this.$router.push('/');
-                // window.location.reload();
+                this.$router.push('/');
+                window.location.reload();
             }
         },
-        deleteSharedArticle(article) {
+        deleteSharedArticle(article) { // suppression de l'article partagé
             let response = confirm(`Etes vous certains de vouloir supprimer votre partage de l'article "${article.title}" ?`);
             if (response){
                 this.$store.dispatch("deleteSharedArticle", article);
@@ -81,7 +78,7 @@ export default {
                 window.location.reload();
             }
         },
-        shareArticle() {
+        shareArticle() { // partage de l'article
       let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
       axios.post( 'http://localhost:3000/sharedarticles/sharearticle',
                 {

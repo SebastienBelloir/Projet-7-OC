@@ -1,3 +1,5 @@
+// Intéraction avec la base de donnée SQL
+
 const mysqlConnection = require("../mysqlConnection");
 
 
@@ -10,7 +12,7 @@ const User = function(user) {
   this.password = user.password;
 };
 
-User.create = (newUser, callback) => {
+User.create = (newUser, callback) => { // création d'un utilisateur et ajout en BDD
   mysqlConnection.query("INSERT INTO users SET ?", newUser, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -23,7 +25,7 @@ User.create = (newUser, callback) => {
   });
 };
 
-User.findByEmail = (email, callback) => {
+User.findByEmail = (email, callback) => { // récupération d'un utilisateur présent en BDD via un email
   mysqlConnection.query(`SELECT * FROM users WHERE email = '${email}'`, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -41,7 +43,7 @@ User.findByEmail = (email, callback) => {
   });
 };
 
-User.getAll = callback => {
+User.getAll = callback => { // récupération de tous les utilisateurs présent en BDD
   mysqlConnection.query("SELECT * FROM users", (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -55,7 +57,7 @@ User.getAll = callback => {
 };
  
 
-User.delete = (id, callback) => {
+User.delete = (id, callback) => { // suppression d'un utilisateur particulier présent en BDD
   mysqlConnection.query("DELETE FROM users WHERE idUser = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);

@@ -44,7 +44,7 @@
       }
     },
     methods: {
-      login() {
+      login() { // méthode de connexion qui fait appel à la méthode retrieveToken présente dans notre store
         this.$store.dispatch('retrieveToken', {
           email: this.userInfo.email,
           password: this.userInfo.password
@@ -54,7 +54,7 @@
           window.location.reload();
         })
     },
-      registerUser() {
+      registerUser() { // méthode de création de compte qui fait appel à la méthode register présente dans notre store
         let user =  this.$store.dispatch('registerUser', this.signupInfo);
        if(user.error) {
          alert(user.error)
@@ -64,7 +64,7 @@
         this.$router.push('/');
        }
       },
-      showRegisterForm() {
+      showRegisterForm() { // fonction pour montrer le formulaire de création de compte
         const registerForm = document.getElementById('box');
         const loginForm = document.getElementById('firstBox');
         if (registerForm.style.display === "none") {
@@ -74,7 +74,7 @@
           registerForm.style.display = "none";
         }
       },
-      showLoginForm() {
+      showLoginForm() { // fonction pour montrer le formulaire de connexion
         const registerForm = document.getElementById('box');
         const loginForm = document.getElementById('firstBox');
         if (loginForm.style.display === "none") {

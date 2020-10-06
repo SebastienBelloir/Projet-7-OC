@@ -1,4 +1,5 @@
-<template>
+<template> 
+ <!-- composant article -->
     <div>
         <div id="card">
             <div id="first-case" v-for="user in users" :key="user.idUser">
@@ -46,18 +47,18 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from "vuex"; // importation de mapState qui nous permet d'avoir acces au différents éléments présent dans notre state.
 
 export default {
     props: {
         content: { type: Object, default: () => {} }
     },
     computed: {
-        ...mapState(["users", "currentUser", "sharedArticles"]),
-        allArticles() {
+        ...mapState(["users", "currentUser", "sharedArticles"]), // on récupère nos 3 tableaux présent dans notre state
+        allArticles() { // on récupère tous les articles présents dans le state
             return this.$store.state.allArticles;
         },
-        allUsers() {
+        allUsers() { // on récupère tous les utilisateurs présents dans notre state
             return this.$store.state.users;
         }
     }
@@ -114,7 +115,12 @@ img {
         padding: 5px;
     }
 }
-
+@media screen and (max-width: 425px) {
+img {
+    max-width: 250px;
+    max-height: 250px;
+  }
+}
 @media screen and (max-width: 375px) {
     #article {
         font-size: 20px;

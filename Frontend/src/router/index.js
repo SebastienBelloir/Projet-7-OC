@@ -1,3 +1,5 @@
+//regroupe toutes les routes présentes dans notre application côté FRONT
+
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
@@ -6,7 +8,7 @@ import CreateArticle from "../views/CreateArticle.vue";
 import ArticlePage from "../views/ArticlePage.vue";
 import EditArticle from "../views/EditArticle.vue";
 import MyProfil from "../views/MyProfil.vue";
-import SignIn from "../views/SignIn.vue";
+
 
 Vue.use(VueRouter);
 
@@ -51,11 +53,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
-  },
-  {
-    path: '/signin',
-    name: 'SignIn',
-    component: SignIn
   },
 ];
 

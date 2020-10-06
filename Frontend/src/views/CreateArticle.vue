@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import Editor from "@tinymce/tinymce-vue";
-import axios from 'axios';
+import Editor from "@tinymce/tinymce-vue"; // importation de Editor qui nous permet d'avoir la fenêtre d'édition de l'article.
+import axios from 'axios'; // importation d'axios qui nous permet de communiquer avec l'API.
 
 
 export default {
@@ -83,7 +83,7 @@ export default {
     },
   },
   methods: {
-    createArticle() {
+    createArticle() { // création de l'article
       let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
       let formData = new FormData();
       formData.append('file', this.file);

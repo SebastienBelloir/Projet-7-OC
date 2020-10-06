@@ -1,3 +1,5 @@
+// Intéraction avec la base de donnée SQL
+
 const mysqlConnection = require("../mysqlConnection");
 
 const Article = function(article) {
@@ -7,7 +9,7 @@ const Article = function(article) {
     this.auteur = article.auteur;
   };
 
-  Article.create = (newArticle, callback) => {
+  Article.create = (newArticle, callback) => { // Création d'un article en BDD
     mysqlConnection.query("INSERT INTO articles SET ?", newArticle, (err, res) => {
       if (err) {
         console.log("erreur: ", err);
@@ -21,7 +23,7 @@ const Article = function(article) {
   };
 
 
-  Article.modify = (idArticle, article, callback) => {
+  Article.modify = (idArticle, article, callback) => { // modification d'un article en BDD
     mysqlConnection.query(
       "UPDATE articles SET title = ?, description = ?, contenu = ?, datetime = NOW(), auteur_id = ? WHERE idArticle = ?",
       [article.title, article.description, article.contenu, article.auteur, idArticle],
@@ -43,7 +45,7 @@ const Article = function(article) {
     );
   };
 
-  Article.getAll = callback => {
+  Article.getAll = callback => { // récupération de tous les articles présent en BDD
     mysqlConnection.query("SELECT * FROM articles ORDER BY datetime DESC", (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -56,7 +58,7 @@ const Article = function(article) {
     });
   };
 
-  Article.findById = (idArticle, callback) => {
+  Article.findById = (idArticle, callback) => { // récupération d'un article en particulier présent en BDD
     mysqlConnection.query(`SELECT * FROM articles WHERE idArticle = ${idArticle}`, (err, res) => {
       if (err) {
         console.log("erreur: ", err);
@@ -74,7 +76,7 @@ const Article = function(article) {
     });
   };
 
-  Article.delete = (idArticle, callback) => {
+  Article.delete = (idArticle, callback) => { // suppression d'un article particulier présent en BDD
     mysqlConnection.query("DELETE FROM articles WHERE idArticle = ?", idArticle, (err, res) => {
       if (err) {
         console.log("erreur : ", err);

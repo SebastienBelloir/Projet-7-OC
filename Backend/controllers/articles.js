@@ -1,8 +1,10 @@
-const Article = require("../models/articles");
-const fs = require("fs");
+// Contient la logique métier concernant les articles, à appliquer aux différentes routes CRUD
+
+const Article = require("../models/articles"); // Récupération du modèle 'Articles'
+const fs = require("fs"); // file system . Il nous donne accès aux fonctions qui nous permettent de modifier le système de fichiers, y compris aux fonctions permettant de supprimer les fichiers
 
 
-exports.createArticle = (req, res, next) => {
+exports.createArticle = (req, res, next) => { // route POST => Création d'un article
   const article =  {
     title: req.body.title,
     description: req.body.description,
@@ -22,7 +24,7 @@ exports.createArticle = (req, res, next) => {
   });
 };
 
-exports.modifyArticle = (req, res) => {
+exports.modifyArticle = (req, res) => { // route PUT => modification d'un article
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!", 
@@ -46,7 +48,7 @@ exports.modifyArticle = (req, res) => {
   });
 };
 
-exports.findAll = (req, res) => {
+exports.findAll = (req, res) => { // route READ => afficher tous les articles
   Article.getAll((err, data) => {
     if (err)
       res.status(500).send({
@@ -57,7 +59,7 @@ exports.findAll = (req, res) => {
   });
 };
 
-exports.findOne = (req, res) => {
+exports.findOne = (req, res) => { // route READ => afficher un article en particulier
   Article.findById(req.params.idArticle, (err, data) => {
     if (err) {
       if (err.kind === "non_trouvé") {
@@ -73,23 +75,17 @@ exports.findOne = (req, res) => {
   });
 };
 
-exports.deleteArticle = (req, res) => {
-  Article.delete(req.params.idArticle, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(404).send({
-          message: `Impossible de trouver un article ayant pour id ${req.params.idArticle}.`
-        });
-      } else {
-        res.status(500).send({
-          message: "Impossible de supprimer l'article ayant pour id " + req.params.idArticle
-        });
-      }
-    } else {
-      const filename = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-      fs.unlink(`images/${filename}`)
-      res.send({ message: `Article supprimé avec succès !` }); 
-    } 
-  });
-  
- };
+exports.deleteArticle = (req, res, next) => { // route DELETE => suppression d'un article
+  Article.findById(req.params.idArticle, (err, data) => {
+    const filename = data.imageUrl.split('/images/')[1];
+    fs.unlink(`images/${filename}`, () => {
+      Article.delete(req.params.idArticle, (err, res) => {
+        if (err === null) {
+         return res.status(200).json({ message: 'Objet supprimé !'})
+        } else {
+          return res.status(400).json({ error })
+        }
+      })
+    });
+  })
+};

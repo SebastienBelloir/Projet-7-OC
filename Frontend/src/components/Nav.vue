@@ -12,9 +12,9 @@
       <div id="hamburger-content">
         <nav>
           <ul>
+            <li><router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link></li>
             <li> <router-link class="ul-items" v-if="loggedIn" to="/">Accueil</router-link></li>
             <li><router-link class="ul-items" to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link></li>
-            <li><router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link></li>
             <li><router-link class="ul-items" to="/MyProfil" v-if="loggedIn" >Mon Profil</router-link></li>
             <button id="logoutButton" v-if="loggedIn" v-on:click="logoutUser">Se déconnecter</button>
           </ul>
@@ -44,19 +44,19 @@
 
 export default {
   computed: {
-    isAdmin(){
+    isAdmin(){ // nous permet de savoir si l'utilisateur est un admin grâce aux infos présente dans le store
       return this.$store.state.isAdmin
     },
-    loggedIn() {
+    loggedIn() { // nous permet de savoir si l'utilisateur est connecté grâce au getter LoggedIn qui vient vérifier si l'utilisateur à bien un token
       return this.$store.getters.loggedIn
     }
   },
 
   methods: {
-    logoutUser() {
+    logoutUser() { // méthode de deconnexion de l'utilisateur => fait appel à la méthode présente dans le store
       this.$store.dispatch("logoutUser");
       },
-      hamburgerMenu() {
+      hamburgerMenu() { // méthode qui nous permet d'afficher le menu mobile.
         let sidebarBody = document.querySelector('#hamburger-sidebar-body');
         let button = document.querySelector('#hamburger-button');
         let overlay = document.querySelector('#hamburger-overlay');

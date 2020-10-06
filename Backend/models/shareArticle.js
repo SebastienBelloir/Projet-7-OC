@@ -1,3 +1,5 @@
+// Intéraction avec la base de donnée SQL
+
 const { sharedArticle } = require("../controllers/shareArticle");
 const mysqlConnection = require("../mysqlConnection");
 
@@ -7,7 +9,7 @@ const ShareArticle = function(sharedArticle) {
     this.commentaire = sharedArticle.commentaire;
   };
 
-  ShareArticle.create = (newSharedArticle, callback) => {
+  ShareArticle.create = (newSharedArticle, callback) => { // création et ajout en BDD d'un article partagé 
     mysqlConnection.query("INSERT INTO share SET ?", newSharedArticle, (err, res) => {
       if (err) {
         console.log("erreur: ", err);
@@ -20,7 +22,7 @@ const ShareArticle = function(sharedArticle) {
     });
   }
 
-  ShareArticle.getAll = callback => {
+  ShareArticle.getAll = callback => { // récupération de tous les articles partagés présent en BDD
     mysqlConnection.query("SELECT * FROM share ORDER BY datetime DESC", (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -34,7 +36,7 @@ const ShareArticle = function(sharedArticle) {
   };
 
 
-  ShareArticle.delete = (idArticle, callback) => {
+  ShareArticle.delete = (idArticle, callback) => { // suppression d'un article particulier présent en BDD
     mysqlConnection.query(
       "DELETE FROM share WHERE idArticle = ?",
       idArticle,

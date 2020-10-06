@@ -14,9 +14,8 @@ export default {
     Nav,
   },
    mounted() {
-    this.$store.dispatch('loadArticles');
-    this.$store.dispatch('loadSharedArticles');
     this.$store.dispatch('loadUsers');
+    this.$store.dispatch('loadArticles');
     this.$store.dispatch('loadAllArticles');
   },
   

@@ -1,3 +1,5 @@
+// utilisation d'axios pour nous permettre de communiquer avec notre API.
+
 import axios from 'axios';
 
 export default () => {
