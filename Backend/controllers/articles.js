@@ -25,7 +25,7 @@ exports.createArticle = (req, res, next) => {
 exports.modifyArticle = (req, res) => {
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!",
+      message: "Content can not be empty!", 
     });
   }
 
@@ -74,20 +74,22 @@ exports.findOne = (req, res) => {
 };
 
 exports.deleteArticle = (req, res) => {
-  Article.findById(req.params.idArticle)
   Article.delete(req.params.idArticle, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Article avec id ${req.params.idArticle} non trouvé.`,
+          message: `Impossible de trouver un article ayant pour id ${req.params.idArticle}.`
         });
       } else {
         res.status(500).send({
-          message:
-            "Problème lors de la suppression de l'article avec l'id " +
-            req.params.idArticle,
+          message: "Impossible de supprimer l'article ayant pour id " + req.params.idArticle
         });
       }
-    } else res.send({ message: `L'article a été supprimé.` });
+    } else {
+      const filename = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+      fs.unlink(`images/${filename}`)
+      res.send({ message: `Article supprimé avec succès !` }); 
+    } 
   });
-};
+  
+ };

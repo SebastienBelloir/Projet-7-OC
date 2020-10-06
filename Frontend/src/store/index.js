@@ -183,7 +183,13 @@ export default new Vuex.Store({
     // },
     async registerUser({commit}, signupInfo) {
       try{
-        let response = await API().post('/users/signup', signupInfo);
+        let response = await API().post('/users/signup', 
+        signupInfo,
+        {
+          'Content-Type': 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('access_token')
+      }
+      );
         console.log(response);
         const userId = response.data.id;
         const token = response.data.token;

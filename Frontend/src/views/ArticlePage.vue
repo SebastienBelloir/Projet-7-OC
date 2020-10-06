@@ -69,8 +69,8 @@ export default {
             let response = confirm(`Etes vous certains de vouloir supprimer l'article "${article.title}" ?`);
             if (response){
                 this.$store.dispatch("deleteArticle", article);
-                this.$router.push('/');
-                window.location.reload();
+                // this.$router.push('/');
+                // window.location.reload();
             }
         },
         deleteSharedArticle(article) {
@@ -113,6 +113,7 @@ export default {
   display: flex;
   margin: 10% 2% 0% 2%;
   font-size: 18px;
+  
   h2 {
     margin: 2%;
     font-size: 35px;
