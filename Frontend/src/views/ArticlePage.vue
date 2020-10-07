@@ -31,6 +31,7 @@
         </div>
       </transition>
       <button class="delete" v-if="article.shared && article.sharedBy === userId"  v-on:click="deleteSharedArticle(article)">Supprimer le partage</button>
+      <button class="delete" v-else-if="article.shared && isAdmin === '1'"  v-on:click="deleteSharedArticle(article)">Supprimer le partage</button>
       <button class="delete" v-if="article.auteur_id === userId" v-on:click="deleteArticle(article)">Supprimer</button>
       </div>
     </div>
@@ -57,6 +58,9 @@ export default {
         userId(){ // on récupère l'id de l'utilisateur connecté
             return this.$store.state.currentUser.userId
         },
+        isAdmin(){ // nous permet de savoir si l'utilisateur est un admin grâce aux infos présente dans le store
+      return this.$store.state.isAdmin
+    },
         article(){ // on récupère l'article correspondant grâce à son ID unique
             return this.$store.state.allArticles.find(article => article.idArticle == this.$route.params.id) || {}
         },
