@@ -81,10 +81,8 @@ exports.deleteArticle = (req, res, next) => { // route DELETE => suppression d'u
     fs.unlink(`images/${filename}`, () => {
       Article.delete(req.params.idArticle, (err, res) => {
         if (err === null) {
-         return res.status(200).json({ message: 'Objet supprimé !'})
-        } else {
-          return res.status(400).json({ error })
-        }
+         res
+        } 
       })
     });
   })
