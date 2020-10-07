@@ -329,8 +329,198 @@ body {
         background: #dd1d1dc4;
     }
 }
+@media screen and (max-width: 1024px) {
+#box {
+        display: none;
+        width: 70%;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -55%);
+        text-align: center;
+        background: #192c4ae3;
+        border-radius: 10px;
+        a {
+            font-size: 16px;
+        }
+        input[type="text"] {
+            width: 300px;
+            font-size: 18px;
+        }
+        input[type="password"] {
+            width: 300px;
+            font-size: 18px;
+        }
+        input[type="email"] {
+            width: 300px;
+            font-size: 18px;
+        }
+        p {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    }
 
-@media screen and (max-width: 320px) {
+    #box input[type="text"]:focus,
+    #box input[type="email"]:focus,
+    #box input[type="password"]:focus {
+        width: 350px;
+    }
+
+    #box button {
+        font-size: 18px;
+    }
+
+    #firstBox {
+        width: 70%;
+        a {
+            font-size: 18px;
+        }
+        button {
+            font-size: 18px;
+        }
+    }
+
+    #firstBox input[type="email"],
+    #firstBox input[type="password"] {
+        width: 300px;
+        font-size: 18px;
+    }
+
+    #firstBox input[type="email"]:focus,
+    #firstBox input[type="password"]:focus {
+        width: 350px;
+    }
+
+}
+@media screen and (max-width: 768px) {
+#box {
+        display: none;
+        width: 70%;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        background: #192c4ae3;
+        border-radius: 10px;
+        a {
+            font-size: 16px;
+        }
+        input[type="text"] {
+            width: 250px;
+            font-size: 18px;
+        }
+        input[type="password"] {
+            width: 250px;
+            font-size: 18px;
+        }
+        input[type="email"] {
+            width: 250px;
+            font-size: 18px;
+        }
+        p {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    }
+
+    #box input[type="text"]:focus,
+    #box input[type="email"]:focus,
+    #box input[type="password"]:focus {
+        width: 300px;
+    }
+
+    #box button {
+        font-size: 18px;
+    }
+
+    #firstBox {
+        width: 70%;
+        a {
+            font-size: 18px;
+        }
+        button {
+            font-size: 18px;
+        }
+    }
+
+    #firstBox input[type="email"],
+    #firstBox input[type="password"] {
+        width: 250px;
+        font-size: 18px;
+    }
+
+    #firstBox input[type="email"]:focus,
+    #firstBox input[type="password"]:focus {
+        width: 300px;
+    }
+
+}
+@media screen and (max-width: 425px) {
+#box {
+        display: none;
+        width: 70%;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        background: #192c4ae3;
+        border-radius: 10px;
+        a {
+            font-size: 16px;
+        }
+        input[type="text"] {
+            width: 180px;
+            font-size: 16px;
+        }
+        input[type="password"] {
+            width: 180px;
+            font-size: 16px;
+        }
+        input[type="email"] {
+            width: 180px;
+            font-size: 16px;
+        }
+        p {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    }
+
+    #box input[type="text"]:focus,
+    #box input[type="email"]:focus,
+    #box input[type="password"]:focus {
+        width: 200px;
+    }
+
+    #box button {
+        font-size: 16px;
+    }
+
+    #firstBox {
+        width: 70%;
+        a {
+            font-size: 16px;
+        }
+        button {
+            font-size: 16px;
+        }
+    }
+
+    #firstBox input[type="email"],
+    #firstBox input[type="password"] {
+        width: 180px;
+        font-size: 16px;
+    }
+
+    #firstBox input[type="email"]:focus,
+    #firstBox input[type="password"]:focus {
+        width: 200px;
+    }
+}
+@media screen and (max-width: 375px) {
     #box {
         display: none;
         width: 70%;
