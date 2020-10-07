@@ -168,7 +168,7 @@ export default new Vuex.Store({
       window.location.replace("http://localhost:8080/#/");
       window.location.reload();
       commit('LOGOUT_USER');
-    },
+    }, 
     async deleteAccount({commit}, user){ // suppression d'un compte utilisateur
       await API().delete(`/users/delete/${user.userId}`);
       commit('DELETE_ACCOUNT', user.userId)

@@ -9,7 +9,7 @@ exports.createArticle = (req, res, next) => { // route POST => Création d'un ar
     title: req.body.title,
     description: req.body.description,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-    contenu: req.body.contenu,
+    contenu: req.body.contenu, 
     auteur_id: req.body.auteur_id,
   };
   Article.create(article, (err, data) => {

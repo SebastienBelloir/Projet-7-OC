@@ -15,7 +15,7 @@ exports.sharedArticle = (req, res, next) => {
           message: err.message || "Erreur lors du partage de l'article.",
         });
       } else { 
-        res.status(201).send(data); 
+        res.status(201).send(data);  
       }
     });
   };
