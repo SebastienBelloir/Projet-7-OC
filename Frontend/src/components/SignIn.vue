@@ -3,13 +3,13 @@
         <article>
             <form id="firstBox">
                 <h2>Connexion</h2>
-                <input
+                <input id="email"
                     type="email"
                     placeholder="Email"
                     v-model="userInfo.email"
                     required
                 />
-                <input
+                <input id="password"
                     type="password"
                     placeholder="Votre mot de passe"
                     v-model="userInfo.password"
@@ -19,35 +19,38 @@
                 <a href="#" v-on:click="showRegisterForm">Créer un compte</a>
                 <button v-on:click="login">Valider</button>
             </form>
-            <form name="myform" id="box" v-on:submit="validateForm">
+            <form name="myform" id="box">
                 <h2>Créer mon compte</h2>
                 <p>Merci d'utiliser votre email professionnel</p>
                 <input
                     type="text"
-                    name="nom"
+                    id="nom"
                     placeholder="Nom*"
                     v-model="signupInfo.nom"
                     required
                 />
                 <input
                     type="text"
-                    name="prenom"
+                    id="prenom"
                     placeholder="Prénom*"
                     v-model="signupInfo.prenom"
                     required
                 />
                 <input
+                    id="email"
                     type="email"
                     placeholder="Email*"
                     v-model="signupInfo.email"
                     required
                 />
                 <input
+                    id="dept"
                     type="text"
                     placeholder="Département/secteur"
                     v-model="signupInfo.departement_entreprise"
                 />
                 <input
+                    id="password"
                     type="password"
                     placeholder="Mot de passe*"
                     v-model="signupInfo.password"
@@ -94,22 +97,22 @@ export default {
                     password: this.userInfo.password
                 })
                 .then(() => {
-                    this.$router.push("/");
-                    window.location.reload();
+                    // this.$router.push("/");
+                    // window.location.reload();
                 });
         },
         registerUser() {
             // méthode de création de compte qui fait appel à la méthode registerUser présente dans notre store
-            let nom = document.myform.nom.value;
-            let prenom = document.myform.prenom.value;
+            // let nom = document.myform.nom.value;
+            // let prenom = document.myform.prenom.value;
 
-            if (nom == null || nom == "") {
-                alert("Name can't be blank");
-                return false;
-            } else if (prenom == null || prenom == "") {
-                alert("Password must be at least 6 characters long.");
-                return false;
-            }
+            // if (nom == null || nom == "") {
+            //     alert("Name can't be blank");
+            //     return false;
+            // } else if (prenom == null || prenom == "") {
+            //     alert("Password must be at least 6 characters long.");
+            //     return false;
+            // }
 
             let user = this.$store.dispatch("registerUser", this.signupInfo);
             if (user.error) {
@@ -329,6 +332,10 @@ body {
         background: #dd1d1dc4;
     }
 }
+#email::placeholder, #password::placeholder, #nom::placeholder, #prenom::placeholder, #dept::placeholder{
+    color: white;
+}
+
 @media screen and (max-width: 1024px) {
 #box {
         display: none;

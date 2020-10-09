@@ -25,6 +25,25 @@ User.create = (newUser, callback) => { // création d'un utilisateur et ajout en
   });
 };
 
+User.findById = (id, callback) => { // récupération d'un utilisateur présent en BDD via un email
+  mysqlConnection.query(`SELECT * FROM users WHERE idUser = '${id}'`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      callback(null, err);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found user: ", res[0]);
+      callback(null, res[0]);
+      return;
+    }
+
+    callback({kind: "user not found"}, null);
+  });
+};
+
+
 User.findByEmail = (email, callback) => { // récupération d'un utilisateur présent en BDD via un email
   mysqlConnection.query(`SELECT * FROM users WHERE email = '${email}'`, (err, res) => {
     if (err) {
@@ -51,7 +70,6 @@ User.getAll = callback => { // récupération de tous les utilisateurs présent 
       return;
     }
 
-    console.log("users: ", res);
     callback(null, res);
   });
 };

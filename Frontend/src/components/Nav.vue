@@ -25,9 +25,9 @@
         <div id="hamburger-sidebar-body">
         <nav>
           <ul>
+            <li><router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link></li>
             <li> <router-link class="ul-items" v-if="loggedIn" to="/">Accueil</router-link></li>
             <li><router-link class="ul-items" to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link></li>
-            <li><router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link></li>
             <li><router-link class="ul-items" to="/MyProfil" v-if="loggedIn" >Mon Profil</router-link></li>
             <button id="logoutButton" v-if="loggedIn" v-on:click="logoutUser">Se déconnecter</button>
           </ul>

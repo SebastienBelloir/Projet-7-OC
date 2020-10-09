@@ -9,10 +9,9 @@ exports.sharedArticle = (req, res, next) => {
         commentaire: req.body.commentaire,
     };
     ShareArticle.create(sharedArticle, (err, data) => {
-      console.log(sharedArticle, req.body)
       if (err) {
         res.status(500).send({
-          message: err.message || "Erreur lors du partage de l'article.",
+          message: err.message || "Erreur lors du partage de l'article.", 
         });
       } else { 
         res.status(201).send(data);  

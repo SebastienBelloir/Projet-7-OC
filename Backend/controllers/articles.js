@@ -5,15 +5,15 @@ const fs = require("fs"); // file system . Il nous donne accès aux fonctions qu
 
 
 exports.createArticle = (req, res, next) => { // route POST => Création d'un article
+  console.log(req.user);
   const article =  {
     title: req.body.title,
     description: req.body.description,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     contenu: req.body.contenu, 
-    auteur_id: req.body.auteur_id,
+    auteur_id: req.user.idUser,
   };
   Article.create(article, (err, data) => {
-    console.log(article)
     if (err) {
       res.status(500).send({
         message: err.message || "Erreur lors de la création de l'article.",

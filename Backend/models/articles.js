@@ -53,7 +53,6 @@ const Article = function(article) {
         return;
       }
   
-      console.log("users: ", res);
       callback(null, res);
     });
   };
@@ -67,7 +66,7 @@ const Article = function(article) {
       }
   
       if (res.length) {
-        console.log("Article trouvé: ", res[0]);
+        
         callback(null, res[0]);
         return;
       }

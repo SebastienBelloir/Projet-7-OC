@@ -30,7 +30,7 @@ const ShareArticle = function(sharedArticle) {
         return;
       }
   
-      console.log("users: ", res);
+
       callback(null, res);
     });
   };

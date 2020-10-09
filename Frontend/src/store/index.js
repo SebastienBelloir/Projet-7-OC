@@ -16,8 +16,8 @@ export default new Vuex.Store({
     sharedArticles: [],
     allArticles: [],
     users: [],
-    currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
-    isAdmin: localStorage.getItem('isAdmin'),
+    currentUser: {},
+    isAdmin: {},
     },
 
   getters: { // nos getters qui nous permettent de définir si un utilisateur est connecter et/ou admin
@@ -68,12 +68,15 @@ export default new Vuex.Store({
     LOGOUT_USER(state) {
       state.currentUser = JSON.parse(window.localStorage.clear());
     },
-    DELETE_ACCOUNT(state, userId) {
-      let users = state.users.filter(a => a.id != userId)
+    DELETE_ACCOUNT(state, idUser) {
+      let users = state.users.filter(a => a.id != idUser)
       state.users = users;
     },
     SET_CURRENT_USER(state, user) {
       state.currentUser = user;
+    },
+    SET_IS_ADMIN(state, privilege) {
+      state.privilege = privilege
     },
   },
   actions: { // toutes les méthodes utiles pour faire fonctionner notre application / communiquer avec notre API
@@ -84,14 +87,11 @@ export default new Vuex.Store({
         password: credentials.password,
       })
         .then(response => {
-          const isAdmin = response.data.privilege;
           const token = response.data.token;
-          const userId = response.data.userId;
-          localStorage.setItem('userId', userId);
-          localStorage.setItem('isAdmin', isAdmin)
           localStorage.setItem('access_token', token);
-          localStorage.setItem('currentUser', JSON.stringify(response.data))
           context.commit('RETRIEVE_TOKEN', token);
+          context.commit('SET_CURRENT_USER', response.data);
+          context.commit('SET_IS_ADMIN', response.data.privilege);
           resolve(response)
       })
         .catch(error => {
@@ -103,12 +103,9 @@ export default new Vuex.Store({
     async registerUser({commit}, signupInfo) { // enregistrement d'un nouvel utilisateur
       try{
         let response = await API().post('/users/signup', signupInfo);
-        const userId = response.data.id;
+        console.log(response)
         const token = response.data.token;
-        localStorage.setItem('userId', userId);
         localStorage.setItem('access_token', token);
-        localStorage.setItem('currentUser', JSON.stringify(response.data))
-        commit('SET_CURRENT_USER');
         commit('RETRIEVE_TOKEN', token);
       }catch {
         return{ error: "Erreur lors de la création de votre compte"}

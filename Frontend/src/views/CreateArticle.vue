@@ -84,13 +84,13 @@ export default {
   },
   methods: {
     createArticle() { // création de l'article
-      let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
+      // let currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
       let formData = new FormData();
       formData.append('file', this.file);
       formData.append('title', this.article.title);
       formData.append('description', this.article.description);
       formData.append('contenu', this.article.contenu);
-      formData.append('auteur_id', currentUser.userId);
+      console.log(formData)
       axios.post( 'http://localhost:3000/articles/createArticle',
                 formData,
                 {
