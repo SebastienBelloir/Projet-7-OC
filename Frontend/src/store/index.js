@@ -77,9 +77,9 @@ export default new Vuex.Store({
     },
   },
   actions: { // toutes les méthodes utiles pour faire fonctionner notre application / communiquer avec notre API
-    retrieveToken(context, credentials) { // attribution du token lors de la connexion
-      return new Promise((resolve, reject) => {
-       API().post('/users/login', {
+   async retrieveToken(context, credentials) { // attribution du token lors de la connexion
+      return await new Promise((resolve, reject) => {
+        API().post('/users/login', {
         email: credentials.email,
         password: credentials.password,
       })
@@ -99,6 +99,20 @@ export default new Vuex.Store({
           reject(error);
       })
     })
+    },
+    async registerUser({commit}, signupInfo) { // enregistrement d'un nouvel utilisateur
+      try{
+        let response = await API().post('/users/signup', signupInfo);
+        const userId = response.data.id;
+        const token = response.data.token;
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('access_token', token);
+        localStorage.setItem('currentUser', JSON.stringify(response.data))
+        commit('SET_CURRENT_USER');
+        commit('RETRIEVE_TOKEN', token);
+      }catch {
+        return{ error: "Erreur lors de la création de votre compte"}
+      }
     },
 
   async loadArticles({commit}){ // chargement des articles
@@ -168,26 +182,12 @@ export default new Vuex.Store({
       window.location.replace("http://localhost:8080/#/");
       window.location.reload();
       commit('LOGOUT_USER');
-    },
+    }, 
     async deleteAccount({commit}, user){ // suppression d'un compte utilisateur
       await API().delete(`/users/delete/${user.userId}`);
       commit('DELETE_ACCOUNT', user.userId)
       
     },
-    async registerUser({commit}, signupInfo) { // enregistrement d'un nouvel utilisateur
-      try{
-        let response = await API().post('/users/signup', signupInfo);
-        const userId = response.data.id;
-        const token = response.data.token;
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('access_token', token);
-        localStorage.setItem('currentUser', JSON.stringify(response.data))
-        commit('SET_CURRENT_USER');
-        commit('RETRIEVE_TOKEN', token);
-      }catch {
-        return{ error: "Erreur lors de la création de votre compte"}
-      }
-    }
   },
   modules: {}
 });

@@ -17,6 +17,7 @@ export default {
     this.$store.dispatch('loadUsers');
     this.$store.dispatch('loadArticles');
     this.$store.dispatch('loadAllArticles');
+    this.$store.dispatch('loadSharedArticles');
   },
   
 }
