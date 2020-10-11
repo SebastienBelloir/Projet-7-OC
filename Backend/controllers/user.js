@@ -96,21 +96,22 @@ exports.findAll = (req, res) => {
   });
 };
 
-exports.findByEmail = (req, res) => {
-  User.findByEmail(req.params.email, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(404).send({
-          message: `Not found Customer with id ${req.params.email}.`
-        });
-      } else {
-        res.status(500).send({
-          message: "Error retrieving Customer with email" + req.params.email
-        });
-      }
-    } else res.send(data);
-  });
-};
+exports.findOne = (req, res) => {
+    User.findById(req.params.id, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Customer with id ${req.params.id}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error retrieving Customer with id " + req.params.id
+          });
+        }
+      } else res.send(data);
+    });
+  };
+
 
 exports.delete = (req, res) => {
   User.delete(req.params.id, (err, data) => {

@@ -6,6 +6,7 @@ import axios from "axios";
 import API from "@/Services/API.services";
 
 
+
 Vue.use(Vuex, axios);
 Vue.config.silent = true;
 
@@ -16,8 +17,12 @@ export default new Vuex.Store({
     sharedArticles: [],
     allArticles: [],
     users: [],
+<<<<<<< Updated upstream
     currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
     isAdmin: localStorage.getItem('isAdmin'),
+=======
+    currentUser: JSON.parse(sessionStorage.getItem('currentUser')) || null,
+>>>>>>> Stashed changes
     },
 
   getters: { // nos getters qui nous permettent de définir si un utilisateur est connecter et/ou admin
@@ -25,7 +30,7 @@ export default new Vuex.Store({
       return state.token !== null;
     },
     isAdmin(state) {
-      return state.isAdmin != 0;
+      return state.currentUser.privilege != 0;
     },
   }, 
   
@@ -90,8 +95,14 @@ export default new Vuex.Store({
           localStorage.setItem('userId', userId);
           localStorage.setItem('isAdmin', isAdmin)
           localStorage.setItem('access_token', token);
+<<<<<<< Updated upstream
           localStorage.setItem('currentUser', JSON.stringify(response.data))
           context.commit('RETRIEVE_TOKEN', token);
+=======
+          sessionStorage.setItem('currentUser', JSON.stringify(response.data))
+          context.commit('RETRIEVE_TOKEN', token);
+          context.commit('SET_CURRENT_USER', response.data);
+>>>>>>> Stashed changes
           resolve(response)
       })
         .catch(error => {

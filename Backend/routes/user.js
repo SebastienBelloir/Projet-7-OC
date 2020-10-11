@@ -7,7 +7,7 @@ const userCtrl = require('../controllers/user');// Récupère les logiques méti
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
 router.get('/', userCtrl.findAll);
-router.get('/email', userCtrl.findByEmail);
+router.get('/find/:id', userCtrl.findOne);
 router.delete('/delete/:id', userCtrl.delete);
 
 module.exports = router;

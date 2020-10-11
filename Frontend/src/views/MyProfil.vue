@@ -53,8 +53,7 @@ export default {
     },
     methods: {
     deleteAccount(){ // méthode qui permet de supprimer le compte utilisateur.
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        console.log(currentUser);
+        let currentUser = sessionStorage.getItem('currentUser');
         let response = confirm(`Etes vous certains de vouloir supprimer votre compte ?`);
             if (response){
                 axios.delete(`http://localhost:3000/users/delete/${currentUser.userId}`);

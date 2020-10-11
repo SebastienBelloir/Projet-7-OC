@@ -12,7 +12,7 @@
       <div id="hamburger-content">
         <nav>
           <ul>
-            <li><router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin === '1'" >Admin</router-link></li>
+            <li><router-link class="ul-items" to="/admin/home" v-if="loggedIn && isAdmin" >Admin</router-link></li>
             <li> <router-link class="ul-items" v-if="loggedIn" to="/">Accueil</router-link></li>
             <li><router-link class="ul-items" to="/article/createarticle" v-if="loggedIn">Rédiger un article</router-link></li>
             <li><router-link class="ul-items" to="/MyProfil" v-if="loggedIn" >Mon Profil</router-link></li>
@@ -45,7 +45,7 @@
 export default {
   computed: {
     isAdmin(){ // nous permet de savoir si l'utilisateur est un admin grâce aux infos présente dans le store
-      return this.$store.state.isAdmin
+      return this.$store.getters.isAdmin
     },
     loggedIn() { // nous permet de savoir si l'utilisateur est connecté grâce au getter LoggedIn qui vient vérifier si l'utilisateur à bien un token
       return this.$store.getters.loggedIn
