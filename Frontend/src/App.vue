@@ -18,7 +18,6 @@ export default {
     this.$store.dispatch('loadArticles');
     this.$store.dispatch('loadAllArticles');
     this.$store.dispatch('loadSharedArticles');
-    this.$store.dispatch('findCurrentUser');
   },
   
 }

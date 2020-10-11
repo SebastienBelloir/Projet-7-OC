@@ -37,10 +37,7 @@
                     required
                 />
                 <input
-<<<<<<< Updated upstream
-=======
                     id="emailtwo"
->>>>>>> Stashed changes
                     type="email"
                     placeholder="Email*"
                     v-model="signupInfo.email"
@@ -52,10 +49,7 @@
                     v-model="signupInfo.departement_entreprise"
                 />
                 <input
-<<<<<<< Updated upstream
-=======
                     id="passwordtwo"
->>>>>>> Stashed changes
                     type="password"
                     placeholder="Mot de passe*"
                     v-model="signupInfo.password"
@@ -337,13 +331,10 @@ body {
         background: #dd1d1dc4;
     }
 }
-<<<<<<< Updated upstream
-=======
 #email::placeholder, #emailtwo::placeholder, #passwordtwo::placeholder, #password::placeholder, #nom::placeholder, #prenom::placeholder, #dept::placeholder{
     color: white;
 }
 
->>>>>>> Stashed changes
 @media screen and (max-width: 1024px) {
 #box {
         display: none;
